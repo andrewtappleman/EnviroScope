@@ -13,7 +13,35 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.image import Image, AsyncImage
 from plyer import notification
 from kivy.uix.filechooser import FileChooserIconView
+from kivy.lang import Builder 
 import time
+
+
+Builder.load_file('FPAY.kv')
+Builder.load_file('PollutionMap.kv')
+Builder.load_file('FunFacts.kv')
+Builder.load_file('NewYorkState.kv')
+Builder.load_file('VirtualBadges.kv')
+Builder.load_file('DailyGoals.kv')
+Builder.load_file('PostMedia.kv')
+Builder.load_file('GetRewarded.kv')
+Builder.load_file('GetInspired.kv')
+Builder.load_file('GretaThunberg.kv')
+Builder.load_file('GetInContact.kv')
+Builder.load_file('CollectiveImpact.kv')
+Builder.load_file('LitterSheet.kv')
+Builder.load_file('InspirationalVideos.kv')
+Builder.load_file('DailyStreaks.kv')
+Builder.load_file('SocialMediaPage.kv')
+Builder.load_file('instructPost.kv')
+Builder.load_file('LeaderBoard.kv')
+Builder.load_file('SignUpIn.kv')
+Builder.load_file('SignIn.kv')
+Builder.load_file('EnvironmentalIssues.kv')
+Builder.load_file('GetInvolved.kv')
+Builder.load_file('outOrder.kv')
+Builder.load_file('GetInformed.kv')
+
 
 width_base = 15
 height_base = 25
@@ -21,6 +49,8 @@ scale = 30
 Window.size = (width_base * scale, height_base * scale)
 
 class NewYorkState(Screen):
+    pass
+class InspirationalVideos(Screen):
     pass
 class VirtualBadges(Screen):
     pass
@@ -54,7 +84,7 @@ class FPAY(Screen):
 class EnvironmentalIssues (Screen):
     pass
    
-class GetinContact (Screen):
+class GetInContact (Screen):
     pass
  
 class GetInformed (Screen):
@@ -121,7 +151,7 @@ class instructPost(Screen):
     pass
 
 class outOrder(Screen):
-    pass
+    pass     
 
 class EnviroScopeApp(App):
     def build(self):
@@ -137,7 +167,7 @@ class EnviroScopeApp(App):
         sm.add_widget(PostMedia(name = 'PostMedia'))
         sm.add_widget(EnvironmentalIssues(name = 'EnvironmentalIssues'))
         sm.add_widget(GetInvolved(name = 'GetInvolved'))
-        sm.add_widget(GetinContact(name = 'GetinContact'))
+        sm.add_widget(GetInContact(name = 'GetInContact'))
         sm.add_widget(GetRewarded(name = 'GetRewarded'))
         sm.add_widget(GetInspired(name = 'GetInspired'))
         sm.add_widget(LeaderBoard(name = 'LeaderBoard'))
