@@ -1,0 +1,36 @@
+<PollutionMap>:
+    name: "PollutionMap"
+    canvas.before:
+        Color:
+            rgba: 0.592, 0.741, 0.969, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        pos: 0, 400
+        size_hint: 1, 0.6
+        Image:
+            source:'R.png'
+            pos: self.pos
+            size: self.texture_size
+            width: 450
+            allow_stretch: True
+
+    BoxLayout:
+        pos: 0, 100
+        size_hint: 1, 1
+        Label:
+            text: 'Areas of Risk:\nIndustrial Zones: Certain industrial areas in New York City, particularly in Brooklyn, Queens, and the Bronx\nWaterfront Areas: New York Citys waterfront areas, including the Brooklyn waterfront,\nQueens waterfront, and areas along the East River and Hudson River\nSuperfund Sites: Superfund sites are locations identified by the Environmental\nProtection Agency (EPA) as being contaminated with hazardous substances\nCoastal Areas: New York Citys coastal areas, including neighborhoods in Staten Island, Brooklyn, Queens,\nand lower Manhattan, are vulnerable to climate change impacts such\nas sea-level rise, storm surges, and coastal flooding\nHistorically Industrialized Neighborhoods: Neighborhoods with a history of heavy\n industrialization, such as Greenpoint and Red Hook in Brooklyn'
+            color: 'black'
+            text_size: self.width, None
+            size_hint: 1, None
+            height: self.texture_size[1]
+            pos: 55, 100
+            
+    Button:
+        text: 'Back'
+        pos: self.pos
+        size_hint: 0.16, 0.1
+        on_press:
+            root.manager.current = 'GetInformed'
+        background_color: 0.4196, 0.7922, 0.9569, 1

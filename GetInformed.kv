@@ -1,0 +1,60 @@
+<GetInformed>:
+    name: "GetInformed"
+    canvas.before:
+        Color:
+            rgba: 0.8, 1, 0.698, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        pos: 55, 700
+        size_hint: 0.8, 0.15
+        orientation: 'vertical'
+        Button:
+            text: 'Find Problems Around You'
+            size: self.texture_size
+            on_press:
+                root.manager.current = 'FPAY'
+            background_color: 0.0, 0.447, 0.071, 1
+    
+    BoxLayout:
+        pos: 55, 525
+        size_hint: 0.8, 0.15
+        Button:
+            text: 'Areas of Need Map'
+            pos: self.pos
+            size: self.texture_size
+            on_press:
+                root.manager.current = 'PollutionMap'
+            background_color: 0.0, 0.447, 0.071, 1
+                
+    BoxLayout:
+        pos: 55, 350
+        size_hint: 0.8, 0.15
+        Button:
+            text: 'Fun Facts'
+            pos: self.pos
+            size: self.texture_size
+            on_press:
+                root.manager.current = 'FunFacts'
+            background_color: 0.0, 0.447, 0.071, 1
+    
+    BoxLayout:
+        pos: 55, 175
+        size_hint: 0.8, 0.15
+        Button:
+            text: 'New York State Issues'
+            pos: self.pos
+            size: self.texture_size
+            on_press:
+                root.manager.current = 'NewYorkState'
+            background_color: 0.0, 0.447, 0.071, 1
+                
+    Button:
+        text: 'Back'
+        pos: 0, 0
+        size_hint: 0.16, 0.1
+        on_press:
+            root.manager.current = 'EnvironmentalIssues'
+        background_color: 0.0, 0.447, 0.071, 1

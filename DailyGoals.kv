@@ -1,0 +1,52 @@
+<DailyGoals>:
+    name: "DailyGoals"
+    canvas.before:
+        Color:
+            rgba: 0.592, 0.741, 0.969, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        pos: 55, 675
+        size_hint: 0.8, 0.1
+        Label:
+            color: 'black'
+            text: 'Pick up ten plastic waterbottles.'
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        pos: 55, 550
+        size_hint: 0.8, 0.1
+        Label:
+            color: 'black'
+            text: 'Go to a park and pick up litter.'
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        pos: 55, 425
+        size_hint: 0.8, 0.1
+        Label:
+            color: 'black'
+            text: 'Dont leave lights on at your house.'
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        pos: 55, 300
+        size_hint: 0.8, 0.1
+        Label:
+            color: 'black'
+            text: 'Use a reusable water bottle.'
+            pos: self.pos
+            size: self.size
+
+    Button:
+        text: 'Back'
+        size_hint: 0.16, 0.1
+        pos: 0, 0
+        on_press:
+            root.manager.current = 'GetRewarded'
+        background_color: 0.4196, 0.7922, 0.9569, 1

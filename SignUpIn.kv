@@ -1,0 +1,52 @@
+<SignUpIn>:
+    name: "SignUpIn"
+    canvas.before:
+        Color:
+            rgba: 0.8, 1, 0.698, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        background_color: 0.8, 1, 0.698, 1
+        pos: 0, 350
+        size_hint: 1, 0.6
+        orientation: 'vertical'
+        Label:
+            text: 'EnviroScope'
+            size_hint: 1, 0.6
+            pos: self.pos
+            font_size: 80
+            color: 'black'
+            
+        Image:
+            source: 'Logo.png'
+            size_hint: 1, 1
+            allow_stretch: True
+            pos: self.pos
+            
+        Label:
+            text: 'Our app, EnviroScope, was created with for people to learn\nabout environmental issues around them. With our app,\nyou can get involved with other people near\nyou to help the planet.'
+            pos: self.pos
+            font_size: 21
+            color: 'black'
+
+            
+    BoxLayout:
+        pos: 0, 0
+        size_hint: 1, 0.3
+        orientation: 'horizontal'
+        Button:
+            text: 'Sign In'
+            on_press:
+                root.manager.current = 'SignIn'
+            size: self.texture_size
+            pos: self.pos
+            background_color: 0.0, 0.447, 0.071, 1
+            
+        Button:
+            text: 'Get Started'
+            on_press:
+                root.manager.current = 'EnvironmentalIssues'
+            size: self.texture_size
+            pos: self.pos
+            background_color: 0.0, 0.447, 0.071, 1

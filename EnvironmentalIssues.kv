@@ -1,0 +1,60 @@
+<EnvironmentalIssues>:
+    name: "EnvironmentalIssues"
+	background_color: 0.4196, 0.7922, 0.9569, 1
+    canvas.before:
+        Color:
+            rgba: 0.592, 0.741, 0.969, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+	BoxLayout:
+		pos: 55, 100
+		size_hint: 0.8, 0.8
+		orientation:  'vertical'
+		Button:
+			text: 'Get in Contact'
+			on_press:
+				root.manager.current = 'GetInContact'
+			size: self.texture_size 
+			pos: 45, 675
+			
+			background_color: 0.18, 0.5, 0.92, 1
+			
+		Button:
+			text: 'Get Involved'
+			on_press:
+				root.manager.current = 'GetInvolved'
+			size: self.texture_size
+			pos: 45, 550
+			
+			background_color:0.18, 0.5, 0.92, 1
+		Button:
+			text: 'Get Inspired'
+			on_press:
+				root.manager.current = 'GetInspired'
+			size: self.texture_size
+			pos: 45, 425
+			
+			background_color: 0.18, 0.5, 0.92, 1
+		Button:
+			text: 'Get Informed'
+			on_press:
+				root.manager.current = 'GetInformed'
+			size: self.texture_size
+			pos: 45, 300
+			
+			background_color: 0.18, 0.5, 0.92, 1
+		Button:
+			text: 'Get Rewarded'
+			on_press:
+				root.manager.current = 'GetRewarded'
+			size: self.texture_size
+			pos: 45, 175
+			background_color: 0.18, 0.5, 0.92, 1
+            
+    Button:
+        text: 'Back'
+        pos: 0, 0
+        size_hint: 0.16, 0.1
+        on_press: root.manager.current = 'SignUpIn'
+        background_color: 0.18, 0.5, 0.92, 1

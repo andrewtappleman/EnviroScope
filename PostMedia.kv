@@ -1,0 +1,55 @@
+<PostMedia>:
+    name: "PostMedia"
+    canvas.before:
+        Color:
+            rgba: 0.592, 0.741, 0.969, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+	id: my_widget
+	BoxLayout:
+
+		orientation: "vertical"
+		size: root.width, root.height
+
+		padding: 50
+		spacing: 20
+        
+		Image:
+			id: my_image
+			source: ""
+            pos_x: self.pos
+            pos_y: 750
+            
+        FileChooserIconView:
+            id: filechooser
+            on_selection: my_widget.selected(filechooser.selection)
+            pos_x: self.pos
+            pos_y: 650
+        
+        Image:
+			id: my_image2
+			source: ""
+            pos_x: self.pos
+            pos_y: 500
+            
+        FileChooserIconView:
+            id: filechooser2
+            on_selection: my_widget.selected2(filechooser2.selection)
+            pos_x: self.pos
+            pos_y: 450
+        
+    Button:
+        text: 'Back'
+        pos: 0, 0
+        size_hint: 0.16, 0.1
+        on_press:
+            root.manager.current ='GetInvolved'
+        background_color: 0.4196, 0.7922, 0.9569, 1
+    
+    Button:
+        text: 'Post'
+        size_hint: 0.84, 0.1
+        pos: 90, 0
+        on_press: root.NotifyDef(self)
+        background_color: 0.4196, 0.7922, 0.9569, 1

@@ -1,0 +1,60 @@
+<VirtualBadges>
+    name: "VirtualBadges"
+    canvas.before:
+        Color:
+            rgba: 0.592, 0.741, 0.969, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        pos: 55, 650
+        size_hint: 0.8, 0.3
+        orientation: 'vertical'
+        Image:
+            pos: self.pos
+            source: 'th.jfif'
+            width: 100
+            allow_stretch: True
+        Label:
+            text: 'Streak Warrior: Maintain a 30 day streak'
+            pos: self.pos
+            size: self.size
+            font_size: 20
+            color: 'black'
+    BoxLayout:
+        pos: 55, 400
+        size_hint: 0.8, 0.3
+        orientation: 'vertical'
+        Image:
+            pos: self.pos            
+            source: 'OIP.jfif'
+            width: 100
+            allow_stretch: True
+        Label:
+            text: 'Chatterbox: Post 5 times'
+            pos: self.pos
+            size: self.size
+            font_size: 20
+            color: 'black'
+    BoxLayout:
+        pos: 55, 150
+        size_hint: 0.8, 0.3
+        orientation: 'vertical'
+        Image:
+            pos: self.pos            
+            source: 'eco-warrior-earth-badge-200x200.jpg'
+            width: 100
+            allow_stretch: True
+        Label:
+            text: 'Eco-Crusader: Participate in 5 litter clean-ups'
+            pos: self.pos
+            size: self.size
+            font_size: 20
+            color: 'black'
+    Button:
+        text: 'Back'
+        pos: 0,0
+        size_hint: 0.16, 0.1
+        on_press:
+            root.manager.current = 'GetRewarded'
+        background_color: 0.4196, 0.7922, 0.9569, 1

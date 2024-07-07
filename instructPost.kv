@@ -1,0 +1,22 @@
+<instructPost>:
+    name: "instructPost"
+    canvas.before:
+        Color:
+            rgba: 0.592, 0.741, 0.969, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    Label:
+        text: 'To share your before and after photos, follow the directions.\nOn the top, put your before photo by choosing from your files below.\nOn the bottom, put your after photo by choosing on your files below.\nThen click post. '
+        color: 'black'
+        size: self.size
+        pos: self.pos
+    Button:
+        text: 'Continue'
+        size_hint: 0.8, 0.15
+        pos: 55, 0
+        on_press:
+            root.manager.current = 'PostMedia'
+        background_color: 0.4196, 0.7922, 0.9569, 1
+            
