@@ -13,7 +13,9 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.image import Image, AsyncImage
 from plyer import notification
 from kivy.uix.filechooser import FileChooserIconView
-from kivy.lang import Builder 
+from kivy.lang import Builder
+import pymongo
+import sys
 import time
 
 
@@ -57,6 +59,8 @@ class VirtualBadges(Screen):
 class SignUpIn(Screen):
     pass
 class SignIn(Screen):
+    pass
+class SignUp(Screen):
     pass
 class FPAY(Screen):
     
