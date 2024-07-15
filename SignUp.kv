@@ -1,0 +1,41 @@
+<SignUp>:
+    name: "SignUp"
+    canvas.before:
+        Color:
+            rgba: 0.592, 0.741, 0.969, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        pos: 55, 700
+        size_hint: 0.8, 0.1
+        TextInput:
+            id: UserName2
+            text: 'User Name'
+            size: self.size
+
+    BoxLayout:
+        pos: 55, 400
+        size_hint: 0.8, 0.1     
+        Button:
+            text: 'Submit'
+            on_press:
+                root.manager.current = 'EnvironmentalIssues'
+            size: self.texture_size
+            background_color: 0.4196, 0.7922, 0.9569, 1
+    
+    BoxLayout:
+        pos: 55, 550
+        size_hint: 0.8, 0.1
+        TextInput:
+            text: 'Password'
+            id: Password2
+            size: self.size
+            
+    Button:
+        text: 'Back'
+        pos: 0, 0
+        size_hint: 0.16, 0.1
+        on_press:
+            root.manager.current = 'SignUpIn'
+        background_color: 0.4196, 0.7922, 0.9569, 1
