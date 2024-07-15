@@ -43,6 +43,7 @@ Builder.load_file('EnvironmentalIssues.kv')
 Builder.load_file('GetInvolved.kv')
 Builder.load_file('outOrder.kv')
 Builder.load_file('GetInformed.kv')
+Builder.load_file('SignUp.kv')
 
 
 width_base = 15
@@ -61,9 +62,31 @@ class SignUpIn(Screen):
 class SignIn(Screen):
     pass
 class SignUp(Screen):
-    pass
-class FPAY(Screen):
     
+    def addInfo(self):
+        try:
+            client = pymongo.MongoClient("mongodb://localhost:27017/")
+        except pymongo.errors.ConfigurationError:
+            print("An Invalid URI host error was received. Is your MongoDB host name correct?")
+            sys.exit(1)
+        
+        db = client.AccountInfo
+        
+        my_collection = db["Name & Password"]
+        NameData = [{"name": self.ids.UserName2.text, "password": self.ids.Password2.text}]
+
+        try:
+            result = my_collection.insert_many(NameData)
+        except pymongo.errors.OperationFailure:
+            print("An authentication error was received. Check your database user permissions.")
+            sys.exit(1)
+        else:
+            inserted_count = len(result.inserted_ids)
+            print("I inserted %d documents." % inserted_count)
+            print("\n")
+        self.manager.current = 'EnvironmentalIssues'
+
+class FPAY(Screen):
     
     def GiveInfo(self):
         
@@ -120,7 +143,7 @@ class SocialMediaPage (Screen):
     pass 
     
 class LitterSheet (Screen):
-    nameList = ['Julian Smith', 'Isabella Jones', 'Liam Taylor', 'Ava Martinez', 'Ethan Brown']
+
     def addToList(self):
         
         appendText = self.ids.litterSign.text
@@ -184,6 +207,7 @@ class EnviroScopeApp(App):
         sm.add_widget(LitterSheet(name = 'LitterSheet'))
         sm.add_widget(GretaThunberg(name = 'GretaThunberg'))
         sm.add_widget(instructPost(name = 'instructPost'))
+        sm.add_widget(SignUp(name = 'SignUp'))
         return sm
 
 if __name__ == '__main__':
