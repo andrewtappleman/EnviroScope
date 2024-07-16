@@ -60,7 +60,35 @@ class VirtualBadges(Screen):
 class SignUpIn(Screen):
     pass
 class SignIn(Screen):
-    pass
+    
+    
+    def check_account(self):
+        client = pymongo.MongoClient("mongodb://localhost:27017/")
+   
+
+        db = client['AccountInfo']
+        collection = db['Name & Password']
+        
+        user_name = self.ids.UserName1.text
+
+        password = self.ids.Password1.text
+        
+        query = {"name": user_name, "password": password}
+        
+        if self.check_for_type(collection, query):
+            self.manager.current = "EnvironmentalIssues"
+        else:
+            notification.notify(title = 'EnviroScope', message = 'No account found.')
+            self.ids.UserName1.text = ""
+            self.ids.Password1.text = ""
+
+        client.close()
+
+    def check_for_type(self, collection, query):
+        result = collection.find_one(query)
+        return result is not None
+
+
 class SignUp(Screen):
     
     def addInfo(self):

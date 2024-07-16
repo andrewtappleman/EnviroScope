@@ -20,7 +20,7 @@
         Button:
             text: 'Submit'
             on_press:
-                root.manager.current = 'EnvironmentalIssues'
+                root.check_account()
             size: self.texture_size
             background_color: 0.4196, 0.7922, 0.9569, 1
     
@@ -29,7 +29,7 @@
         size_hint: 0.8, 0.1
         TextInput:
             text: 'Password'
-            id: Password2
+            id: Password1
             size: self.size
             
     Button:
