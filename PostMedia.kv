@@ -10,7 +10,8 @@
 	BoxLayout:
 
 		orientation: "vertical"
-		size: root.width, root.height
+		size: root.width, 350
+        pos: 0, 55
 
 		padding: 50
 		spacing: 20
@@ -19,11 +20,11 @@
 			id: my_image
 			source: ""
             pos_x: self.pos
-            pos_y: 750
+            pos_y: 700
             
-        FileChooserIconView:
-            id: filechooser
-            on_selection: my_widget.selected(filechooser.selection)
+        TextInput:
+            id: beforePhoto
+            size_hint: 1, 0.25
             pos_x: self.pos
             pos_y: 650
         
@@ -33,12 +34,19 @@
             pos_x: self.pos
             pos_y: 500
             
-        FileChooserIconView:
-            id: filechooser2
-            on_selection: my_widget.selected2(filechooser2.selection)
+        TextInput:
+            id: afterPhoto
             pos_x: self.pos
+            size_hint: 1, 0.25
             pos_y: 450
         
+        TextInput:
+            id: captionMedia
+            size_hint: 1, 0.25
+            pos_x: self.pos
+            pos_y: 300
+            text: "Hashtag"
+
     Button:
         text: 'Back'
         pos: 0, 0
@@ -48,8 +56,16 @@
         background_color: 0.4196, 0.7922, 0.9569, 1
     
     Button:
-        text: 'Post'
-        size_hint: 0.84, 0.1
+        text: 'Check'
         pos: 90, 0
+        size_hint: 0.16, 0.1
+        on_press:
+            root.Check(self)
+        background_color: 0.4196, 0.7922, 0.9569, 1
+
+    Button:
+        text: 'Post'
+        size_hint: 0.68, 0.1
+        pos: 180, 0
         on_press: root.NotifyDef(self)
         background_color: 0.4196, 0.7922, 0.9569, 1
