@@ -16,6 +16,7 @@ from kivy.uix.filechooser import FileChooserIconView
 from kivy.lang import Builder
 import pymongo
 import sys
+import base64
 import time
 
 
@@ -51,6 +52,8 @@ height_base = 25
 scale = 30
 Window.size = (width_base * scale, height_base * scale)
 
+username = ''
+
 class NewYorkState(Screen):
     pass
 class InspirationalVideos(Screen):
@@ -65,11 +68,14 @@ class SignIn(Screen):
     def check_account(self):
         client = pymongo.MongoClient("mongodb://localhost:27017/")
    
+        global username
 
         db = client['AccountInfo']
-        collection = db['Name & Password']
+        collection = db['NamePassword']
         
         user_name = self.ids.UserName1.text
+
+        username = self.ids.UserName1.text
 
         password = self.ids.Password1.text
         
@@ -92,16 +98,15 @@ class SignIn(Screen):
 class SignUp(Screen):
     
     def addInfo(self):
-        try:
-            client = pymongo.MongoClient("mongodb://localhost:27017/")
-        except pymongo.errors.ConfigurationError:
-            print("An Invalid URI host error was received. Is your MongoDB host name correct?")
-            sys.exit(1)
+        client = pymongo.MongoClient("mongodb://localhost:27017/")
         
         db = client.AccountInfo
         
-        my_collection = db["Name & Password"]
+        my_collection = db["NamePassword"]
         NameData = [{"name": self.ids.UserName2.text, "password": self.ids.Password2.text}]
+
+        global username
+        username = self.ids.UserName2.text
 
         try:
             result = my_collection.insert_many(NameData)
@@ -185,22 +190,42 @@ class PollutionMap(Screen):
 class FunFacts(Screen):
     pass
 class PostMedia(Screen):
-    def selected(self, filename):
-        try:
-            self.ids.my_image.source = filename[0]
-            
-        except:
-            pass
-
-    def selected2(self, filename):
-        try:
-            self.ids.my_image2.source = filename[0]
-            
-        except:
-            pass
 
     def NotifyDef(self, instance):
         notification.notify(title = 'EnviroScope', message = 'You have posted your photos.')
+
+        client = pymongo.MongoClient('mongodb://localhost:27017/')
+        db = client['SocialMedia']
+        posts_collection = db['Posts']
+
+        beforePath = self.ids.beforePhoto.text
+
+        afterPath = self.ids.afterPhoto.text
+
+        caption = self.ids.captionMedia.text
+
+
+        with open(beforePath, 'rb') as image_file:
+            base64_before = base64.b64encode(image_file.read()).decode('utf-8')
+        
+        with open(afterPath, 'rb') as image_file:
+            base64_after = base64.b64encode(image_file.read()).decode('utf-8')
+
+        global username
+        post = {
+            'Name': username,
+            'BeforeData': base64_before,
+            'AfterData': base64_after,
+            'caption': caption
+            }
+
+        # Insert the post into MongoDB
+        posts_collection.insert_one(post)
+        self.manager.current = "GetInvolved"
+
+    def Check(self, instance):
+        self.ids.my_image.source = self.ids.beforePhoto.text
+        self.ids.my_image2.source = self.ids.afterPhoto.text
 
 class instructPost(Screen):
     pass
