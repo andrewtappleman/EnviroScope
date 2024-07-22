@@ -14,10 +14,17 @@ from kivy.uix.image import Image, AsyncImage
 from plyer import notification
 from kivy.uix.filechooser import FileChooserIconView
 from kivy.lang import Builder
+from kivy.uix.videoplayer import VideoPlayer
+from kivy.properties import StringProperty
+from kivy.clock import Clock
+from pymongo.mongo_client import MongoClient
+import os
+os.environ["PAFY_BACKEND"] = "internal"
+import pafy
 import pymongo
 import sys
 import base64
-import time
+from pymongo.server_api import ServerApi
 
 
 Builder.load_file('FPAY.kv')
@@ -45,6 +52,8 @@ Builder.load_file('GetInvolved.kv')
 Builder.load_file('outOrder.kv')
 Builder.load_file('GetInformed.kv')
 Builder.load_file('SignUp.kv')
+Builder.load_file('Video1.kv')
+
 
 
 width_base = 15
@@ -60,13 +69,24 @@ class InspirationalVideos(Screen):
     pass
 class VirtualBadges(Screen):
     pass
+class Video1(Screen):
+    pass
+
 class SignUpIn(Screen):
     pass
 class SignIn(Screen):
     
     
     def check_account(self):
-        client = pymongo.MongoClient("mongodb://localhost:27017/")
+        uri = "mongodb+srv://admin:admin@enviroscopecluster0.qdwjcoq.mongodb.net/?appName=EnviroScopeCluster0"
+        # Create a new client and connect to the server
+        client = MongoClient(uri, server_api=ServerApi('1'))
+        # Send a ping to confirm a successful connection
+        try:
+            client.admin.command('ping')
+            print("Pinged your deployment. You successfully connected to MongoDB!")
+        except Exception as e:
+            print(e)
    
         global username
 
@@ -98,7 +118,15 @@ class SignIn(Screen):
 class SignUp(Screen):
     
     def addInfo(self):
-        client = pymongo.MongoClient("mongodb://localhost:27017/")
+        uri = "mongodb+srv://admin:admin@enviroscopecluster0.qdwjcoq.mongodb.net/?appName=EnviroScopeCluster0"
+        # Create a new client and connect to the server
+        client = MongoClient(uri, server_api=ServerApi('1'))
+        # Send a ping to confirm a successful connection
+        try:
+            client.admin.command('ping')
+            print("Pinged your deployment. You successfully connected to MongoDB!")
+        except Exception as e:
+            print(e)
         
         db = client.AccountInfo
         
@@ -194,7 +222,15 @@ class PostMedia(Screen):
     def NotifyDef(self, instance):
         notification.notify(title = 'EnviroScope', message = 'You have posted your photos.')
 
-        client = pymongo.MongoClient('mongodb://localhost:27017/')
+        uri = "mongodb+srv://admin:admin@enviroscopecluster0.qdwjcoq.mongodb.net/?appName=EnviroScopeCluster0"
+        # Create a new client and connect to the server
+        client = MongoClient(uri, server_api=ServerApi('1'))
+        # Send a ping to confirm a successful connection
+        try:
+            client.admin.command('ping')
+            print("Pinged your deployment. You successfully connected to MongoDB!")
+        except Exception as e:
+            print(e)
         db = client['SocialMedia']
         posts_collection = db['Posts']
 
@@ -261,6 +297,8 @@ class EnviroScopeApp(App):
         sm.add_widget(GretaThunberg(name = 'GretaThunberg'))
         sm.add_widget(instructPost(name = 'instructPost'))
         sm.add_widget(SignUp(name = 'SignUp'))
+        sm.add_widget(InspirationalVideos(name = 'InspirationalVideos'))
+        sm.add_widget(Video1(name = 'Video1'))
         return sm
 
 if __name__ == '__main__':
