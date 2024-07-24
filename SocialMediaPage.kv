@@ -1,10 +1,70 @@
 <SocialMediaPage>:
     name: "SocialMediaPage"
-    Label:
-        text: 'This page is still in the development phase.'
+    canvas.before:
+        Color:
+            rgba: 0.592, 0.741, 0.969, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    FloatLayout:
+        pos: 0, 0
+        size: 750, 750
+        Image:
+            id: ImageBefore1
+            pos: 0, 550
+            size_hint: 0.4, 0.4
+            allow_stretch: True
+            texture: root.textureBefore1
+        Image:
+            id: ImageAfter1
+            pos: 225, 550
+            size_hint: 0.4, 0.4
+            allow_stretch: True
+            texture: root.textureAfter1
+        Label:
+            text: root.caption1 if root.caption1 else "Default Caption"
+            pos: 0, 500
+            color: 'black'
+
+        Image:
+            id: ImageBefore2
+            pos: 115, 300
+            size_hint: 0.4, 0.4
+            allow_stretch: True
+            texture: root.textureBefore2
+        Image:
+            id: ImageAfter2
+            pos: 340, 300
+            size_hint: 0.4, 0.4
+            allow_stretch: True
+            texture: root.textureAfter2
+        Label:
+            text: root.caption2 if root.caption2 else "Default Caption"
+            pos: 115, 250
+            color: 'black'
+        
+        Image:
+            id: ImageBefore3
+            pos: 0, 50
+            size_hint: 0.4, 0.4
+            allow_stretch: True
+            texture: root.textureBefore3
+        Image:
+            id: ImageAfter3
+            pos: 225, 50
+            size_hint: 0.4, 0.4
+            allow_stretch: True
+            texture: root.textureAfter3
+        Label:
+            text: root.caption3 if root.caption3 else "Default Caption"
+            pos: 0, 0
+            color: 'black'
+        
+
     Button:
         text: 'Back'
         size_hint: 0.16, 0.1
         pos: 0, 0
         on_press:
             root.manager.current = 'GetInvolved'
+        background_color: 0.4196, 0.7922, 0.9569, 1
