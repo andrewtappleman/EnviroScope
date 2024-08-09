@@ -6,65 +6,78 @@
         Rectangle:
             pos: self.pos
             size: self.size
-    FloatLayout:
-        pos: 0, 0
-        size: 750, 750
+
+
+    BoxLayout:
+        orientation: 'horizontal'
+        pos: 0, 400
+        size: 450, 250
         Image:
             id: ImageBefore1
-            pos: 0, 550
-            size_hint: 0.4, 0.4
+            pos: self.pos
+            size_hint: 1, 1
             allow_stretch: True
             texture: root.textureBefore1
         Image:
             id: ImageAfter1
-            pos: 225, 550
-            size_hint: 0.4, 0.4
+            pos: self.pos
+            size_hint: 1, 1
             allow_stretch: True
             texture: root.textureAfter1
         Label:
-            text: root.caption1 if root.caption1 else "Default Caption"
-            pos: 0, 500
+            text: root.caption1
             color: 'black'
+            pos: self.pos
+            size: 0, 0
 
+    BoxLayout:
+        orientation: 'horizontal'
+        pos: 0, 200
+        size: 450, 200
         Image:
             id: ImageBefore2
-            pos: 115, 300
-            size_hint: 0.4, 0.4
+            pos: self.pos
+            size_hint: 1, 1
             allow_stretch: True
             texture: root.textureBefore2
         Image:
             id: ImageAfter2
-            pos: 340, 300
-            size_hint: 0.4, 0.4
+            pos: self.pos
+            size_hint: 1, 1
             allow_stretch: True
             texture: root.textureAfter2
         Label:
-            text: root.caption2 if root.caption2 else "Default Caption"
-            pos: 115, 250
+            text: root.caption2
             color: 'black'
-        
+            pos: self.pos
+            size: 0, 0
+    
+    BoxLayout:
+        orientation: 'horizontal'
+        pos: 0, 0
+        size: 350, 400
         Image:
             id: ImageBefore3
-            pos: 0, 50
-            size_hint: 0.4, 0.4
+            pos: self.pos
+            size_hint: 1, 1
             allow_stretch: True
             texture: root.textureBefore3
         Image:
             id: ImageAfter3
-            pos: 225, 50
-            size_hint: 0.4, 0.4
+            pos: self.pos
+            size_hint: 1, 1
             allow_stretch: True
             texture: root.textureAfter3
         Label:
-            text: root.caption3 if root.caption3 else "Default Caption"
-            pos: 0, 0
+            text: root.caption3
             color: 'black'
-        
+            pos: self.pos
+            size: 0, 100
 
     Button:
         text: 'Back'
         size_hint: 0.16, 0.1
-        pos: 0, 0
+        pos_hint: {'x': 0, 'y': 0}
         on_press:
             root.manager.current = 'GetInvolved'
         background_color: 0.4196, 0.7922, 0.9569, 1
