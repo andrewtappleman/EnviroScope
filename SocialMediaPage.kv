@@ -25,10 +25,16 @@
             allow_stretch: True
             texture: root.textureAfter1
         Label:
+            text: root.name
+            color: 'black'
+            pos: self.pos
+            size: 0, 100
+        Label:
             text: root.caption1
             color: 'black'
             pos: self.pos
             size: 0, 0
+        
 
     BoxLayout:
         orientation: 'horizontal'
@@ -47,6 +53,11 @@
             allow_stretch: True
             texture: root.textureAfter2
         Label:
+            text: root.name
+            color: 'black'
+            pos: self.pos
+            size: 0, 100
+        Label:
             text: root.caption2
             color: 'black'
             pos: self.pos
@@ -55,7 +66,7 @@
     BoxLayout:
         orientation: 'horizontal'
         pos: 0, 0
-        size: 350, 400
+        size: 450, 200
         Image:
             id: ImageBefore3
             pos: self.pos
@@ -69,10 +80,16 @@
             allow_stretch: True
             texture: root.textureAfter3
         Label:
-            text: root.caption3
+            text: root.name
             color: 'black'
             pos: self.pos
             size: 0, 100
+        Label:
+            text: root.caption3
+            color: 'black'
+            pos: self.pos
+            size: 0, 0
+
 
     Button:
         text: 'Back'

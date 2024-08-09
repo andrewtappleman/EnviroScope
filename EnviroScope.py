@@ -214,12 +214,14 @@ class FamousAdvocates (Screen):
     pass
 
 class SocialMediaPage (Screen):
+    
     textureAfter1 = ObjectProperty(None)
     textureBefore1 = ObjectProperty(None)
     textureAfter2 = ObjectProperty(None)
     textureBefore2 = ObjectProperty(None)
     textureAfter3 = ObjectProperty(None)
     textureBefore3 = ObjectProperty(None)
+
     caption1 = StringProperty("Default Caption")
     caption2 = StringProperty("Default Caption")
     caption3 = StringProperty("Default Caption")
@@ -237,7 +239,10 @@ class SocialMediaPage (Screen):
             print(e)
         db = client['SocialMedia']
         collection = db['Posts']
-    
+
+        global username
+
+        self.name = username
     
         PhotoID1 = collection.find().sort('_id', -1).skip(2).limit(1)[0]
     
