@@ -7,55 +7,52 @@
             pos: self.pos
             size: self.size
     BoxLayout:
-        pos: 55, 675
-        size_hint: 0.8, 0.1
-        Label:
-            color: 'black'
-            text: 'Worldwide, about 160,000 plastic bags are produced per second.'
-            pos: self.pos
-            size: self.size
-    BoxLayout:
-        pos: 55, 550
+        pos: 55, 650
         size_hint: 0.8, 0.05
         Label:
+            id: Fact1
             color: 'black'
-            text: 'By 2050, the worlds oceans could contain '
+            text: 'By 2050, the worlds oceans could contain \nmore plastic than fish measured by weight.'
             pos: self.pos
             size: self.size
     
     BoxLayout:
-        pos: 55, 530
+        pos: 55, 575
         size_hint: 0.8, 0.05
         Label:
+            id: Fact2
             color: 'black'
-            text: 'more plastic than fish measured by weight.'
+            text: ''
             pos: 55, 560
             size: self.size
 
     BoxLayout:
-        pos: 55, 425
+        pos: 55, 500
         size_hint: 0.8, 0.1
         Label:
+            id: Fact3
             color: 'black'
             text: 'Air pollution contributes to millions of premature deaths annually.'
             pos: self.pos
             size: self.size
 
     BoxLayout:
-        pos: 55, 300
+        pos: 55, 425
         size_hint: 0.8, 0.05
         Label:
+            id: Fact4
             color: 'black'
-            text: 'The earth is about 1 million years old, '
+            text: 'The earth is about 1 million years old, \nwith more than 1 million species going extinct.'
             pos: self.pos
             size: self.size
 
     BoxLayout:
-        pos: 55, 280
+        pos: 55, 350
         size_hint: 0.8, 0.05
         Label:
+            id: Fact5
             color: 'black'
-            text: 'with more than 1 million species going extinct.'
+            text: 'Only 3% of our planet’s water is drinkable.'
             pos: 55, 310
             size: self.size
 
@@ -64,9 +61,17 @@
         size_hint: 0.8, 0.1
         Label:
             color: 'black'
-            text: '100 acres of rainforests are cut down every minute.'
+            text: 'Thank you to NASA, NOAA, and the EPA.'
             pos: self.pos
             size: self.size
+
+
+    Button:
+        text: 'Regenerate'
+        size_hint: 0.84, 0.1
+        pos: 90, 0
+        on_press: root.regen()
+        background_color: 0.4196, 0.7922, 0.9569, 1
     Button:
         text: 'Back'
         pos: 0,0
