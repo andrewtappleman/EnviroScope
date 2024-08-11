@@ -7,19 +7,11 @@
             pos: self.pos
             size: self.size
     BoxLayout:
-        pos: 55, 675
-        size_hint: 0.8, 0.1
-        Label:
-            color: 'black'
-            text: 'Worldwide, about 160,000 plastic bags are produced per second.'
-            pos: self.pos
-            size: self.size
-    BoxLayout:
         pos: 55, 550
         size_hint: 0.8, 0.05
         Label:
             color: 'black'
-            text: 'By 2050, the worlds oceans could contain '
+            text: 'By 2050, the worlds oceans could contain \nmore plastic than fish measured by weight.'
             pos: self.pos
             size: self.size
     
@@ -28,7 +20,7 @@
         size_hint: 0.8, 0.05
         Label:
             color: 'black'
-            text: 'more plastic than fish measured by weight.'
+            text: ''
             pos: 55, 560
             size: self.size
 
@@ -46,7 +38,7 @@
         size_hint: 0.8, 0.05
         Label:
             color: 'black'
-            text: 'The earth is about 1 million years old, '
+            text: 'The earth is about 1 million years old, \nwith more than 1 million species going extinct.'
             pos: self.pos
             size: self.size
 
@@ -55,7 +47,7 @@
         size_hint: 0.8, 0.05
         Label:
             color: 'black'
-            text: 'with more than 1 million species going extinct.'
+            text: ''
             pos: 55, 310
             size: self.size
 
@@ -67,6 +59,14 @@
             text: '100 acres of rainforests are cut down every minute.'
             pos: self.pos
             size: self.size
+
+
+    Button:
+        text: 'Regenerate'
+        size_hint: 0.84, 0.1
+        pos: 72, 0
+        on_press: root.NotifyDef(self)
+        background_color: 0.4196, 0.7922, 0.9569, 1
     Button:
         text: 'Back'
         pos: 0,0

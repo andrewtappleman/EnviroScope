@@ -30,6 +30,7 @@ import pymongo
 import sys
 import base64
 from pymongo.server_api import ServerApi
+import random
 
 
 Builder.load_file('FPAY.kv')
@@ -88,7 +89,6 @@ class LitterSheet (Screen):
         self.nameList.append(appendText)
         notification.notify(title = 'EnviroScope', message = 'Thank you for signing up.')
 class SignIn(Screen):
-    
     
     def check_account(self):
         uri = "mongodb+srv://admin:admin@enviroscopecluster0.qdwjcoq.mongodb.net/?appName=EnviroScopeCluster0"
@@ -226,7 +226,7 @@ class SocialMediaPage (Screen):
     caption2 = StringProperty("Default Caption")
     caption3 = StringProperty("Default Caption")
     def on_enter(self, *args):
-        self.Social()
+        self.Social(self)
     def Social(self):
         uri = "mongodb+srv://admin:admin@enviroscopecluster0.qdwjcoq.mongodb.net/?appName=EnviroScopeCluster0"
         # Create a new client and connect to the server
@@ -241,10 +241,9 @@ class SocialMediaPage (Screen):
         collection = db['Posts']
 
         global username
-
-        self.name = username
     
         PhotoID1 = collection.find().sort('_id', -1).skip(2).limit(1)[0]
+        self.name1 = PhotoID1["Name"]
     
         imageBefore1 = PhotoID1['BeforeData']
         image_Before1 = base64.b64decode(imageBefore1)
@@ -263,7 +262,8 @@ class SocialMediaPage (Screen):
 
     
         PhotoID2 = collection.find().sort('_id', -1).skip(1).limit(1)[0]
-    
+        self.name2 = PhotoID2["Name"]
+
         imageBefore2 = PhotoID2['BeforeData']
         image_Before2 = base64.b64decode(imageBefore2)
         imageAfter2 = PhotoID2['AfterData']
@@ -281,7 +281,8 @@ class SocialMediaPage (Screen):
     
     
         PhotoID3 = collection.find().sort('_id', -1).limit(1)[0]
-    
+        self.name3 = PhotoID3["Name"]
+
         imageBefore3 = PhotoID3['BeforeData']
         image_Before3 = base64.b64decode(imageBefore3)
         imageAfter3 = PhotoID3['AfterData']
@@ -310,7 +311,75 @@ class GretaThunberg (Screen):
 class PollutionMap(Screen):
     pass
 class FunFacts(Screen):
-    pass
+    def regen(self):
+        factNum1 = random.randint(1, 50)
+
+        factNum2 = random.randint(1, 50)
+        while factNum2 == factNum1:
+            factNum2 = random.randint(1, 50)
+
+        factNum3 = random.randint(1, 50)
+        while factNum3 == factNum2 or factNum3 == factNum1:
+            factNum3 = random.randint(1, 50)
+
+        factNum4 = random.randint(1, 50)
+        while factNum4 == factNum3 or factNum4 == factNum2 or factNum4 == factNum1:
+            factNum4 = random.randint(1, 50)
+
+        factNum5 = random.randint(1, 50)
+        while factNum5 == factNum4 or factNum5 == factNum3 or factNum5 == factNum2 or factNum5 == factNum1:
+            factNum3 = random.randint(1, 50)
+        
+        uri = "mongodb+srv://admin:admin@enviroscopecluster0.qdwjcoq.mongodb.net/?appName=EnviroScopeCluster0"
+        # Create a new client and connect to the server
+        client = MongoClient(uri, server_api=ServerApi('1'))
+        # Send a ping to confirm a successful connection
+        try:
+            client.admin.command('ping')
+            print("Pinged your deployment. You successfully connected to MongoDB!")
+        except Exception as e:
+            print(e)
+   
+
+        db = client['FunFacts']
+        collection = db['Facts']
+        
+        num1 = self.factNum1
+        num2 = self.factNum2
+        num3 = self.factNum3
+        num4 = self.factNum4
+        num5 = self.factNum5
+        
+
+        result = collection.find_one({"Number": num1})
+
+        fact = result["Fact"]
+        self.Fact1.text = fact
+
+
+        result = collection.find_one({"Number": num2})
+
+        fact = result["Fact"]
+        self.Fact2.text = fact
+
+
+        result = collection.find_one({"Number": num3})
+
+        fact = result["Fact"]
+        self.Fact3.text = fact
+
+
+        result = collection.find_one({"Number": num4})
+
+        fact = result["Fact"]
+        self.Fact4.text = fact
+
+
+        result = collection.find_one({"Number": num5})
+
+        fact = result["Fact"]
+        self.Fact5.text = fact
+    
 class PostMedia(Screen):
 
     def NotifyDef(self, instance):
