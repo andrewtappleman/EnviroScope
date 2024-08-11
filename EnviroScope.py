@@ -241,9 +241,28 @@ class SocialMediaPage (Screen):
         collection = db['Posts']
 
         global username
+
+        PhotoID3 = collection.find().sort('_id', -1).limit(1)[0]
+        self.name = PhotoID3["Name"]
+
+        imageBefore3 = PhotoID3['BeforeData']
+        image_Before3 = base64.b64decode(imageBefore3)
+        imageAfter3 = PhotoID3['AfterData']
+        image_After3 = base64.b64decode(imageAfter3)
+        self.caption3 = PhotoID3['caption']
     
+        dataBefore3 = BytesIO(image_Before3)
+        dataAfter3 = BytesIO(image_After3)
+
+        coreBefore3 = CoreImage(dataBefore3, ext='png')
+        coreAfter3 = CoreImage(dataAfter3, ext='png')
+
+        self.textureBefore3 = coreBefore3.texture
+        self.textureAfter3 = coreAfter3.texture
+    
+
         PhotoID1 = collection.find().sort('_id', -1).skip(2).limit(1)[0]
-        self.name1 = PhotoID1["Name"]
+        self.nam = PhotoID1["Name"]
     
         imageBefore1 = PhotoID1['BeforeData']
         image_Before1 = base64.b64decode(imageBefore1)
@@ -262,7 +281,7 @@ class SocialMediaPage (Screen):
 
     
         PhotoID2 = collection.find().sort('_id', -1).skip(1).limit(1)[0]
-        self.name2 = PhotoID2["Name"]
+        self.na = PhotoID2["Name"]
 
         imageBefore2 = PhotoID2['BeforeData']
         image_Before2 = base64.b64decode(imageBefore2)
@@ -280,23 +299,7 @@ class SocialMediaPage (Screen):
         self.textureAfter2 = coreAfter2.texture
     
     
-        PhotoID3 = collection.find().sort('_id', -1).limit(1)[0]
-        self.name3 = PhotoID3["Name"]
 
-        imageBefore3 = PhotoID3['BeforeData']
-        image_Before3 = base64.b64decode(imageBefore3)
-        imageAfter3 = PhotoID3['AfterData']
-        image_After3 = base64.b64decode(imageAfter3)
-        self.caption3 = PhotoID3['caption']
-    
-        dataBefore3 = BytesIO(image_Before3)
-        dataAfter3 = BytesIO(image_After3)
-
-        coreBefore3 = CoreImage(dataBefore3, ext='png')
-        coreAfter3 = CoreImage(dataAfter3, ext='png')
-
-        self.textureBefore3 = coreBefore3.texture
-        self.textureAfter3 = coreAfter3.texture
     
 class LitterSheet (Screen):
 
