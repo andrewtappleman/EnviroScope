@@ -61,6 +61,15 @@ Builder.load_file('SignUp.kv')
 Builder.load_file('Video1.kv')
 
 
+uri = "mongodb+srv://admin:admin@enviroscopecluster0.qdwjcoq.mongodb.net/?appName=EnviroScopeCluster0"
+# Create a new client and connect to the server
+client = MongoClient(uri, server_api=ServerApi('1'))
+# Send a ping to confirm a successful connection
+try:
+    client.admin.command('ping')
+    print("Pinged your deployment. You successfully connected to MongoDB!")
+except Exception as e:
+    print(e)
 
 width_base = 15
 height_base = 25
@@ -91,18 +100,9 @@ class LitterSheet (Screen):
 class SignIn(Screen):
     
     def check_account(self):
-        uri = "mongodb+srv://admin:admin@enviroscopecluster0.qdwjcoq.mongodb.net/?appName=EnviroScopeCluster0"
-        # Create a new client and connect to the server
-        client = MongoClient(uri, server_api=ServerApi('1'))
-        # Send a ping to confirm a successful connection
-        try:
-            client.admin.command('ping')
-            print("Pinged your deployment. You successfully connected to MongoDB!")
-        except Exception as e:
-            print(e)
-   
+        
         global username
-
+        global client
         db = client['AccountInfo']
         collection = db['NamePassword']
         
@@ -131,16 +131,8 @@ class SignIn(Screen):
 class SignUp(Screen):
     
     def addInfo(self):
-        uri = "mongodb+srv://admin:admin@enviroscopecluster0.qdwjcoq.mongodb.net/?appName=EnviroScopeCluster0"
-        # Create a new client and connect to the server
-        client = MongoClient(uri, server_api=ServerApi('1'))
-        # Send a ping to confirm a successful connection
-        try:
-            client.admin.command('ping')
-            print("Pinged your deployment. You successfully connected to MongoDB!")
-        except Exception as e:
-            print(e)
-        
+
+        global client
         db = client.AccountInfo
         
         my_collection = db["NamePassword"]
@@ -225,44 +217,24 @@ class SocialMediaPage (Screen):
     caption1 = StringProperty("Default Caption")
     caption2 = StringProperty("Default Caption")
     caption3 = StringProperty("Default Caption")
+    name1 = StringProperty("Default Name")
+    name2 = StringProperty("Default Name")
+    name3 = StringProperty("Default Name")
+
     def on_enter(self, *args):
-        self.Social(self)
+        self.Social()
     def Social(self):
-        uri = "mongodb+srv://admin:admin@enviroscopecluster0.qdwjcoq.mongodb.net/?appName=EnviroScopeCluster0"
-        # Create a new client and connect to the server
-        client = MongoClient(uri, server_api=ServerApi('1'))
-        # Send a ping to confirm a successful connection
-        try:
-            client.admin.command('ping')
-            print("Pinged your deployment. You successfully connected to MongoDB!")
-        except Exception as e:
-            print(e)
+
+        global client
         db = client['SocialMedia']
         collection = db['Posts']
 
         global username
 
-        PhotoID3 = collection.find().sort('_id', -1).limit(1)[0]
-        self.name = PhotoID3["Name"]
-
-        imageBefore3 = PhotoID3['BeforeData']
-        image_Before3 = base64.b64decode(imageBefore3)
-        imageAfter3 = PhotoID3['AfterData']
-        image_After3 = base64.b64decode(imageAfter3)
-        self.caption3 = PhotoID3['caption']
-    
-        dataBefore3 = BytesIO(image_Before3)
-        dataAfter3 = BytesIO(image_After3)
-
-        coreBefore3 = CoreImage(dataBefore3, ext='png')
-        coreAfter3 = CoreImage(dataAfter3, ext='png')
-
-        self.textureBefore3 = coreBefore3.texture
-        self.textureAfter3 = coreAfter3.texture
-    
+        
 
         PhotoID1 = collection.find().sort('_id', -1).skip(2).limit(1)[0]
-        self.nam = PhotoID1["Name"]
+        self.name1 = PhotoID1["Name"]
     
         imageBefore1 = PhotoID1['BeforeData']
         image_Before1 = base64.b64decode(imageBefore1)
@@ -281,7 +253,7 @@ class SocialMediaPage (Screen):
 
     
         PhotoID2 = collection.find().sort('_id', -1).skip(1).limit(1)[0]
-        self.na = PhotoID2["Name"]
+        self.name2 = PhotoID2["Name"]
 
         imageBefore2 = PhotoID2['BeforeData']
         image_Before2 = base64.b64decode(imageBefore2)
@@ -299,7 +271,24 @@ class SocialMediaPage (Screen):
         self.textureAfter2 = coreAfter2.texture
     
     
+        PhotoID3 = collection.find().sort('_id', -1).limit(1)[0]
+        self.name3 = PhotoID3["Name"]
 
+        imageBefore3 = PhotoID3['BeforeData']
+        image_Before3 = base64.b64decode(imageBefore3)
+        imageAfter3 = PhotoID3['AfterData']
+        image_After3 = base64.b64decode(imageAfter3)
+        self.caption3 = PhotoID3['caption']
+    
+        dataBefore3 = BytesIO(image_Before3)
+        dataAfter3 = BytesIO(image_After3)
+
+        coreBefore3 = CoreImage(dataBefore3, ext='png')
+        coreAfter3 = CoreImage(dataAfter3, ext='png')
+
+        self.textureBefore3 = coreBefore3.texture
+        self.textureAfter3 = coreAfter3.texture
+    
     
 class LitterSheet (Screen):
 
@@ -333,70 +322,63 @@ class FunFacts(Screen):
         while factNum5 == factNum4 or factNum5 == factNum3 or factNum5 == factNum2 or factNum5 == factNum1:
             factNum3 = random.randint(1, 50)
         
-        uri = "mongodb+srv://admin:admin@enviroscopecluster0.qdwjcoq.mongodb.net/?appName=EnviroScopeCluster0"
-        # Create a new client and connect to the server
-        client = MongoClient(uri, server_api=ServerApi('1'))
-        # Send a ping to confirm a successful connection
-        try:
-            client.admin.command('ping')
-            print("Pinged your deployment. You successfully connected to MongoDB!")
-        except Exception as e:
-            print(e)
-   
+        global client
 
         db = client['FunFacts']
         collection = db['Facts']
         
-        num1 = self.factNum1
-        num2 = self.factNum2
-        num3 = self.factNum3
-        num4 = self.factNum4
-        num5 = self.factNum5
+        num1 = str(factNum1)
+        num2 = str(factNum2)
+        num3 = str(factNum3)
+        num4 = str(factNum4)
+        num5 = str(factNum5)
         
-
+        print(num1, "\n", num2, "\n", num3, "\n", num4, "\n", num5)
         result = collection.find_one({"Number": num1})
-
+        if result is None:
+            print("No results found.")
+            return
         fact = result["Fact"]
-        self.Fact1.text = fact
+        self.ids.Fact1.text = fact
 
 
         result = collection.find_one({"Number": num2})
-
+        if result is None:
+            print("No results found.")
+            return
         fact = result["Fact"]
-        self.Fact2.text = fact
+        self.ids.Fact2.text = fact
 
 
         result = collection.find_one({"Number": num3})
-
+        if result is None:
+            print("No results found.")
+            return
         fact = result["Fact"]
-        self.Fact3.text = fact
+        self.ids.Fact3.text = fact
 
 
         result = collection.find_one({"Number": num4})
-
+        if result is None:
+            print("No results found.")
+            return
         fact = result["Fact"]
-        self.Fact4.text = fact
+        self.ids.Fact4.text = fact
 
 
         result = collection.find_one({"Number": num5})
-
+        if result is None:
+            print("No results found.")
+            return
         fact = result["Fact"]
-        self.Fact5.text = fact
+        self.ids.Fact5.text = fact
     
 class PostMedia(Screen):
 
     def NotifyDef(self, instance):
         notification.notify(title = 'EnviroScope', message = 'You have posted your photos.')
 
-        uri = "mongodb+srv://admin:admin@enviroscopecluster0.qdwjcoq.mongodb.net/?appName=EnviroScopeCluster0"
-        # Create a new client and connect to the server
-        client = MongoClient(uri, server_api=ServerApi('1'))
-        # Send a ping to confirm a successful connection
-        try:
-            client.admin.command('ping')
-            print("Pinged your deployment. You successfully connected to MongoDB!")
-        except Exception as e:
-            print(e)
+        global client
         db = client['SocialMedia']
         posts_collection = db['Posts']
 
