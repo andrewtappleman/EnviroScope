@@ -19,6 +19,7 @@ from kivy.properties import StringProperty
 from kivy.clock import Clock
 from pymongo.mongo_client import MongoClient
 from kivy.uix.anchorlayout import AnchorLayout
+from kivy.uix.dropdown  import DropDown
 from kivy.core.image import Image as CoreImage
 from io import BytesIO
 from io import BytesIO
@@ -59,6 +60,8 @@ Builder.load_file('outOrder.kv')
 Builder.load_file('GetInformed.kv')
 Builder.load_file('SignUp.kv')
 Builder.load_file('Video1.kv')
+Builder.load_file('AddAJob.kv')
+Builder.load_file('ViewJobs.kv')
 
 
 uri = "mongodb+srv://admin:admin@enviroscopecluster0.qdwjcoq.mongodb.net/?appName=EnviroScopeCluster0"
@@ -89,14 +92,37 @@ class Video1(Screen):
 
 class SignUpIn(Screen):
     pass
+class AddAJob(Screen):
+    def on_enter(self):
+        global username
+        self.ids.NameInput.text = username
     
-class LitterSheet (Screen):
 
-    def addToList(self):
+    def addToList(self):  
+
+
+        notification.notify(title = 'EnviroScope', message = 'You have created a clean up.')      
+        global client
+        db = client['CleanUps']
+        collection = db['Jobs']
         
-        appendText = self.ids.litterSign.text
-        self.nameList.append(appendText)
-        notification.notify(title = 'EnviroScope', message = 'Thank you for signing up.')
+        name = self.ids.NameInput.text
+        location = self.ids.Location.text
+        date = self.ids.Date.text
+        time = self.ids.Time.text
+        
+        query = [{"Name": name, "Location": location, "Date": date, "Time": time}]
+        
+        try:
+            result = collection.insert_many(query)
+        except pymongo.errors.OperationFailure:
+            print("An authentication error was received. Check your database user permissions.")
+            sys.exit(1)
+        else:
+            inserted_count = len(result.inserted_ids)
+            print("I inserted %d documents." % inserted_count)
+            print("\n")
+
 class SignIn(Screen):
     
     def check_account(self):
@@ -121,7 +147,6 @@ class SignIn(Screen):
             self.ids.UserName1.text = ""
             self.ids.Password1.text = ""
 
-        client.close()
 
     def check_for_type(self, collection, query):
         result = collection.find_one(query)
@@ -133,7 +158,7 @@ class SignUp(Screen):
     def addInfo(self):
 
         global client
-        db = client.AccountInfo
+        db = client["AccountInfo"]
         
         my_collection = db["NamePassword"]
         NameData = [{"name": self.ids.UserName2.text, "password": self.ids.Password2.text}]
@@ -179,8 +204,50 @@ class EnvironmentalIssues (Screen):
    
 class GetInContact (Screen):
     pass
+class ViewJobs(Screen):
+    Job11 = StringProperty("Default Info")
+    Job12 = StringProperty("Default Info")
+    Job13 = StringProperty("Default Info")
+
+    Job21 = StringProperty("Default Info")
+    Job22 = StringProperty("Default Info")
+    Job23 = StringProperty("Default Info")
+
+    Job31 = StringProperty("Default Info")
+    Job32 = StringProperty("Default Info")
+    Job33 = StringProperty("Default Info")
+    
+    Job41 = StringProperty("Default Info")
+    Job42 = StringProperty("Default Info")
+    Job43 = StringProperty("Default Info")
+    def on_pre_enter(self):
+
+        global client
+        db = client['CleanUps']
+        collection = db['Jobs']
+        Job1 = collection.find().sort('_id', -1).skip(3).limit(1)[0]
+        self.Job11 = Job1['Location']
+        self.Job12 = Job1['Date']
+        self.Job13 = Job1['Time']
+
+        Job2 = collection.find().sort('_id', -1).skip(2).limit(1)[0]
+        self.Job21 = Job2['Location']
+        self.Job22 = Job2['Date']
+        self.Job23 = Job2['Time']
+
+        Job3 = collection.find().sort('_id', -1).skip(1).limit(1)[0]
+        self.Job31 = Job3['Location']
+        self.Job32 = Job3['Date']
+        self.Job33 = Job3['Time']
+
+        Job4 = collection.find().sort('_id', -1).limit(1)[0]
+        self.Job41 = Job4['Location']
+        self.Job42 = Job4['Date']
+        self.Job43 = Job4['Time']
+
  
 class GetInformed (Screen):
+    
     pass
 class GetRewarded (Screen):
     pass
@@ -291,12 +358,54 @@ class SocialMediaPage (Screen):
     
     
 class LitterSheet (Screen):
+    def on_enter(self):
+        global username
+        self.ids.NameInput.text = username
+        self.create_dropdown()
+
+    def create_dropdown(self):
+        global client
+        db = client['CleanUps']
+        collection = db['Jobs']
+    
+        dropButton = self.ids.dropButton
+    
+        dropdown = DropDown(size_hint=(None, None), size=(45 * 8, 75))
+    
+
+        options = collection.find({}, {"_id": 0, "Location": 1})
+    
+        for option in options:
+            btn = Button(text=option['Location'], size_hint_y=None, height=44)
+            btn.bind(on_release=lambda btn: dropdown.select(btn.text))
+            dropdown.add_widget(btn)
+    
+        dropButton.bind(on_press=dropdown.open)
+    
+        dropdown.bind(on_select=lambda instance, x: setattr(dropButton, 'text', x))
 
     def addToList(self):
         
-        appendText = self.ids.litterSign.text
-        self.nameList.append(appendText)
-        notification.notify(title = 'EnviroScope', message = 'Thank you for signing up.')
+        notification.notify(title = 'EnviroScope', message = 'You have joined a clean up.')
+        global username
+        global client
+        db = client['LitterSheet']
+        collection = db['Jobs']
+        
+        name = self.ids.NameInput.text
+        cleanup = self.ids.dropButton.text
+        
+        query = [{"Name": name, "Location": cleanup}]
+        
+        try:
+            result = collection.insert_many(query)
+        except pymongo.errors.OperationFailure:
+            print("An authentication error was received. Check your database user permissions.")
+            sys.exit(1)
+        else:
+            inserted_count = len(result.inserted_ids)
+            print("I inserted %d documents." % inserted_count)
+            print("\n")
 
 class GretaThunberg (Screen):
     pass
@@ -447,6 +556,8 @@ class EnviroScopeApp(App):
         sm.add_widget(SignUp(name = 'SignUp'))
         sm.add_widget(InspirationalVideos(name = 'InspirationalVideos'))
         sm.add_widget(Video1(name = 'Video1'))
+        sm.add_widget(AddAJob(name = 'AddAJob'))
+        sm.add_widget(ViewJobs(name = 'ViewJobs'))
         return sm
 
 if __name__ == '__main__':

@@ -7,19 +7,27 @@
             pos: self.pos
             size: self.size
 	TextInput:
-		text: ''
-        id: litterSign
+        id: NameInput
+		text: 'Name'
 		size_hint: 0.8, 0.1
         pos: 55, 500
+    Button:
+        id: dropButton
+        text: 'Choose a Clean Up'
+        pos: 55, 400
+        size_hint: 0.8, 0.1
+        on_press: root.create_dropdown()
+        background_color: 0.4196, 0.7922, 0.9569, 1
+
 	Label:
 		text: 'Enter your name to sign up for a litter clean up near you.'
-		pos: 45, 400
+		pos: 45, 300
         size_hint: 0.8, 0.1
 		color: "black"
     Button:
         text: 'Submit'
         size_hint: 0.8, 0.1
-        pos: 55, 300
+        pos: 55, 200
         background_color: 0.4196, 0.7922, 0.9569, 1
         on_press: root.addToList()
 	

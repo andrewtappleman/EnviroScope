@@ -1,0 +1,45 @@
+<AddAJob>:
+    name: "AddAJob"
+    canvas.before:
+        Color:
+            rgba: 0.592, 0.741, 0.969, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+	TextInput:
+        id: NameInput
+		text: 'Name'
+		size_hint: 0.8, 0.1
+        pos: 55, 600
+    TextInput:
+        id: Location
+        text: 'Location'
+        size_hint: 0.8, 0.1
+        pos: 55, 500
+    TextInput:
+        id: Date
+        text: 'Date'
+        size_hint: 0.8, 0.1
+        pos: 55, 400
+    TextInput:
+        id: Time
+        text: 'Time'
+        size_hint: 0.8, 0.1
+        pos: 55, 300
+
+    Button:
+        text: 'Submit'
+        size_hint: 0.8, 0.1
+        pos: 55, 200
+        background_color: 0.4196, 0.7922, 0.9569, 1
+        on_press: root.addToList()
+	
+	Button:
+		text: 'Back'
+		on_press:
+			root.manager.current = 'GetInvolved'
+		size_hint: 0.16, 0.1
+		pos: 0, 0
+		
+		background_color: 0.18, 0.5, 0.92, 1
+		

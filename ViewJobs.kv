@@ -1,0 +1,82 @@
+<ViewJobs>:
+    name: "ViewJobs"
+    canvas.before:
+        Color:
+            rgba: 0.592, 0.741, 0.969, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    FloatLayout:
+        padding: 10
+
+        # Job 1
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: '40dp'
+            pos_hint: {'x': 0, 'top': 0.9}  # Raise to 90% from the bottom
+            Label:
+                text: root.Job11
+                color: 'black'
+            Label:
+                text: root.Job12
+                color: 'black'
+            Label:
+                text: root.Job13
+                color: 'black'
+
+        # Job 2
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: '40dp'
+            pos_hint: {'x': 0, 'top': 0.7}  # Raise to 85% from the bottom
+            Label:
+                text: root.Job21
+                color: 'black'
+            Label:
+                text: root.Job22
+                color: 'black'
+            Label:
+                text: root.Job23
+                color: 'black'
+
+        # Job 3
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: '40dp'
+            pos_hint: {'x': 0, 'top': 0.5}  # Raise to 80% from the bottom
+            Label:
+                text: root.Job31
+                color: 'black'
+            Label:
+                text: root.Job32
+                color: 'black'
+            Label:
+                text: root.Job33
+                color: 'black'
+
+        # Job 4
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: '40dp'
+            pos_hint: {'x': 0, 'top': 0.3}  # Raise to 75% from the bottom
+            Label:
+                text: root.Job41
+                color: 'black'
+            Label:
+                text: root.Job42
+                color: 'black'
+            Label:
+                text: root.Job43
+                color: 'black'
+
+    Button:
+        text: 'Back'
+        size_hint: 0.16, 0.1
+        pos_hint: {'x': 0, 'y': 0}
+        on_press:
+            root.manager.current = 'GetInvolved'
+        background_color: 0.4196, 0.7922, 0.9569, 1
