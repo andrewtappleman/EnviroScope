@@ -11,14 +11,28 @@
 		size_hint: 0.8, 0.8
 		orientation: 'vertical'
 		Button:
-			text: 'Litter Sign up Sheet'
+			text: 'Litter Sign Up Sheet'
 			on_press:
 				root.manager.current = 'LitterSheet'
 			size: self.texture_size
 			pos: 45, 675
 			
 			background_color: 0.0, 0.447, 0.071, 1
-		
+		Button:
+			text: "Add A Clean Up"
+			on_press: root.manager.current = 'AddAJob'
+			size: self.texture_size
+			pos: 45, 600
+
+			background_color: 0.0, 0.447, 0.071, 1
+		Button:
+			text: "View Clean Up Info"
+			on_press: root.manager.current = "ViewJobs"
+			size: self.texture_size
+			pos: 45, 550
+
+			background_color: 0.0, 0.447, 0.071, 1
+			
 		Button:
 			text: 'Social Media Page'
 			on_press:
