@@ -24,7 +24,9 @@ from kivy.core.image import Image as CoreImage
 from io import BytesIO
 from io import BytesIO
 from PIL import Image as PILImage
+from win10toast import ToastNotifier
 import os
+import time
 os.environ["PAFY_BACKEND"] = "internal"
 import pafy
 import pymongo
@@ -519,6 +521,15 @@ class PostMedia(Screen):
     def Check(self, instance):
         self.ids.my_image.source = self.ids.beforePhoto.text
         self.ids.my_image2.source = self.ids.afterPhoto.text
+
+        if not os.path.exists(self.ids.my_image.source):
+            notification.notify(title = 'EnviroScope', message = 'EnviroScope canot find your before photo.', timeout = 3)
+            return None
+        
+        if not os.path.exists(self.ids.my_image2.source):
+            time.sleep(5)
+            notification.notify(title = 'EnviroScope', message = 'EnviroScope canot find your after photo.')
+            return None
 
 class instructPost(Screen):
     pass
