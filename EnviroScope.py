@@ -118,38 +118,25 @@ class viewContact(Screen):
         print("Querying for state:", state)
         print("State Info Results:", stateInfo)
     
-        #if len(stateInfo) > 0:
         Person1 = stateInfo[0]
         self.Role1 = Person1['Role']
         self.Address1 = Person1['Address']
         self.Phone1 = Person1['Phone']
-        #else:
-        #    self.Role1 = 'N/A'
-        #    self.Address1 = 'N/A'
-        #    self.Phone1 = 'N/A'
-    
-        #if len(stateInfo) > 1:
+
         Person2 = stateInfo[1]
         self.Role2 = Person2['Role']
         self.Address2 = Person2['Address']
         self.Phone2 = Person2['Phone']
-        #else:
-        #    self.Role2 = 'N/A'
-        #    self.Address2 = 'N/A'
-        #    self.Phone2 = 'N/A'
+
 
 
         cursor = collection.find({"District": district}).limit(1)
         districtInfo = list(cursor)
-        #if len(districtInfo) > 0:
         Person3 = districtInfo[0]
         self.Role3 = Person3['Role']
         self.Address3 = Person3['Address']
         self.Phone3 = Person3['Phone']
-        #else:
-        #    self.Role3 = 'N/A'
-        #    self.Address3 = 'N/A'
-        #    self.Phone3 = 'N/A'
+
 
 class NewYorkState(Screen):
     pass
