@@ -64,6 +64,8 @@ Builder.load_file('SignUp.kv')
 Builder.load_file('Video1.kv')
 Builder.load_file('AddAJob.kv')
 Builder.load_file('ViewJobs.kv')
+Builder.load_file('viewContact.kv')
+
 
 
 uri = "mongodb+srv://admin:admin@enviroscopecluster0.qdwjcoq.mongodb.net/?appName=EnviroScopeCluster0"
@@ -80,8 +82,74 @@ width_base = 15
 height_base = 25
 scale = 30
 Window.size = (width_base * scale, height_base * scale)
-
+district = ''
+state = ''
 username = ''
+class viewContact(Screen):
+    Phone1 = StringProperty("Default Info")
+    Address1 = StringProperty("Default Info")
+    Role1 = StringProperty("Default Info")
+
+    Phone2 = StringProperty("Default Info")
+    Address2 = StringProperty("Default Info")
+    Role2 = StringProperty("Default Info")
+
+    Phone3 = StringProperty("Default Info")
+    Address3 = StringProperty("Default Info")
+    Role3 = StringProperty("Default Info")
+    
+    def on_pre_enter(self):
+        global state
+        global district
+        global client
+        db = client['Contacts']
+        collection = db['Info']
+        
+        cursor = collection.find({"State": state}).limit(2)
+    
+        stateInfo = list(cursor)
+        print(stateInfo)
+        for x in range(5):
+            print("")
+            print(state)
+        for x in range(5):
+            print("")
+            print(district)
+        print("Querying for state:", state)
+        print("State Info Results:", stateInfo)
+    
+        #if len(stateInfo) > 0:
+        Person1 = stateInfo[0]
+        self.Role1 = Person1['Role']
+        self.Address1 = Person1['Address']
+        self.Phone1 = Person1['Phone']
+        #else:
+        #    self.Role1 = 'N/A'
+        #    self.Address1 = 'N/A'
+        #    self.Phone1 = 'N/A'
+    
+        #if len(stateInfo) > 1:
+        Person2 = stateInfo[1]
+        self.Role2 = Person2['Role']
+        self.Address2 = Person2['Address']
+        self.Phone2 = Person2['Phone']
+        #else:
+        #    self.Role2 = 'N/A'
+        #    self.Address2 = 'N/A'
+        #    self.Phone2 = 'N/A'
+
+
+        cursor = collection.find({"District": district}).limit(1)
+        districtInfo = list(cursor)
+        #if len(districtInfo) > 0:
+        Person3 = districtInfo[0]
+        self.Role3 = Person3['Role']
+        self.Address3 = Person3['Address']
+        self.Phone3 = Person3['Phone']
+        #else:
+        #    self.Role3 = 'N/A'
+        #    self.Address3 = 'N/A'
+        #    self.Phone3 = 'N/A'
 
 class NewYorkState(Screen):
     pass
@@ -205,7 +273,56 @@ class EnvironmentalIssues (Screen):
     pass
    
 class GetInContact (Screen):
-    pass
+    def on_pre_enter(self):
+        self.createState()
+        self.createDistrict()
+    def createState(self):
+        global client
+        global state
+    
+        dropButton1 = self.ids.dropButton1
+    
+        dropdown = DropDown(size_hint=(None, None), size=(45 * 8, 75))
+        dropdown.bind(on_select=lambda instance, x: setattr(dropButton1, 'text', x))
+        for x in range(1):
+            btn = Button(text="New York", size_hint_y=None, height=44, background_color = (0.0, 0.447, 0.071, 1))
+            btn.bind(on_release=lambda btn: dropdown.select(btn.text))
+            dropdown.add_widget(btn)
+    
+        dropButton1.bind(on_press=dropdown.open)
+    
+      
+        state = dropButton1.text
+
+    def createDistrict(self):
+        global client
+        global district
+        db = client['Contacts']
+        collection = db['Info']
+    
+        dropButton2 = self.ids.dropButton2
+    
+        dropdown = DropDown(size_hint=(None, None), size=(45 * 8, 75))
+    
+
+        options = collection.find({}, {"_id": 0, "District": 1})
+    
+        for option in options:
+            btn = Button(text=option['District'], size_hint_y=None, height=44, background_color = (0.0, 0.447, 0.071, 1))
+            btn.bind(on_release=lambda btn: dropdown.select(btn.text))
+            if btn.text != "Not Found":
+                dropdown.add_widget(btn)
+    
+        dropButton2.bind(on_press=dropdown.open)
+    
+        dropdown.bind(on_select=lambda instance, x: setattr(dropButton2, 'text', x))
+        district = dropButton2.text
+
+    def access(self):
+        self.createState()
+        self.createDistrict()
+        self.manager.current = "viewContact"
+        
 class ViewJobs(Screen):
     Job11 = StringProperty("Default Info")
     Job12 = StringProperty("Default Info")
@@ -378,7 +495,7 @@ class LitterSheet (Screen):
         options = collection.find({}, {"_id": 0, "Location": 1})
     
         for option in options:
-            btn = Button(text=option['Location'], size_hint_y=None, height=44)
+            btn = Button(text=option['Location'], size_hint_y=None, height=44, background_color = (0.4196, 0.7922, 0.9569, 1))
             btn.bind(on_release=lambda btn: dropdown.select(btn.text))
             dropdown.add_widget(btn)
     
@@ -569,6 +686,7 @@ class EnviroScopeApp(App):
         sm.add_widget(Video1(name = 'Video1'))
         sm.add_widget(AddAJob(name = 'AddAJob'))
         sm.add_widget(ViewJobs(name = 'ViewJobs'))
+        sm.add_widget(viewContact(name = 'viewContact'))
         return sm
 
 if __name__ == '__main__':

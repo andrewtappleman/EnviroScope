@@ -6,19 +6,29 @@
 		Rectangle:
 			pos: self.pos
 			size: self.size
-	Label:
-		text: 'Broome County, Marc Molinaro\nPhone Number: (607)-123-4567\nEmail Address: Marcmolinaro@Dc.com'
-		pos: 55, 625
-		color: "black"
-        size_hint: 0.8, 0.2
-#	Button:
-#		text: 'Submit'
-#		on_press:
-#			root.manager.current = 'GetInContact'
-#		size_hint: 0.8, 0.1
-#		pos: 55, 500
-#	
-#		background_color: 0.0, 0.447, 0.071, 1
+	Button:
+        id: dropButton1
+        text: 'Choose a State'
+        pos: 55, 600
+        size_hint: 0.8, 0.1
+        on_press: root.createState()
+        background_color: 0.0, 0.447, 0.071, 1
+	
+	Button:
+        id: dropButton2
+        text: 'Choose a District'
+        pos: 55, 400
+        size_hint: 0.8, 0.1
+        on_press: root.createDistrict()
+        background_color: 0.0, 0.447, 0.071, 1
+
+    Button:
+        text: 'Submit'
+        size_hint: 0.8, 0.1
+        pos: 55, 200
+        background_color: 0.0, 0.447, 0.071, 1
+        on_press: root.access()
+		
     Button:
 		text: 'Back'
 		on_press:
@@ -26,14 +36,3 @@
 		size_hint: 0.16, 0.1
 		pos: 0, 0
 		background_color: 0.0, 0.447, 0.071, 1
-
-<outOrder>:
-    Label:
-        text: 'This page is still in the development phase.'
-        pos: self.pos
-    Button:
-        text: 'Back'
-        size_hint: 0.16, 0.1
-        pos: 0, 0
-        on_press:
-            root.manager.current = 'CollectiveImpact'
