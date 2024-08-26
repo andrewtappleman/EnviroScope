@@ -64,7 +64,7 @@ Builder.load_file('SignUp.kv')
 Builder.load_file('Video1.kv')
 Builder.load_file('AddAJob.kv')
 Builder.load_file('ViewJobs.kv')
-
+Builder.load_file('BottleCount.kv')
 
 uri = "mongodb+srv://admin:admin@enviroscopecluster0.qdwjcoq.mongodb.net/?appName=EnviroScopeCluster0"
 # Create a new client and connect to the server
@@ -569,6 +569,7 @@ class EnviroScopeApp(App):
         sm.add_widget(Video1(name = 'Video1'))
         sm.add_widget(AddAJob(name = 'AddAJob'))
         sm.add_widget(ViewJobs(name = 'ViewJobs'))
+        sm.add._widget(BottleCount(name = 'BottleCount'))
         return sm
 
 if __name__ == '__main__':
