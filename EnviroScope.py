@@ -537,8 +537,9 @@ class instructPost(Screen):
 class outOrder(Screen):
     pass     
 
-class bottlecount (Screen)
-    
+class BottleCount (Screen)
+    pass
+
 class EnviroScopeApp(App):
     def build(self):
         sm = ScreenManager()
