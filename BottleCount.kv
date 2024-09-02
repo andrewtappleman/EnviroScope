@@ -15,14 +15,14 @@
 			text_size: self.width, None
     BoxLayout:
         pos: 55, 150
-        size: 0.4, 0.4
+        size_hint: 0.4, 0.4
         TextInput: 
             text: 'Enter here'
             id: Enterhere1
-            size.self size 
+            size: self.size 
     BoxLayout:
         pos:55, 200
-        size: 0.8, 0.8 
+        size_hint: 0.8, 0.8 
 		Button: 
             text: 'Enter'
             on_press:
@@ -34,4 +34,4 @@
 		    size_hint: 0.16, 0.1 
 		    pos: 0, 0
 		
-		background_color: 0.18, 0.5, 0.92, 1
+		    background_color: 0.18, 0.5, 0.92, 1
