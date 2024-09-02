@@ -24,7 +24,6 @@ from kivy.core.image import Image as CoreImage
 from io import BytesIO
 from io import BytesIO
 from PIL import Image as PILImage
-from win10toast import ToastNotifier
 import os
 import time
 os.environ["PAFY_BACKEND"] = "internal"
@@ -270,7 +269,9 @@ class DailyGoals (Screen):
     pass 
      
 class CollectiveImpact (Screen):
-    pass 
+     pass
+     
+
 class FamousAdvocates (Screen):
     pass
 
@@ -537,8 +538,29 @@ class instructPost(Screen):
 class outOrder(Screen):
     pass     
 
-class BottleCount (Screen)
-    pass
+class BottleCount (Screen):
+    
+    def addInfo(self):
+
+        global client
+        db = client["CollectiveImpact"]
+        
+        my_collection = db["TotalBottles"]
+        NameData = [{"Bottles": self.ids.TotalBottles2.text}]
+
+        global Bottles
+        Bottles = self.id.TotalBottles2.text
+
+        try:
+            result = my_collection.insert_many(NameData)
+        except pymongo.errors.OperationFailure:
+            print("An authentication error was received. Check your database user permissions.")
+            sys.exit(1)
+        else:
+            inserted_count = len(result.inserted_ids)
+            print("I inserted %d documents." % inserted_count)
+            print("\n")
+        self.manager.current = 'EnvironmentalIssues'
 
 class EnviroScopeApp(App):
     def build(self):
@@ -572,7 +594,7 @@ class EnviroScopeApp(App):
         sm.add_widget(Video1(name = 'Video1'))
         sm.add_widget(AddAJob(name = 'AddAJob'))
         sm.add_widget(ViewJobs(name = 'ViewJobs'))
-        sm.add._widget(BottleCount(name = 'BottleCount'))
+        sm.add_widget(BottleCount(name = 'BottleCount'))
         return sm
 
 if __name__ == '__main__':

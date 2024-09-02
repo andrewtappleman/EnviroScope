@@ -1,5 +1,4 @@
 <Bottle Count>:
-	 	background_color: 0.4196, 0.7922, 0.9569, 1
     canvas.before:
         Color:
             rgba: 0.592, 0.741, 0.969, 1
@@ -10,15 +9,29 @@
 		pos: 55, 100
 		size_hint: 0.8, 0.8
 		orientation:  'vertical'
-		Lable:
-			text: 'Total bottles picked up"
+		Label:
+			text: 'Insert number of bottles picked up here'
 			color: "black"
 			text_size: self.width, None
-		Button:
-		text: 'Back'
-		on_press:
-			root.manager.current = 'Collective impact'
-		size_hint: 0.16, 0.1 
-		pos: 0, 0
+    BoxLayout:
+        pos: 55, 150
+        size: 0.4, 0.4
+        TextInput: 
+            text: 'Enter here'
+            id: Enterhere1
+            size.self size 
+    BoxLayout:
+        pos:55, 200
+        size: 0.8, 0.8 
+		Button: 
+            text: 'Enter'
+            on_press:
+                root.AddInfo()
+        Button:
+		    text: 'Back'
+		    on_press:
+			    root.manager.current = 'Collective impact'
+		    size_hint: 0.16, 0.1 
+		    pos: 0, 0
 		
 		background_color: 0.18, 0.5, 0.92, 1
