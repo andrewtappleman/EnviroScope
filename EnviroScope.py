@@ -539,7 +539,7 @@ class outOrder(Screen):
     pass     
 
 class BottleCount (Screen):
-    
+    TotalBottles = StringProperty("5")
     def addInfo(self):
 
         global client
@@ -570,8 +570,8 @@ class BottleCount (Screen):
         #Purpose is to get the numebr of bottles
         x = 0
         while self.TotalBottles == -1:
-            if my_collection.find({'Bottles': x}) == True:
-                self.TotalBottles = my_collection.find({'Bottles': x})
+            if my_collection.find({'Bottles': str(x)}) == True:
+                self.TotalBottles = my_collection.find({'Bottles': str(x)})
 
 class EnviroScopeApp(App):
     def build(self):
