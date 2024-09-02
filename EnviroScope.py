@@ -546,10 +546,10 @@ class BottleCount (Screen):
         db = client["CollectiveImpact"]
         
         my_collection = db["TotalBottles"]
-        NameData = [{"Bottles": self.ids.TotalBottles2.text}]
+        NameData = [{"Bottles": self.ids.EnterHere2.text}]
 
         global Bottles
-        Bottles = self.id.TotalBottles2.text
+        Bottles = self.id.EnterHere2.text
 
         try:
             result = my_collection.insert_many(NameData)
