@@ -8,22 +8,22 @@
             size: self.size
 	BoxLayout:
 		pos: 55, 100
-		size_hint: 0.8, 0.8
-		orientation:  'vertical'
+		size_hint: 0.8, 0.2
+        orientation:  'vertical'
 		Label:
 			text: 'Insert number of bottles picked up here'
 			color: "black"
 			text_size: self.width, None
     BoxLayout:
         pos: 55, 150
-        size_hint: 0.4, 0.4
+        size_hint: 0.8, 0.2
         TextInput: 
             text: 'Enter here'
             id: Enterhere1
             size: self.size 
     BoxLayout:
         pos:55, 200
-        size_hint: 0.8, 0.8 
+        size_hint: 0.8, 0.2
 		Button: 
             text: 'Enter'
             on_press:
