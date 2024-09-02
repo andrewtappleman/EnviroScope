@@ -546,13 +546,14 @@ class BottleCount (Screen):
         db = client["CollectiveImpact"]
         
         my_collection = db["TotalBottles"]
-        NameData = [{"Bottles": self.EnterHere2.text}]
+        data = self.ids.EnterHere2.text
+        NameData = [{"Bottles": data}]
 
         global Bottles
-        self.Bottles = self.id.EnterHere2.text
+        self.Bottles = self.ids.EnterHere2.text
 
         try:
-            result = my_collection.insert_many(NameData)
+            result = my_collection.insert_one(NameData)
         except pymongo.errors.OperationFailure:
             print("An authentication error was received. Check your database user permissions.")
             sys.exit(1)
