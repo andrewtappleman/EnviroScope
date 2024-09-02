@@ -561,6 +561,17 @@ class BottleCount (Screen):
             print("I inserted %d documents." % inserted_count)
             print("\n")
         self.manager.current = 'EnvironmentalIssues'
+    def getInfo(self):
+        global client
+        db = client["CollectiveImpact"]
+        
+        my_collection = db["TotalBottles"]
+        self.TotalBottles = -1
+        #Purpose is to get the numebr of bottles
+        x = 0
+        while self.TotalBottles == -1
+            if my_collection.find({'Bottles': x}) == True:
+                self.TotalBottles = my_collection.find({'Bottles': x})
 
 class EnviroScopeApp(App):
     def build(self):
