@@ -25,10 +25,13 @@ from io import BytesIO
 from io import BytesIO
 from PIL import Image as PILImage
 from win10toast import ToastNotifier
+from httpx import HTTPStatusError
+import pandas as pd
 import os
 import time
 os.environ["PAFY_BACKEND"] = "internal"
 import pafy
+import httpx
 import pymongo
 import sys
 import base64
@@ -235,27 +238,68 @@ class SignUp(Screen):
         self.manager.current = 'EnvironmentalIssues'
 
 class FPAY(Screen):
-    
-    def GiveInfo(self):
+    def start(self):
+        self.api_key = 'AIzaSyB2Q8bhNECnUNFF-ZemwlmSXlSfEzelcWU'
+        self.search_engine_id = 'e6b1412f598284e1e'
+        self.query = str(self.ids.zipcode.text) + 'Environmental Issues'
+        print('query', self.query)
+        self.googleSearch()
+
+    def googleSearch(self, **params):
+        base_url = 'https://www.googleapis.com/customsearch/v1'
+        params.update({
+            'key': self.api_key,
+            'cx': self.search_engine_id,
+            'q': self.query,
+            'num': 5
+        })
+        response = httpx.get(base_url, params=params)
+        response.raise_for_status()
+
+        self.finish(response.json())
+
+    def finish(self, response_json):
         
-        Info14901 = 'The Elmira School District bought abandoned land with a past of\nindustrialization.  At only a buck, this was no miracle deal. The site was\npolluted for more than a century.  In Room 127, therewas a test\nthat showed traces of TCE gases seeping into the school.'
+        search_results = []
+
+        items = response_json.get('items', [])
+        for item in items:
+            search_results.append(item.get('link'))
         
-        Info13760 = 'There is hazardous waste where the IBM factories\nwhere BAE Systems is now stationed.  The estimated cost\nfor cleaning up all waste is guessed at about 10 Million.\nThere are still toxic chemicals beneath the buildings but\nDEC staff said these are the most difficult pockets to clean.'
-        if self.ids.ZipcodeInfo.text == '13760':
-            self.ids.InfoLabel.text = Info13760
-            
-        elif self.ids.ZipcodeInfo.text == '14901':
-            self.ids.InfoLabel.text = Info14901
-            
-        elif self.ids.ZipcodeInfo.text == '14904':
-            self.ids.InfoLabel.text = Info14901
-            
-        elif self.ids.ZipcodeInfo.text == '14905':
-            self.ids.InfoLabel.text = Info14901
+        df = pd.json_normalize(response_json.get('items', []))
+
+        search_results = df['link'].tolist() if 'link' in df else []
+        for x in range(10):
+            print('')
+        x = 0
+        print(search_results)
+        for x in range(len(search_results)):
+            print(x)
+            print("Length", len(search_results))
+            print("Search Result", x)
+            print(search_results[x])
+            print('')
+            print('Line 280')
+        x = 0
+        listLen = len(search_results)
+        if listLen > 0:
+            self.ids.Link1.text = search_results[0]
+        if listLen > 1:
+            self.ids.Link2.text = search_results[1]
+        if listLen > 2:
+            self.ids.Link3.text = search_results[2]
+        if listLen > 3:
+            self.ids.Link4.text = search_results[3]
+        if listLen > 4:
+            self.ids.Link5.text = search_results[4]
+
+    def perform_search(self):
+        self.start()
+        for i in range(0, 5, 1):
+            self.googleSearch(start=i + 1)
+            time.sleep(1)
         
-        else:
-            self.ids.InfoLabel.text = 'Sorry, this is only a prototype.  This zipcode has\nnot been added to the database. Thank you.'
-        
+
 class EnvironmentalIssues (Screen):
     pass
    
