@@ -553,7 +553,7 @@ class BottleCount (Screen):
         self.Bottles = self.ids.EnterHere2.text
 
         try:
-            result = my_collection.insert_one(NameData)
+            result = my_collection.insert_many(NameData)
         except pymongo.errors.OperationFailure:
             print("An authentication error was received. Check your database user permissions.")
             sys.exit(1)
