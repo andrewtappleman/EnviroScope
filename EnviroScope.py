@@ -24,7 +24,6 @@ from kivy.core.image import Image as CoreImage
 from io import BytesIO
 from io import BytesIO
 from PIL import Image as PILImage
-from win10toast import ToastNotifier
 import os
 import time
 os.environ["PAFY_BACKEND"] = "internal"
@@ -64,7 +63,7 @@ Builder.load_file('SignUp.kv')
 Builder.load_file('Video1.kv')
 Builder.load_file('AddAJob.kv')
 Builder.load_file('ViewJobs.kv')
-
+Builder.load_file('BottleCount.kv')
 
 uri = "mongodb+srv://admin:admin@enviroscopecluster0.qdwjcoq.mongodb.net/?appName=EnviroScopeCluster0"
 # Create a new client and connect to the server
@@ -270,7 +269,29 @@ class DailyGoals (Screen):
     pass 
      
 class CollectiveImpact (Screen):
-    pass 
+     
+     def addInfo(self):
+
+        global client
+        db = client["BottleCountInfo"]
+        
+        my_collection = db["TotalBottles"]
+        NameData = [{"Bottles": self.ids.TotalBottles2.text}]
+
+        global Bottles
+        Bottles = self.id.TotalBottles2.text
+
+        try:
+            result = my_collection.insert_many(NameData)
+        except pymongo.errors.OperationFailure:
+            print("An authentication error was received. Check your database user permissions.")
+            sys.exit(1)
+        else:
+            inserted_count = len(result.inserted_ids)
+            print("I inserted %d documents." % inserted_count)
+            print("\n")
+        self.manager.current = 'EnvironmentalIssues'
+
 class FamousAdvocates (Screen):
     pass
 
@@ -537,6 +558,34 @@ class instructPost(Screen):
 class outOrder(Screen):
     pass     
 
+class BottleCount (Screen):
+    
+    def check_account(self):
+        
+        global Bottles
+        global client
+        db = client['BottleCountInfo']
+        collection = db['TotalBottles']
+        
+        Total_Bottles = self.ids.TotalBottles1.text
+
+        Bottles = self.ids.TotalBottle1.text
+        
+        query = {"Bottles": Total_Bottles}
+        
+        if self.check_for_type(collection, query):
+            self.manager.current = "EnvironmentalIssues"
+        else:
+            notification.notify(title = 'EnviroScope', message = 'Bottle count was not sucseful in updating')
+            self.ids.TotalBottles1.text = ""
+
+
+    def check_for_type(self, collection, query):
+        result = collection.find_one(query)
+        return result is not None
+
+
+
 class EnviroScopeApp(App):
     def build(self):
         sm = ScreenManager()
@@ -569,6 +618,7 @@ class EnviroScopeApp(App):
         sm.add_widget(Video1(name = 'Video1'))
         sm.add_widget(AddAJob(name = 'AddAJob'))
         sm.add_widget(ViewJobs(name = 'ViewJobs'))
+        sm.add_widget(BottleCount(name = 'BottleCount'))
         return sm
 
 if __name__ == '__main__':
