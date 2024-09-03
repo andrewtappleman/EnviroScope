@@ -573,7 +573,41 @@ class BottleCount (Screen):
         while self.TotalBottles == -1:
             if my_collection.find({'Bottles': str(x)}) == True:
                 self.TotalBottles = my_collection.find({'Bottles': str(x)})
+class ParkCount(Screen):
+    TotalBottles = StringProperty("5")
+    def addInfo(self):
 
+        global client
+        db = client["CollectiveImpact"]
+        
+        my_collection = db["TotalBottles"]
+        data = self.ids.EnterHere2.text
+        NameData = [{"Bottles": data}]
+
+        global Bottles
+        self.Bottles = self.ids.EnterHere2.text
+
+        try:
+            result = my_collection.insert_many(NameData)
+        except pymongo.errors.OperationFailure:
+            print("An authentication error was received. Check your database user permissions.")
+            sys.exit(1)
+        else:
+            inserted_count = len(result.inserted_ids)
+            print("I inserted %d documents." % inserted_count)
+            print("\n")
+        self.manager.current = 'EnvironmentalIssues'
+    def getInfo(self):
+        global client
+        db = client["CollectiveImpact"]
+        
+        my_collection = db["TotalBottles"]
+        self.TotalBottles = -1
+        #Purpose is to get the numebr of bottles
+        x = 0
+        while self.TotalBottles == -1:
+            if my_collection.find({'Bottles': str(x)}) == True:
+                self.TotalBottles = my_collection.find({'Bottles': str(x)})
 class EnviroScopeApp(App):
     def build(self):
         sm = ScreenManager()
@@ -607,6 +641,7 @@ class EnviroScopeApp(App):
         sm.add_widget(AddAJob(name = 'AddAJob'))
         sm.add_widget(ViewJobs(name = 'ViewJobs'))
         sm.add_widget(BottleCount(name = 'BottleCount'))
+        sm.add_widget(ParkCount(name = 'ParkCount'))
         return sm
 
 if __name__ == '__main__':
