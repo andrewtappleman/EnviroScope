@@ -16,30 +16,14 @@
             pos: self.pos
             size: self.size
     BoxLayout:
-        orientation: 'Vertical'
-        size_hint_y: None
-        height: '40dp'
-        pos_hint: {'x': 0, 'top': 0.65}
-        Label:
-            text: ''
-            id: Link1
-            color: 'black'
-        Label:
-            text: ''
-            id: Link2
-            color: 'black'
-        Label:
-            text: ''
-            id: Link3
-            color: 'black'
-        Label:
-            text: ''
-            id: Link4
-            color: 'black'
-        Label:
-            text: ''
-            id: Link5
-            color: 'black'
+        pos: 55, 450
+        size_hint: 0.8, 0.15
+        Button:
+            text: 'Open Links'
+            pos: self.pos
+            size: self.size
+            on_press: root.makeLink()
+            background_color: 0.4196, 0.7922, 0.9569, 1
 
     BoxLayout:
         pos: 55, 275

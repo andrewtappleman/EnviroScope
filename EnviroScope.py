@@ -1,3 +1,9 @@
+#-*-coding:utf8;-*-
+#qpy:2
+#qpy:kivy
+#:kivy 2.3.0
+#:import webbrowser webbrowser
+
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.core.window import Window
@@ -26,8 +32,13 @@ from io import BytesIO
 from PIL import Image as PILImage
 from win10toast import ToastNotifier
 from httpx import HTTPStatusError
+#from jnius import autoclass
+from kivy.utils import platform
+from kivy.clock import Clock
+#from android.runnable import run_on_ui_thread
 import pandas as pd
 import os
+import webbrowser
 import time
 os.environ["PAFY_BACKEND"] = "internal"
 import pafy
@@ -238,10 +249,16 @@ class SignUp(Screen):
         self.manager.current = 'EnvironmentalIssues'
 
 class FPAY(Screen):
+    link1 = StringProperty("https://mrdoob.com/#/147/google_space")
+    link2 = StringProperty("https://mrdoob.com/#/147/google_space")
+    link3 = StringProperty("https://mrdoob.com/#/147/google_space")
+    link4 = StringProperty("https://mrdoob.com/#/147/google_space")
+    link5 = StringProperty("https://mrdoob.com/#/147/google_space")
     def start(self):
         self.api_key = 'AIzaSyB2Q8bhNECnUNFF-ZemwlmSXlSfEzelcWU'
         self.search_engine_id = 'e6b1412f598284e1e'
-        self.query = str(self.ids.zipcode.text) + 'Environmental Issues'
+        notification.notify(title = 'EnviroScope', message = 'Search Pending.')
+        self.query = str(self.ids.zipcode.text)
         print('query', self.query)
         self.googleSearch()
 
@@ -269,36 +286,35 @@ class FPAY(Screen):
         df = pd.json_normalize(response_json.get('items', []))
 
         search_results = df['link'].tolist() if 'link' in df else []
-        for x in range(10):
-            print('')
         x = 0
         print(search_results)
-        for x in range(len(search_results)):
-            print(x)
-            print("Length", len(search_results))
-            print("Search Result", x)
-            print(search_results[x])
-            print('')
-            print('Line 280')
         x = 0
         listLen = len(search_results)
         if listLen > 0:
-            self.ids.Link1.text = search_results[0]
+            self.link1 = search_results[0]
         if listLen > 1:
-            self.ids.Link2.text = search_results[1]
+            self.link2 = search_results[1]
         if listLen > 2:
-            self.ids.Link3.text = search_results[2]
+            self.link3 = search_results[2]
         if listLen > 3:
-            self.ids.Link4.text = search_results[3]
+            self.link4 = search_results[3]
         if listLen > 4:
-            self.ids.Link5.text = search_results[4]
+            self.link5 = search_results[4]
+        notification.notify(title = 'EnviroScope', message = 'Search Concluded.')
 
     def perform_search(self):
         self.start()
         for i in range(0, 5, 1):
             self.googleSearch(start=i + 1)
             time.sleep(1)
-        
+    
+    def makeLink(self):
+        webbrowser.open(self.link1)        
+        webbrowser.open(self.link2)
+        webbrowser.open(self.link3)
+        webbrowser.open(self.link4)
+        webbrowser.open(self.link5)
+
 
 class EnvironmentalIssues (Screen):
     pass
