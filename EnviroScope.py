@@ -574,18 +574,18 @@ class BottleCount (Screen):
             if my_collection.find({'Bottles': str(x)}) == True:
                 self.TotalBottles = my_collection.find({'Bottles': str(x)})
 class ParkCount(Screen):
-    TotalBottles = StringProperty("5")
+    TotalParks = StringProperty("5")
     def addInfo(self):
 
         global client
         db = client["CollectiveImpact"]
         
         my_collection = db["TotalBottles"]
-        data = self.ids.EnterHere2.text
+        data = self.ids.Submit2.text
         NameData = [{"Bottles": data}]
 
-        global Bottles
-        self.Bottles = self.ids.EnterHere2.text
+        global Parks
+        self.Parks = self.ids.Submit2.text
 
         try:
             result = my_collection.insert_many(NameData)
@@ -601,13 +601,13 @@ class ParkCount(Screen):
         global client
         db = client["CollectiveImpact"]
         
-        my_collection = db["TotalBottles"]
+        my_collection = db["TotalParks"]
         self.TotalBottles = -1
         #Purpose is to get the numebr of bottles
         x = 0
-        while self.TotalBottles == -1:
-            if my_collection.find({'Bottles': str(x)}) == True:
-                self.TotalBottles = my_collection.find({'Bottles': str(x)})
+        while self.TotalParks == -1:
+            if my_collection.find({'Parks': str(x)}) == True:
+                self.TotalParks = my_collection.find({'Parks': str(x)})
 class EnviroScopeApp(App):
     def build(self):
         sm = ScreenManager()
