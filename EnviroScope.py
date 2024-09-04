@@ -1,33 +1,35 @@
+
+#:import webbrowser webbrowser
+
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.core.window import Window
-from kivy.uix.widget import Widget
 from kivy.uix.button import Button
-from kivy.uix.textinput import TextInput
-from kivy.uix.floatlayout import FloatLayout
-from kivy.factory import Factory
 from kivy.properties import ObjectProperty
-from kivy.uix.popup import Popup
-from kivy.uix.label import Label
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.image import Image, AsyncImage
 from plyer import notification
-from kivy.uix.filechooser import FileChooserIconView
 from kivy.lang import Builder
-from kivy.uix.videoplayer import VideoPlayer
 from kivy.properties import StringProperty
-from kivy.clock import Clock
 from pymongo.mongo_client import MongoClient
-from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.dropdown  import DropDown
 from kivy.core.image import Image as CoreImage
 from io import BytesIO
 from io import BytesIO
 from PIL import Image as PILImage
+<<<<<<< HEAD
+=======
+from win10toast import ToastNotifier
+from httpx import HTTPStatusError
+from kivy.utils import platform
+from kivy.clock import Clock
+import pandas as pd
+>>>>>>> b7cb06f5b1e0a8ca53db499a6506695ec41904ec
 import os
+import webbrowser
 import time
 os.environ["PAFY_BACKEND"] = "internal"
 import pafy
+import httpx
+
 import pymongo
 import sys
 import base64
@@ -108,12 +110,7 @@ class viewContact(Screen):
     
         stateInfo = list(cursor)
         print(stateInfo)
-        for x in range(5):
-            print("")
-            print(state)
-        for x in range(5):
-            print("")
-            print(district)
+
         print("Querying for state:", state)
         print("State Info Results:", stateInfo)
     
@@ -234,27 +231,73 @@ class SignUp(Screen):
         self.manager.current = 'EnvironmentalIssues'
 
 class FPAY(Screen):
+    link1 = StringProperty("https://mrdoob.com/#/147/google_space")
+    link2 = StringProperty("https://mrdoob.com/#/147/google_space")
+    link3 = StringProperty("https://mrdoob.com/#/147/google_space")
+    link4 = StringProperty("https://mrdoob.com/#/147/google_space")
+    link5 = StringProperty("https://mrdoob.com/#/147/google_space")
+    def start(self):
+        self.api_key = 'AIzaSyB2Q8bhNECnUNFF-ZemwlmSXlSfEzelcWU'
+        self.search_engine_id = 'e6b1412f598284e1e'
+        notification.notify(title = 'EnviroScope', message = 'Search Pending.')
+        self.query = str(self.ids.zipcode.text)
+        print('query', self.query)
+        self.googleSearch()
+
+    def googleSearch(self, **params):
+        base_url = 'https://www.googleapis.com/customsearch/v1'
+        params.update({
+            'key': self.api_key,
+            'cx': self.search_engine_id,
+            'q': self.query,
+            'num': 5
+        })
+        response = httpx.get(base_url, params=params)
+        response.raise_for_status()
+
+        self.finish(response.json())
+
+    def finish(self, response_json):
+        
+        search_results = []
+
+        items = response_json.get('items', [])
+        for item in items:
+            search_results.append(item.get('link'))
+        
+        df = pd.json_normalize(response_json.get('items', []))
+
+        search_results = df['link'].tolist() if 'link' in df else []
+        x = 0
+        print(search_results)
+        x = 0
+        listLen = len(search_results)
+        if listLen > 0:
+            self.link1 = search_results[0]
+        if listLen > 1:
+            self.link2 = search_results[1]
+        if listLen > 2:
+            self.link3 = search_results[2]
+        if listLen > 3:
+            self.link4 = search_results[3]
+        if listLen > 4:
+            self.link5 = search_results[4]
+        notification.notify(title = 'EnviroScope', message = 'Search Concluded.')
+
+    def perform_search(self):
+        self.start()
+        for i in range(0, 5, 1):
+            self.googleSearch(start=i + 1)
+            time.sleep(1)
     
-    def GiveInfo(self):
-        
-        Info14901 = 'The Elmira School District bought abandoned land with a past of\nindustrialization.  At only a buck, this was no miracle deal. The site was\npolluted for more than a century.  In Room 127, therewas a test\nthat showed traces of TCE gases seeping into the school.'
-        
-        Info13760 = 'There is hazardous waste where the IBM factories\nwhere BAE Systems is now stationed.  The estimated cost\nfor cleaning up all waste is guessed at about 10 Million.\nThere are still toxic chemicals beneath the buildings but\nDEC staff said these are the most difficult pockets to clean.'
-        if self.ids.ZipcodeInfo.text == '13760':
-            self.ids.InfoLabel.text = Info13760
-            
-        elif self.ids.ZipcodeInfo.text == '14901':
-            self.ids.InfoLabel.text = Info14901
-            
-        elif self.ids.ZipcodeInfo.text == '14904':
-            self.ids.InfoLabel.text = Info14901
-            
-        elif self.ids.ZipcodeInfo.text == '14905':
-            self.ids.InfoLabel.text = Info14901
-        
-        else:
-            self.ids.InfoLabel.text = 'Sorry, this is only a prototype.  This zipcode has\nnot been added to the database. Thank you.'
-        
+    def makeLink(self):
+        webbrowser.open(self.link1)        
+        webbrowser.open(self.link2)
+        webbrowser.open(self.link3)
+        webbrowser.open(self.link4)
+        webbrowser.open(self.link5)
+
+
 class EnvironmentalIssues (Screen):
     pass
    
