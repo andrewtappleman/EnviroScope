@@ -1,30 +1,15 @@
-#-*-coding:utf8;-*-
-#qpy:2
-#qpy:kivy
-#:kivy 2.3.0
+
 #:import webbrowser webbrowser
 
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.core.window import Window
-from kivy.uix.widget import Widget
 from kivy.uix.button import Button
-from kivy.uix.textinput import TextInput
-from kivy.uix.floatlayout import FloatLayout
-from kivy.factory import Factory
 from kivy.properties import ObjectProperty
-from kivy.uix.popup import Popup
-from kivy.uix.label import Label
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.image import Image, AsyncImage
 from plyer import notification
-from kivy.uix.filechooser import FileChooserIconView
 from kivy.lang import Builder
-from kivy.uix.videoplayer import VideoPlayer
 from kivy.properties import StringProperty
-from kivy.clock import Clock
 from pymongo.mongo_client import MongoClient
-from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.dropdown  import DropDown
 from kivy.core.image import Image as CoreImage
 from io import BytesIO
@@ -32,10 +17,8 @@ from io import BytesIO
 from PIL import Image as PILImage
 from win10toast import ToastNotifier
 from httpx import HTTPStatusError
-#from jnius import autoclass
 from kivy.utils import platform
 from kivy.clock import Clock
-#from android.runnable import run_on_ui_thread
 import pandas as pd
 import os
 import webbrowser
@@ -43,6 +26,7 @@ import time
 os.environ["PAFY_BACKEND"] = "internal"
 import pafy
 import httpx
+
 import pymongo
 import sys
 import base64
@@ -123,12 +107,7 @@ class viewContact(Screen):
     
         stateInfo = list(cursor)
         print(stateInfo)
-        for x in range(5):
-            print("")
-            print(state)
-        for x in range(5):
-            print("")
-            print(district)
+
         print("Querying for state:", state)
         print("State Info Results:", stateInfo)
     
