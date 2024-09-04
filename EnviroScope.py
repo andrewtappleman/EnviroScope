@@ -24,7 +24,6 @@ from kivy.core.image import Image as CoreImage
 from io import BytesIO
 from io import BytesIO
 from PIL import Image as PILImage
-from win10toast import ToastNotifier
 import os
 import time
 os.environ["PAFY_BACKEND"] = "internal"
