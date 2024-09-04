@@ -4,32 +4,40 @@
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.core.window import Window
+from kivy.uix.widget import Widget
 from kivy.uix.button import Button
+from kivy.uix.textinput import TextInput
+from kivy.uix.floatlayout import FloatLayout
+from kivy.factory import Factory
 from kivy.properties import ObjectProperty
+from kivy.uix.popup import Popup
+from kivy.uix.label import Label
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.image import Image, AsyncImage
 from plyer import notification
+from kivy.uix.filechooser import FileChooserIconView
 from kivy.lang import Builder
+from kivy.uix.videoplayer import VideoPlayer
 from kivy.properties import StringProperty
+from kivy.clock import Clock
 from pymongo.mongo_client import MongoClient
+from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.dropdown  import DropDown
 from kivy.core.image import Image as CoreImage
 from io import BytesIO
 from io import BytesIO
 from PIL import Image as PILImage
-<<<<<<< HEAD
-=======
 from win10toast import ToastNotifier
 from httpx import HTTPStatusError
 from kivy.utils import platform
 from kivy.clock import Clock
 import pandas as pd
->>>>>>> b7cb06f5b1e0a8ca53db499a6506695ec41904ec
 import os
 import webbrowser
 import time
 os.environ["PAFY_BACKEND"] = "internal"
 import pafy
 import httpx
-
 import pymongo
 import sys
 import base64
@@ -86,6 +94,7 @@ Window.size = (width_base * scale, height_base * scale)
 district = ''
 state = ''
 username = ''
+notifLimit = 0
 class viewContact(Screen):
     Phone1 = StringProperty("Default Info")
     Address1 = StringProperty("Default Info")
@@ -110,7 +119,6 @@ class viewContact(Screen):
     
         stateInfo = list(cursor)
         print(stateInfo)
-
         print("Querying for state:", state)
         print("State Info Results:", stateInfo)
     
@@ -258,7 +266,7 @@ class FPAY(Screen):
         self.finish(response.json())
 
     def finish(self, response_json):
-        
+        global notifLimit
         search_results = []
 
         items = response_json.get('items', [])
@@ -268,9 +276,7 @@ class FPAY(Screen):
         df = pd.json_normalize(response_json.get('items', []))
 
         search_results = df['link'].tolist() if 'link' in df else []
-        x = 0
         print(search_results)
-        x = 0
         listLen = len(search_results)
         if listLen > 0:
             self.link1 = search_results[0]
@@ -282,8 +288,10 @@ class FPAY(Screen):
             self.link4 = search_results[3]
         if listLen > 4:
             self.link5 = search_results[4]
-        notification.notify(title = 'EnviroScope', message = 'Search Concluded.')
-
+        notifLimit += 1
+        if notifLimit == 5:
+            notification.notify(title = 'EnviroScope', message = 'Search Concluded.')
+        
     def perform_search(self):
         self.start()
         for i in range(0, 5, 1):
