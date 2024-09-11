@@ -164,8 +164,8 @@ class AddAJob(Screen):
 
         notification.notify(title = 'EnviroScope', message = 'You have created a clean up.')      
         global client
-        db = client['CleanUps']
-        collection = db['Jobs']
+        db = client['MainData']
+        collection = db['Litter Cleanups']
         
         name = self.ids.NameInput.text
         location = self.ids.Location.text
@@ -190,8 +190,8 @@ class SignIn(Screen):
         
         global username
         global client
-        db = client['AccountInfo']
-        collection = db['NamePassword']
+        db = client['MainData']
+        collection = db['Account Info']
         
         user_name = self.ids.UserName1.text
 
@@ -219,9 +219,9 @@ class SignUp(Screen):
     def addInfo(self):
 
         global client
-        db = client["AccountInfo"]
+        db = client["MainData"]
         
-        my_collection = db["NamePassword"]
+        my_collection = db["Account Info"]
         NameData = [{"name": self.ids.UserName2.text, "password": self.ids.Password2.text}]
 
         global username
@@ -379,8 +379,8 @@ class ViewJobs(Screen):
     def on_pre_enter(self):
 
         global client
-        db = client['CleanUps']
-        collection = db['Jobs']
+        db = client['MainData']
+        collection = db['Litter Cleanups']
         Job1 = collection.find().sort('_id', -1).skip(3).limit(1)[0]
         self.Job11 = Job1['Location']
         self.Job12 = Job1['Date']
@@ -449,8 +449,8 @@ class SocialMediaPage (Screen):
     def Social(self):
 
         global client
-        db = client['SocialMedia']
-        collection = db['Posts']
+        db = client['MainData']
+        collection = db['Social Media']
 
         global username
 
@@ -521,8 +521,8 @@ class LitterSheet (Screen):
 
     def create_dropdown(self):
         global client
-        db = client['CleanUps']
-        collection = db['Jobs']
+        db = client['MainData']
+        collection = db['Litter Cleanups']
     
         dropButton = self.ids.dropButton
     
@@ -545,8 +545,8 @@ class LitterSheet (Screen):
         notification.notify(title = 'EnviroScope', message = 'You have joined a clean up.')
         global username
         global client
-        db = client['LitterSheet']
-        collection = db['Jobs']
+        db = client['MainData']
+        collection = db['Litter Cleanups']
         
         name = self.ids.NameInput.text
         cleanup = self.ids.dropButton.text
@@ -644,8 +644,8 @@ class PostMedia(Screen):
         notification.notify(title = 'EnviroScope', message = 'You have posted your photos.')
 
         global client
-        db = client['SocialMedia']
-        posts_collection = db['Posts']
+        db = client['MainData']
+        posts_collection = db['Social Media']
 
         beforePath = self.ids.beforePhoto.text
 
