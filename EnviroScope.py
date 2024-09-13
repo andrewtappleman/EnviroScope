@@ -460,10 +460,10 @@ class DailyStreaks (Screen):
         global client
         global username
         db = client['MainData']
-        collection = db['Streak']
-        streakDoc = collection.find_one({"username": username})
+        collection = db['Account Info']
+        streakDoc = collection.find_one({"name": username})
         streakVal = streakDoc["streak"]
-        notification.notify(title = 'EnviroScope', message = 'Your streak is ' + streakVal + '.')
+        notification.notify(title = 'EnviroScope', message = 'Your streak is ' + str(streakVal) + '.')
 
 class DailyGoals (Screen):
     pass 

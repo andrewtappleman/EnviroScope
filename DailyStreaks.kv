@@ -1,23 +1,19 @@
 <DailyStreaks>:
     name: "DailyStreaks"
+
     canvas.before:
         Color:
             rgba: 0.592, 0.741, 0.969, 1
         Rectangle:
             pos: self.pos
             size: self.size
-	canvas.before:
-        Color:
-            rgba: 1, 0, 0, 1
-        Rectangle:
-            pos: 55, 575
-            size: 8 * 45, 75
 
     Button:
 		text: 'What Is My Streak?'
 		size_hint: 0.8, 0.1
 		pos: 55, 400
 		on_press: root.seeStreak()
+		background_color: 0.18, 0.5, 0.92, 1
 	Button: 
 		text: 'Back'
 		on_press:
