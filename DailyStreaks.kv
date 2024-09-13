@@ -1,23 +1,19 @@
 <DailyStreaks>:
     name: "DailyStreaks"
-#    canvas.before:
-#        Color:
-#            rgba: 0.592, 0.741, 0.969, 1
-#        Rectangle:
-#            pos: self.pos
-#            size: self.size
-#    Image:
-#        source: 'th.jfif'
-#        pos: 45, 575
-#        size_hint: 0.5, 0.5
-#        allow_stretch: True
-#    Label:
-#        text: 'Streak: 24'
-#        size_hint: 0.8, 0.1
-#        pos: 55, 500
-#	
-    Label:
-        text: 'This page is still in the development phase.'
+
+    canvas.before:
+        Color:
+            rgba: 0.592, 0.741, 0.969, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    Button:
+		text: 'What Is My Streak?'
+		size_hint: 0.8, 0.1
+		pos: 55, 400
+		on_press: root.seeStreak()
+		background_color: 0.18, 0.5, 0.92, 1
 	Button: 
 		text: 'Back'
 		on_press:
@@ -25,5 +21,5 @@
 		size_hint: 0.16, 0.1
 		pos: 0, 0
 		
-#		background_color: 0.18, 0.5, 0.92, 1
+		background_color: 0.18, 0.5, 0.92, 1
 	
