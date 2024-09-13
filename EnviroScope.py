@@ -31,7 +31,9 @@ from win10toast import ToastNotifier
 from httpx import HTTPStatusError
 from kivy.utils import platform
 from kivy.clock import Clock
+from datetime import datetime, timedelta
 import pandas as pd
+import json
 import os
 import webbrowser
 import time
@@ -222,7 +224,8 @@ class SignUp(Screen):
         db = client["MainData"]
         
         my_collection = db["Account Info"]
-        NameData = [{"name": self.ids.UserName2.text, "password": self.ids.Password2.text}]
+        today = datetime.now().date()
+        NameData = [{"name": self.ids.UserName2.text, "password": self.ids.Password2.text, "streak": "0", "last_date": today}]
 
         global username
         username = self.ids.UserName2.text
@@ -307,7 +310,42 @@ class FPAY(Screen):
 
 
 class EnvironmentalIssues (Screen):
-    pass
+    def on_pre_enter(self):
+        self.update_streak()
+        today = datetime.now().date()
+        print(today)
+
+    def update_streak(self):
+        global client
+        global username
+        db = client['MainData']
+        collection = db['Account Info']
+        
+        streakDoc = collection.find_one({"name": username})
+        
+        last_active_date = streakDoc['last_date']
+        streak_count = int(streakDoc['streak'])
+            
+        today = datetime.now().date()
+        json_data = json.dumps({'created_at': today.isoformat()})
+
+        if isinstance(last_active_date, datetime):
+            last_active_date = last_active_date.date()
+        
+        if last_active_date is None:
+            streak_count = 1
+        elif last_active_date == today - timedelta(days=1):
+            streak_count += 1
+        else:
+            streak_count = 1
+        
+        today_datetime = datetime.combine(today, datetime.min.time())
+    
+        filter = {"name": username}
+        update = {"$set": {"last_date": json_data, "streak": streak_count}}
+        
+        collection.update_many(filter, update)
+
    
 class GetInContact (Screen):
     def on_pre_enter(self):
@@ -418,7 +456,14 @@ class LeaderBoard (Screen):
     pass 
     
 class DailyStreaks (Screen):
-    pass
+    def seeStreak(self):
+        global client
+        global username
+        db = client['MainData']
+        collection = db['Streak']
+        streakDoc = collection.find_one({"username": username})
+        streakVal = streakDoc["streak"]
+        notification.notify(title = 'EnviroScope', message = 'Your streak is ' + streakVal + '.')
 
 class DailyGoals (Screen):
     pass 
