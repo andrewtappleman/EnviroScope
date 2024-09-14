@@ -11,20 +11,19 @@
         pos: 55, 625
         size_hint: 0.8, 0.15
         TextInput:
-            id: ZipcodeInfo
-            text: ''
+            id: zipcode
+            text: 'Zipcode'
             pos: self.pos
             size: self.size
-    
     BoxLayout:
         pos: 55, 450
         size_hint: 0.8, 0.15
-        Label:
-            color: 'black'
-            id: InfoLabel
-            text: 'Enter your zipcode above.  Try 13760 or 14901.\nThen press submit.'
+        Button:
+            text: 'Open Links'
             pos: self.pos
-            font_size: 20
+            size: self.size
+            on_press: root.makeLink()
+            background_color: 0.4196, 0.7922, 0.9569, 1
 
     BoxLayout:
         pos: 55, 275
@@ -34,7 +33,7 @@
             pos: self.pos
             size: self.texture_size
             background_color: 0.4196, 0.7922, 0.9569, 1
-            on_press: root.GiveInfo()
+            on_press: root.perform_search()
                 
     Button:
         text: 'Back'

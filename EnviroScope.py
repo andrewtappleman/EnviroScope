@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+=======
+
+
+#:import webbrowser webbrowser
+
+>>>>>>> 0ced0c7bdd284455d227d6ca292dc6c803573de8
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.core.window import Window
@@ -28,6 +35,23 @@ import os
 import time
 os.environ["PAFY_BACKEND"] = "internal"
 import pafy
+<<<<<<< HEAD
+=======
+
+from win10toast import ToastNotifier
+from httpx import HTTPStatusError
+from kivy.utils import platform
+from kivy.clock import Clock
+from datetime import datetime, timedelta
+import pandas as pd
+import json
+import os
+import webbrowser
+import time
+os.environ["PAFY_BACKEND"] = "internal"
+import pafy
+import httpx
+>>>>>>> 0ced0c7bdd284455d227d6ca292dc6c803573de8
 import pymongo
 import sys
 import base64
@@ -64,6 +88,16 @@ Builder.load_file('Video1.kv')
 Builder.load_file('AddAJob.kv')
 Builder.load_file('ViewJobs.kv')
 Builder.load_file('BottleCount.kv')
+<<<<<<< HEAD
+=======
+print("")
+
+Builder.load_file('viewContact.kv')
+Builder.load_file('SocialMedia.kv')
+Builder.load_file('SocialChat.kv')
+
+
+>>>>>>> 0ced0c7bdd284455d227d6ca292dc6c803573de8
 
 uri = "mongodb+srv://admin:admin@enviroscopecluster0.qdwjcoq.mongodb.net/?appName=EnviroScopeCluster0"
 # Create a new client and connect to the server
@@ -79,8 +113,127 @@ width_base = 15
 height_base = 25
 scale = 30
 Window.size = (width_base * scale, height_base * scale)
+<<<<<<< HEAD
 
 username = ''
+=======
+username = ''
+district = ''
+state = ''
+username = ''
+notifLimit = 0
+new = 0
+
+class SocialMedia(Screen):
+    pass
+class SocialChat(Screen):
+    Entry1 = StringProperty('Default Text')
+    Entry2 = StringProperty('Default Text')
+    Entry3 = StringProperty('Default Text')
+    Entry4 = StringProperty('Default Text')
+    Entry5 = StringProperty('Default Text')
+
+    Name1 = StringProperty('Default Text')
+    Name2 = StringProperty('Default Text')
+    Name3 = StringProperty('Default Text')
+    Name4 = StringProperty('Default Text')
+    Name5 = StringProperty('Default Text')
+
+    def on_enter(self):
+        self.refresh()
+    def refresh(self):
+        global client
+        global username
+        db = client['MainData']
+        collection = db['Chat']
+        EntryFind1 = collection.find().sort('_id', -1).skip(4).limit(1)[0]
+        EntryFind2 = collection.find().sort('_id', -1).skip(3).limit(1)[0]
+        EntryFind3 = collection.find().sort('_id', -1).skip(2).limit(1)[0]
+        EntryFind4 = collection.find().sort('_id', -1).skip(1).limit(1)[0]
+        EntryFind5 = collection.find().sort('_id', -1).limit(1)[0]
+
+        self.Entry1 = EntryFind1['Entry']
+        self.Name1 = EntryFind1['Username']
+        self.Entry2 = EntryFind2['Entry']
+        self.Name2 = EntryFind2['Username']
+        self.Entry3 = EntryFind3['Entry']
+        self.Name3 = EntryFind3['Username']
+        self.Entry4 = EntryFind4['Entry']
+        self.Name4 = EntryFind4['Username']
+        self.Entry5 = EntryFind5['Entry']
+        self.Name5 = EntryFind5['Username']
+    
+    def addToDB(self):
+        global client
+        global username
+        db = client['MainData']
+        collection = db['Chat']
+        FullEntry = self.ids.EntryInput.text
+
+        query = [{"Username": username, "Entry": FullEntry}]
+        
+        try:
+            result = collection.insert_many(query)
+        except pymongo.errors.OperationFailure:
+            print("An authentication error was received. Check your database user permissions.")
+            print('')
+            print('')
+            sys.exit(1)
+        else:
+            inserted_count = len(result.inserted_ids)
+            print("I inserted %d documents." % inserted_count)
+            print("")
+            print('')
+        self.refresh()
+
+
+class viewContact(Screen):
+    Phone1 = StringProperty("Default Info")
+    Address1 = StringProperty("Default Info")
+    Role1 = StringProperty("Default Info")
+
+    Phone2 = StringProperty("Default Info")
+    Address2 = StringProperty("Default Info")
+    Role2 = StringProperty("Default Info")
+
+    Phone3 = StringProperty("Default Info")
+    Address3 = StringProperty("Default Info")
+    Role3 = StringProperty("Default Info")
+    
+    def on_pre_enter(self):
+        global state
+        global district
+        global clientDaily
+        db = client['Contacts']
+        collection = db['Info']
+        
+        cursor = collection.find({"State": state}).limit(2)
+    
+        stateInfo = list(cursor)
+        print(stateInfo)
+        print("Querying for state:", state)
+        print("State Info Results:", stateInfo)
+    
+        Person1 = stateInfo[0]
+        self.Role1 = Person1['Role']
+        self.Address1 = Person1['Address']
+        self.Phone1 = Person1['Phone']
+
+        Person2 = stateInfo[1]
+        self.Role2 = Person2['Role']
+        self.Address2 = Person2['Address']
+        self.Phone2 = Person2['Phone']
+
+
+
+        cursor = collection.find({"District": district}).limit(1)
+        districtInfo = list(cursor)
+        Person3 = districtInfo[0]
+        self.Role3 = Person3['Role']
+        self.Address3 = Person3['Address']
+        self.Phone3 = Person3['Phone']
+
+>>>>>>> 0ced0c7bdd284455d227d6ca292dc6c803573de8
 
 class NewYorkState(Screen):
     pass
@@ -106,6 +259,12 @@ class AddAJob(Screen):
         global client
         db = client['CleanUps']
         collection = db['Jobs']
+<<<<<<< HEAD
+=======
+
+        db = client['MainData']
+        collection = db['Litter Cleanups']
+>>>>>>> 0ced0c7bdd284455d227d6ca292dc6c803573de8
         
         name = self.ids.NameInput.text
         location = self.ids.Location.text
@@ -132,6 +291,16 @@ class SignIn(Screen):
         global client
         db = client['AccountInfo']
         collection = db['NamePassword']
+<<<<<<< HEAD
+=======
+        global new
+        global username
+
+        new = 0
+
+        db = client['MainData']
+        collection = db['Account Info']
+>>>>>>> 0ced0c7bdd284455d227d6ca292dc6c803573de8
         
         user_name = self.ids.UserName1.text
 
@@ -164,6 +333,17 @@ class SignUp(Screen):
         my_collection = db["NamePassword"]
         NameData = [{"name": self.ids.UserName2.text, "password": self.ids.Password2.text}]
 
+<<<<<<< HEAD
+=======
+        global new
+        new = 1
+        db = client["MainData"]
+        
+        my_collection = db["Account Info"]
+        today = datetime.now().date()
+        NameData = [{"name": self.ids.UserName2.text, "password": self.ids.Password2.text}]
+
+>>>>>>> 0ced0c7bdd284455d227d6ca292dc6c803573de8
         global username
         username = self.ids.UserName2.text
 
@@ -205,6 +385,132 @@ class EnvironmentalIssues (Screen):
    
 class GetInContact (Screen):
     pass
+<<<<<<< HEAD
+=======
+
+    link1 = StringProperty("https://mrdoob.com/#/147/google_space")
+    link2 = StringProperty("https://mrdoob.com/#/147/google_space")
+    link3 = StringProperty("https://mrdoob.com/#/147/google_space")
+    link4 = StringProperty("https://mrdoob.com/#/147/google_space")
+    link5 = StringProperty("https://mrdoob.com/#/147/google_space")
+    def start(self):
+        self.api_key = 'AIzaSyB2Q8bhNECnUNFF-ZemwlmSXlSfEzelcWU'
+        self.search_engine_id = 'e6b1412f598284e1e'
+        notification.notify(title = 'EnviroScope', message = 'Search Pending.')
+        self.query = str(self.ids.zipcode.text)
+        print('query', self.query)
+        self.googleSearch()
+
+    def googleSearch(self, **params):
+        base_url = 'https://www.googleapis.com/customsearch/v1'
+        params.update({
+            'key': self.api_key,
+            'cx': self.search_engine_id,
+            'q': self.query,
+            'num': 5
+        })
+        response = httpx.get(base_url, params=params)
+        response.raise_for_status()
+
+        self.finish(response.json())
+
+    def finish(self, response_json):
+        global notifLimit
+        search_results = []
+
+        items = response_json.get('items', [])
+        for item in items:
+            search_results.append(item.get('link'))
+        
+        df = pd.json_normalize(response_json.get('items', []))
+
+        search_results = df['link'].tolist() if 'link' in df else []
+        print(search_results)
+        listLen = len(search_results)
+        if listLen > 0:
+            self.link1 = search_results[0]
+        if listLen > 1:
+            self.link2 = search_results[1]
+        if listLen > 2:
+            self.link3 = search_results[2]
+        if listLen > 3:
+            self.link4 = search_results[3]
+        if listLen > 4:
+            self.link5 = search_results[4]
+        notifLimit += 1
+        if notifLimit == 5:
+            notification.notify(title = 'EnviroScope', message = 'Search Concluded.')
+        
+    def perform_search(self):
+        self.start()
+        for i in range(0, 5, 1):
+            self.googleSearch(start=i + 1)
+            time.sleep(1)
+    
+    def makeLink(self):
+        webbrowser.open(self.link1)        
+        webbrowser.open(self.link2)
+        webbrowser.open(self.link3)
+        webbrowser.open(self.link4)
+        webbrowser.open(self.link5)
+
+
+class EnvironmentalIssues (Screen):
+    pass
+        
+   
+class GetInContact (Screen):
+    def on_pre_enter(self):
+        self.createState()
+        self.createDistrict()
+    def createState(self):
+        global client
+        global state
+    
+        dropButton1 = self.ids.dropButton1
+    
+        dropdown = DropDown(size_hint=(None, None), size=(45 * 8, 75))
+        dropdown.bind(on_select=lambda instance, x: setattr(dropButton1, 'text', x))
+        for x in range(1):
+            btn = Button(text="New York", size_hint_y=None, height=44, background_color = (0.0, 0.447, 0.071, 1))
+            btn.bind(on_release=lambda btn: dropdown.select(btn.text))
+            dropdown.add_widget(btn)
+    
+        dropButton1.bind(on_press=dropdown.open)
+    
+      
+        state = dropButton1.text
+
+    def createDistrict(self):
+        global client
+        global district
+        db = client['Contacts']
+        collection = db['Info']
+    
+        dropButton2 = self.ids.dropButton2
+    
+        dropdown = DropDown(size_hint=(None, None), size=(45 * 8, 75))
+    
+
+        options = collection.find({}, {"_id": 0, "District": 1})
+    
+        for option in options:
+            btn = Button(text=option['District'], size_hint_y=None, height=44, background_color = (0.0, 0.447, 0.071, 1))
+            btn.bind(on_release=lambda btn: dropdown.select(btn.text))
+            if btn.text != "Not Found":
+                dropdown.add_widget(btn)
+    
+        dropButton2.bind(on_press=dropdown.open)
+    
+        dropdown.bind(on_select=lambda instance, x: setattr(dropButton2, 'text', x))
+        district = dropButton2.text
+
+    def access(self):
+        self.createState()
+        self.createDistrict()
+        self.manager.current = "viewContact"
+        
+>>>>>>> 0ced0c7bdd284455d227d6ca292dc6c803573de8
 class ViewJobs(Screen):
     Job11 = StringProperty("Default Info")
     Job12 = StringProperty("Default Info")
@@ -226,6 +532,11 @@ class ViewJobs(Screen):
         global client
         db = client['CleanUps']
         collection = db['Jobs']
+<<<<<<< HEAD
+=======
+        db = client['MainData']
+        collection = db['Litter Cleanups']
+>>>>>>> 0ced0c7bdd284455d227d6ca292dc6c803573de8
         Job1 = collection.find().sort('_id', -1).skip(3).limit(1)[0]
         self.Job11 = Job1['Location']
         self.Job12 = Job1['Date']
@@ -269,6 +580,7 @@ class DailyGoals (Screen):
     pass 
      
 class CollectiveImpact (Screen):
+<<<<<<< HEAD
      
      def addInfo(self):
 
@@ -292,6 +604,17 @@ class CollectiveImpact (Screen):
             print("\n")
         self.manager.current = 'EnvironmentalIssues'
 
+=======
+     pass
+     
+
+
+class DailyGoals (Screen):
+    pass 
+
+class CollectiveImpact (Screen):
+    pass 
+>>>>>>> 0ced0c7bdd284455d227d6ca292dc6c803573de8
 class FamousAdvocates (Screen):
     pass
 
@@ -319,6 +642,12 @@ class SocialMediaPage (Screen):
         db = client['SocialMedia']
         collection = db['Posts']
 
+<<<<<<< HEAD
+=======
+        db = client['MainData']
+        collection = db['Social Media']
+
+>>>>>>> 0ced0c7bdd284455d227d6ca292dc6c803573de8
         global username
 
         
@@ -390,6 +719,12 @@ class LitterSheet (Screen):
         global client
         db = client['CleanUps']
         collection = db['Jobs']
+<<<<<<< HEAD
+=======
+
+        db = client['MainData']
+        collection = db['Litter Cleanups']
+>>>>>>> 0ced0c7bdd284455d227d6ca292dc6c803573de8
     
         dropButton = self.ids.dropButton
     
@@ -400,6 +735,11 @@ class LitterSheet (Screen):
     
         for option in options:
             btn = Button(text=option['Location'], size_hint_y=None, height=44)
+<<<<<<< HEAD
+=======
+
+            btn = Button(text=option['Location'], size_hint_y=None, height=44, background_color = (0.4196, 0.7922, 0.9569, 1))
+>>>>>>> 0ced0c7bdd284455d227d6ca292dc6c803573de8
             btn.bind(on_release=lambda btn: dropdown.select(btn.text))
             dropdown.add_widget(btn)
     
@@ -414,6 +754,12 @@ class LitterSheet (Screen):
         global client
         db = client['LitterSheet']
         collection = db['Jobs']
+<<<<<<< HEAD
+=======
+
+        db = client['MainData']
+        collection = db['Litter Cleanups']
+>>>>>>> 0ced0c7bdd284455d227d6ca292dc6c803573de8
         
         name = self.ids.NameInput.text
         cleanup = self.ids.dropButton.text
@@ -514,6 +860,12 @@ class PostMedia(Screen):
         db = client['SocialMedia']
         posts_collection = db['Posts']
 
+<<<<<<< HEAD
+=======
+        db = client['MainData']
+        posts_collection = db['Social Media']
+
+>>>>>>> 0ced0c7bdd284455d227d6ca292dc6c803573de8
         beforePath = self.ids.beforePhoto.text
 
         afterPath = self.ids.afterPhoto.text
@@ -559,6 +911,7 @@ class outOrder(Screen):
     pass     
 
 class BottleCount (Screen):
+<<<<<<< HEAD
     
     def check_account(self):
         
@@ -585,6 +938,77 @@ class BottleCount (Screen):
         return result is not None
 
 
+=======
+    TotalBottles = StringProperty("5")
+    def addInfo(self):
+
+        global client
+        db = client["CollectiveImpact"]
+        
+        my_collection = db["TotalBottles"]
+        data = self.ids.EnterHere2.text
+        NameData = [{"Bottles": data}]
+
+        global Bottles
+        self.Bottles = self.ids.EnterHere2.text
+
+        try:
+            result = my_collection.insert_many(NameData)
+        except pymongo.errors.OperationFailure:
+            print("An authentication error was received. Check your database user permissions.")
+            sys.exit(1)
+        else:
+            inserted_count = len(result.inserted_ids)
+            print("I inserted %d documents." % inserted_count)
+            print("\n")
+        self.manager.current = 'EnvironmentalIssues'
+    def getInfo(self):
+        global client
+        db = client["CollectiveImpact"]
+        
+        my_collection = db["TotalBottles"]
+        self.TotalBottles = -1
+        #Purpose is to get the numebr of bottles
+        x = 0
+        while self.TotalBottles == -1:
+            if my_collection.find({'Bottles': str(x)}) == True:
+                self.TotalBottles = my_collection.find({'Bottles': str(x)})
+class ParkCount(Screen):
+    TotalParks = StringProperty("5")
+    def addInfo(self):
+
+        global client
+        db = client["CollectiveImpact"]
+        
+        my_collection = db["TotalBottles"]
+        data = self.ids.Submit2.text
+        NameData = [{"Bottles": data}]
+
+        global Parks
+        self.Parks = self.ids.Submit2.text
+
+        try:
+            result = my_collection.insert_many(NameData)
+        except pymongo.errors.OperationFailure:
+            print("An authentication error was received. Check your database user permissions.")
+            sys.exit(1)
+        else:
+            inserted_count = len(result.inserted_ids)
+            print("I inserted %d documents." % inserted_count)
+            print("\n")
+        self.manager.current = 'EnvironmentalIssues'
+    def getInfo(self):
+        global client
+        db = client["CollectiveImpact"]
+        
+        my_collection = db["TotalParks"]
+        self.TotalBottles = -1
+        #Purpose is to get the numebr of bottles
+        x = 0
+        while self.TotalParks == -1:
+            if my_collection.find({'Parks': str(x)}) == True:
+                self.TotalParkss = my_collection.find({'Parks': str(x)})
+>>>>>>> 0ced0c7bdd284455d227d6ca292dc6c803573de8
 
 class EnviroScopeApp(App):
     def build(self):
@@ -619,6 +1043,14 @@ class EnviroScopeApp(App):
         sm.add_widget(AddAJob(name = 'AddAJob'))
         sm.add_widget(ViewJobs(name = 'ViewJobs'))
         sm.add_widget(BottleCount(name = 'BottleCount'))
+<<<<<<< HEAD
+=======
+        sm.add_widget(ParkCount(name = 'ParkCount'))
+
+        sm.add_widget(viewContact(name = 'viewContact'))
+        sm.add_widget(SocialMedia(name = 'SocialMedia'))
+        sm.add_widget(SocialChat(name = 'SocialChat'))
+>>>>>>> 0ced0c7bdd284455d227d6ca292dc6c803573de8
         return sm
 
 if __name__ == '__main__':

@@ -1,0 +1,77 @@
+<viewContact>:
+    name: "viewContact"
+    canvas.before:
+		Color:
+			rgba: 0.8, 1, 0.698, 1
+		Rectangle:
+			pos: self.pos
+			size: self.size
+
+    FloatLayout:
+        padding: 10
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: '40dp'
+            pos_hint: {'x': 0, 'top': 0.9}
+            Label:
+                text: root.Role1
+                color: 'black'
+            Label:
+                text: root.Address1
+                color: 'black'
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: '40dp'
+            pos_hint: {'x': 0, 'top': 0.875}  
+            Label:
+                text: root.Phone1
+                color: 'black'
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: '40dp'
+            pos_hint: {'x': 0, 'top': 0.6}  
+            Label:
+                text: root.Role2
+                color: 'black'
+            Label:
+                text: root.Address2
+                color: 'black'
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: '40dp'
+            pos_hint: {'x': 0, 'top': 0.575}  
+            Label:
+                text: root.Phone2
+                color: 'black'
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: '40dp'
+            pos_hint: {'x': 0, 'top': 0.3} 
+            Label:
+                text: root.Role3
+                color: 'black'
+            Label:
+                text: root.Address3
+                color: 'black'
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: '40dp'
+            pos_hint: {'x': 0, 'top': 0.275}  
+            Label:
+                text: root.Phone3
+                color: 'black'
+    Button:
+		text: 'Back'
+		on_press:
+			root.manager.current = 'GetInContact'
+		size_hint: 0.16, 0.1
+		pos: 0, 0
+		background_color: 0.0, 0.447, 0.071, 1
