@@ -276,7 +276,6 @@ class SignIn(Screen):
         collection = db['NamePassword']
         global new
         global username
-        global client
 
         new = 0
 
@@ -315,13 +314,12 @@ class SignUp(Screen):
         NameData = [{"name": self.ids.UserName2.text, "password": self.ids.Password2.text}]
 
         global new
-        global client
         new = 1
         db = client["MainData"]
         
         my_collection = db["Account Info"]
         today = datetime.now().date()
-        NameData = [{"name": self.ids.UserName2.text, "password": self.ids.Password2.text, "streak": "0", "last_date": today}]
+        NameData = [{"name": self.ids.UserName2.text, "password": self.ids.Password2.text}]
 
         global username
         username = self.ids.UserName2.text
