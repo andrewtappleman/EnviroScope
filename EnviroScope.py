@@ -1,4 +1,5 @@
 
+
 #:import webbrowser webbrowser
 
 from kivy.app import App
@@ -27,6 +28,11 @@ from kivy.core.image import Image as CoreImage
 from io import BytesIO
 from io import BytesIO
 from PIL import Image as PILImage
+import os
+import time
+os.environ["PAFY_BACKEND"] = "internal"
+import pafy
+
 from win10toast import ToastNotifier
 from httpx import HTTPStatusError
 from kivy.utils import platform
@@ -75,6 +81,9 @@ Builder.load_file('SignUp.kv')
 Builder.load_file('Video1.kv')
 Builder.load_file('AddAJob.kv')
 Builder.load_file('ViewJobs.kv')
+Builder.load_file('BottleCount.kv')
+print("")
+
 Builder.load_file('viewContact.kv')
 Builder.load_file('SocialMedia.kv')
 Builder.load_file('SocialChat.kv')
@@ -95,6 +104,7 @@ width_base = 15
 height_base = 25
 scale = 30
 Window.size = (width_base * scale, height_base * scale)
+username = ''
 district = ''
 state = ''
 username = ''
@@ -233,6 +243,9 @@ class AddAJob(Screen):
 
         notification.notify(title = 'EnviroScope', message = 'You have created a clean up.')      
         global client
+        db = client['CleanUps']
+        collection = db['Jobs']
+
         db = client['MainData']
         collection = db['Litter Cleanups']
         
@@ -256,6 +269,11 @@ class AddAJob(Screen):
 class SignIn(Screen):
     
     def check_account(self):
+        
+        global username
+        global client
+        db = client['AccountInfo']
+        collection = db['NamePassword']
         global new
         global username
         global client
@@ -289,6 +307,13 @@ class SignIn(Screen):
 class SignUp(Screen):
     
     def addInfo(self):
+
+        global client
+        db = client["AccountInfo"]
+        
+        my_collection = db["NamePassword"]
+        NameData = [{"name": self.ids.UserName2.text, "password": self.ids.Password2.text}]
+
         global new
         global client
         new = 1
@@ -313,6 +338,33 @@ class SignUp(Screen):
         self.manager.current = 'EnvironmentalIssues'
 
 class FPAY(Screen):
+    
+    def GiveInfo(self):
+        
+        Info14901 = 'The Elmira School District bought abandoned land with a past of\nindustrialization.  At only a buck, this was no miracle deal. The site was\npolluted for more than a century.  In Room 127, therewas a test\nthat showed traces of TCE gases seeping into the school.'
+        
+        Info13760 = 'There is hazardous waste where the IBM factories\nwhere BAE Systems is now stationed.  The estimated cost\nfor cleaning up all waste is guessed at about 10 Million.\nThere are still toxic chemicals beneath the buildings but\nDEC staff said these are the most difficult pockets to clean.'
+        if self.ids.ZipcodeInfo.text == '13760':
+            self.ids.InfoLabel.text = Info13760
+            
+        elif self.ids.ZipcodeInfo.text == '14901':
+            self.ids.InfoLabel.text = Info14901
+            
+        elif self.ids.ZipcodeInfo.text == '14904':
+            self.ids.InfoLabel.text = Info14901
+            
+        elif self.ids.ZipcodeInfo.text == '14905':
+            self.ids.InfoLabel.text = Info14901
+        
+        else:
+            self.ids.InfoLabel.text = 'Sorry, this is only a prototype.  This zipcode has\nnot been added to the database. Thank you.'
+        
+class EnvironmentalIssues (Screen):
+    pass
+   
+class GetInContact (Screen):
+    pass
+
     link1 = StringProperty("https://mrdoob.com/#/147/google_space")
     link2 = StringProperty("https://mrdoob.com/#/147/google_space")
     link3 = StringProperty("https://mrdoob.com/#/147/google_space")
@@ -454,6 +506,8 @@ class ViewJobs(Screen):
     def on_pre_enter(self):
 
         global client
+        db = client['CleanUps']
+        collection = db['Jobs']
         db = client['MainData']
         collection = db['Litter Cleanups']
         Job1 = collection.find().sort('_id', -1).skip(3).limit(1)[0]
@@ -494,6 +548,15 @@ class LeaderBoard (Screen):
     
 class DailyStreaks (Screen):
     pass
+
+class DailyGoals (Screen):
+    pass 
+     
+class CollectiveImpact (Screen):
+     pass
+     
+
+
 class DailyGoals (Screen):
     pass 
 
@@ -523,6 +586,9 @@ class SocialMediaPage (Screen):
     def Social(self):
 
         global client
+        db = client['SocialMedia']
+        collection = db['Posts']
+
         db = client['MainData']
         collection = db['Social Media']
 
@@ -595,6 +661,9 @@ class LitterSheet (Screen):
 
     def create_dropdown(self):
         global client
+        db = client['CleanUps']
+        collection = db['Jobs']
+
         db = client['MainData']
         collection = db['Litter Cleanups']
     
@@ -606,6 +675,8 @@ class LitterSheet (Screen):
         options = collection.find({}, {"_id": 0, "Location": 1})
     
         for option in options:
+            btn = Button(text=option['Location'], size_hint_y=None, height=44)
+
             btn = Button(text=option['Location'], size_hint_y=None, height=44, background_color = (0.4196, 0.7922, 0.9569, 1))
             btn.bind(on_release=lambda btn: dropdown.select(btn.text))
             dropdown.add_widget(btn)
@@ -619,6 +690,9 @@ class LitterSheet (Screen):
         notification.notify(title = 'EnviroScope', message = 'You have joined a clean up.')
         global username
         global client
+        db = client['LitterSheet']
+        collection = db['Jobs']
+
         db = client['MainData']
         collection = db['Litter Cleanups']
         
@@ -718,6 +792,9 @@ class PostMedia(Screen):
         notification.notify(title = 'EnviroScope', message = 'You have posted your photos.')
 
         global client
+        db = client['SocialMedia']
+        posts_collection = db['Posts']
+
         db = client['MainData']
         posts_collection = db['Social Media']
 
@@ -765,6 +842,77 @@ class instructPost(Screen):
 class outOrder(Screen):
     pass     
 
+class BottleCount (Screen):
+    TotalBottles = StringProperty("5")
+    def addInfo(self):
+
+        global client
+        db = client["CollectiveImpact"]
+        
+        my_collection = db["TotalBottles"]
+        data = self.ids.EnterHere2.text
+        NameData = [{"Bottles": data}]
+
+        global Bottles
+        self.Bottles = self.ids.EnterHere2.text
+
+        try:
+            result = my_collection.insert_many(NameData)
+        except pymongo.errors.OperationFailure:
+            print("An authentication error was received. Check your database user permissions.")
+            sys.exit(1)
+        else:
+            inserted_count = len(result.inserted_ids)
+            print("I inserted %d documents." % inserted_count)
+            print("\n")
+        self.manager.current = 'EnvironmentalIssues'
+    def getInfo(self):
+        global client
+        db = client["CollectiveImpact"]
+        
+        my_collection = db["TotalBottles"]
+        self.TotalBottles = -1
+        #Purpose is to get the numebr of bottles
+        x = 0
+        while self.TotalBottles == -1:
+            if my_collection.find({'Bottles': str(x)}) == True:
+                self.TotalBottles = my_collection.find({'Bottles': str(x)})
+class ParkCount(Screen):
+    TotalParks = StringProperty("5")
+    def addInfo(self):
+
+        global client
+        db = client["CollectiveImpact"]
+        
+        my_collection = db["TotalBottles"]
+        data = self.ids.Submit2.text
+        NameData = [{"Bottles": data}]
+
+        global Parks
+        self.Parks = self.ids.Submit2.text
+
+        try:
+            result = my_collection.insert_many(NameData)
+        except pymongo.errors.OperationFailure:
+            print("An authentication error was received. Check your database user permissions.")
+            sys.exit(1)
+        else:
+            inserted_count = len(result.inserted_ids)
+            print("I inserted %d documents." % inserted_count)
+            print("\n")
+        self.manager.current = 'EnvironmentalIssues'
+    def getInfo(self):
+        global client
+        db = client["CollectiveImpact"]
+        
+        my_collection = db["TotalParks"]
+        self.TotalBottles = -1
+        #Purpose is to get the numebr of bottles
+        x = 0
+        while self.TotalParks == -1:
+            if my_collection.find({'Parks': str(x)}) == True:
+                self.TotalParkss = my_collection.find({'Parks': str(x)})
+
 class EnviroScopeApp(App):
     def build(self):
         sm = ScreenManager()
@@ -797,6 +945,9 @@ class EnviroScopeApp(App):
         sm.add_widget(Video1(name = 'Video1'))
         sm.add_widget(AddAJob(name = 'AddAJob'))
         sm.add_widget(ViewJobs(name = 'ViewJobs'))
+        sm.add_widget(BottleCount(name = 'BottleCount'))
+        sm.add_widget(ParkCount(name = 'ParkCount'))
+
         sm.add_widget(viewContact(name = 'viewContact'))
         sm.add_widget(SocialMedia(name = 'SocialMedia'))
         sm.add_widget(SocialChat(name = 'SocialChat'))
