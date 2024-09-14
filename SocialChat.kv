@@ -1,0 +1,96 @@
+<SocialChat>:
+    name: "SocialChat"
+	background_color: 0.4196, 0.7922, 0.9569, 1
+    canvas.before:
+        Color:
+            rgba: 0.592, 0.741, 0.969, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+	
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint_y: None
+        height: '40dp'
+        pos_hint: {'x': 0, 'top': 0.9}
+        Label:
+            text: root.Name1
+            color: 'black'
+        Label:
+            text: root.Entry1
+            color: 'black'
+
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint_y: None
+        height: '40dp'
+        pos_hint: {'x': 0, 'top': 0.8}
+        Label:
+            text: root.Name2
+            color: 'black'
+        Label:
+            text: root.Entry2
+            color: 'black'
+
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint_y: None
+        height: '40dp'
+        pos_hint: {'x': 0, 'top': 0.7}
+        Label:
+            text: root.Name3
+            color: 'black'
+        Label:
+            text: root.Entry3
+            color: 'black'
+
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint_y: None
+        height: '40dp'
+        pos_hint: {'x': 0, 'top': 0.6}
+        Label:
+            text: root.Name4
+            color: 'black'
+        Label:
+            text: root.Entry4
+            color: 'black'     
+    
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint_y: None
+        height: '40dp'
+        pos_hint: {'x': 0, 'top': 0.5}
+        Label:
+            text: root.Name5
+            color: 'black'
+        Label:
+            text: root.Entry5
+            color: 'black'
+
+    TextInput:
+        pos: 55, 200
+        id: EntryInput
+        size_hint: 0.8, 0.1
+        text: 'Enter Your Text'
+    Button:
+        pos: 55, 100
+        size_hint: 0.8, 0.1
+        text: 'Submit'
+        on_press: root.addToDB()
+        background_color: 0.18, 0.5, 0.92, 1
+
+
+    Button:
+        text: 'Refresh'
+        size_hint: 0.84, 0.1
+        pos: 90, 0
+        on_press: root.refresh()
+        background_color: 0.18, 0.5, 0.92, 1
+
+    Button:
+        text: 'Back'
+        pos: 0, 0
+        size_hint: 0.16, 0.1
+        on_press: root.manager.current = 'SocialMedia'
+        background_color: 0.18, 0.5, 0.92, 1

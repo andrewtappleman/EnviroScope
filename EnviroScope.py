@@ -76,6 +76,8 @@ Builder.load_file('Video1.kv')
 Builder.load_file('AddAJob.kv')
 Builder.load_file('ViewJobs.kv')
 Builder.load_file('viewContact.kv')
+Builder.load_file('SocialMedia.kv')
+Builder.load_file('SocialChat.kv')
 
 
 
@@ -97,6 +99,71 @@ district = ''
 state = ''
 username = ''
 notifLimit = 0
+new = 0
+
+class SocialMedia(Screen):
+    pass
+class SocialChat(Screen):
+    Entry1 = StringProperty('Default Text')
+    Entry2 = StringProperty('Default Text')
+    Entry3 = StringProperty('Default Text')
+    Entry4 = StringProperty('Default Text')
+    Entry5 = StringProperty('Default Text')
+
+    Name1 = StringProperty('Default Text')
+    Name2 = StringProperty('Default Text')
+    Name3 = StringProperty('Default Text')
+    Name4 = StringProperty('Default Text')
+    Name5 = StringProperty('Default Text')
+
+    def on_enter(self):
+        self.refresh()
+    def refresh(self):
+        global client
+        global username
+        db = client['MainData']
+        collection = db['Chat']
+        EntryFind1 = collection.find().sort('_id', -1).skip(4).limit(1)[0]
+        EntryFind2 = collection.find().sort('_id', -1).skip(3).limit(1)[0]
+        EntryFind3 = collection.find().sort('_id', -1).skip(2).limit(1)[0]
+        EntryFind4 = collection.find().sort('_id', -1).skip(1).limit(1)[0]
+        EntryFind5 = collection.find().sort('_id', -1).limit(1)[0]
+
+        self.Entry1 = EntryFind1['Entry']
+        self.Name1 = EntryFind1['Username']
+        self.Entry2 = EntryFind2['Entry']
+        self.Name2 = EntryFind2['Username']
+        self.Entry3 = EntryFind3['Entry']
+        self.Name3 = EntryFind3['Username']
+        self.Entry4 = EntryFind4['Entry']
+        self.Name4 = EntryFind4['Username']
+        self.Entry5 = EntryFind5['Entry']
+        self.Name5 = EntryFind5['Username']
+    
+    def addToDB(self):
+        global client
+        global username
+        db = client['MainData']
+        collection = db['Chat']
+        FullEntry = self.ids.EntryInput.text
+
+        query = [{"Username": username, "Entry": FullEntry}]
+        
+        try:
+            result = collection.insert_many(query)
+        except pymongo.errors.OperationFailure:
+            print("An authentication error was received. Check your database user permissions.")
+            print('')
+            print('')
+            sys.exit(1)
+        else:
+            inserted_count = len(result.inserted_ids)
+            print("I inserted %d documents." % inserted_count)
+            print("")
+            print('')
+        self.refresh()
+
+
 class viewContact(Screen):
     Phone1 = StringProperty("Default Info")
     Address1 = StringProperty("Default Info")
@@ -189,9 +256,12 @@ class AddAJob(Screen):
 class SignIn(Screen):
     
     def check_account(self):
-        
+        global new
         global username
         global client
+
+        new = 0
+
         db = client['MainData']
         collection = db['Account Info']
         
@@ -219,8 +289,9 @@ class SignIn(Screen):
 class SignUp(Screen):
     
     def addInfo(self):
-
+        global new
         global client
+        new = 1
         db = client["MainData"]
         
         my_collection = db["Account Info"]
@@ -310,42 +381,8 @@ class FPAY(Screen):
 
 
 class EnvironmentalIssues (Screen):
-    def on_pre_enter(self):
-        self.update_streak()
-        today = datetime.now().date()
-        print(today)
-
-    def update_streak(self):
-        global client
-        global username
-        db = client['MainData']
-        collection = db['Account Info']
+    pass
         
-        streakDoc = collection.find_one({"name": username})
-        
-        last_active_date = streakDoc['last_date']
-        streak_count = int(streakDoc['streak'])
-            
-        today = datetime.now().date()
-        json_data = json.dumps({'created_at': today.isoformat()})
-
-        if isinstance(last_active_date, datetime):
-            last_active_date = last_active_date.date()
-        
-        if last_active_date is None:
-            streak_count = 1
-        elif last_active_date == today - timedelta(days=1):
-            streak_count += 1
-        else:
-            streak_count = 1
-        
-        today_datetime = datetime.combine(today, datetime.min.time())
-    
-        filter = {"name": username}
-        update = {"$set": {"last_date": json_data, "streak": streak_count}}
-        
-        collection.update_many(filter, update)
-
    
 class GetInContact (Screen):
     def on_pre_enter(self):
@@ -467,7 +504,7 @@ class DailyStreaks (Screen):
 
 class DailyGoals (Screen):
     pass 
-     
+
 class CollectiveImpact (Screen):
     pass 
 class FamousAdvocates (Screen):
@@ -769,6 +806,8 @@ class EnviroScopeApp(App):
         sm.add_widget(AddAJob(name = 'AddAJob'))
         sm.add_widget(ViewJobs(name = 'ViewJobs'))
         sm.add_widget(viewContact(name = 'viewContact'))
+        sm.add_widget(SocialMedia(name = 'SocialMedia'))
+        sm.add_widget(SocialChat(name = 'SocialChat'))
         return sm
 
 if __name__ == '__main__':
