@@ -1,10 +1,8 @@
-<<<<<<< HEAD
-=======
+
 
 
 #:import webbrowser webbrowser
 
->>>>>>> 0ced0c7bdd284455d227d6ca292dc6c803573de8
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.core.window import Window
@@ -35,8 +33,6 @@ import os
 import time
 os.environ["PAFY_BACKEND"] = "internal"
 import pafy
-<<<<<<< HEAD
-=======
 
 from win10toast import ToastNotifier
 from httpx import HTTPStatusError
@@ -51,7 +47,6 @@ import time
 os.environ["PAFY_BACKEND"] = "internal"
 import pafy
 import httpx
->>>>>>> 0ced0c7bdd284455d227d6ca292dc6c803573de8
 import pymongo
 import sys
 import base64
@@ -88,16 +83,13 @@ Builder.load_file('Video1.kv')
 Builder.load_file('AddAJob.kv')
 Builder.load_file('ViewJobs.kv')
 Builder.load_file('BottleCount.kv')
-<<<<<<< HEAD
-=======
-print("")
+
 
 Builder.load_file('viewContact.kv')
 Builder.load_file('SocialMedia.kv')
 Builder.load_file('SocialChat.kv')
 
 
->>>>>>> 0ced0c7bdd284455d227d6ca292dc6c803573de8
 
 uri = "mongodb+srv://admin:admin@enviroscopecluster0.qdwjcoq.mongodb.net/?appName=EnviroScopeCluster0"
 # Create a new client and connect to the server
@@ -113,10 +105,7 @@ width_base = 15
 height_base = 25
 scale = 30
 Window.size = (width_base * scale, height_base * scale)
-<<<<<<< HEAD
-
 username = ''
-=======
 username = ''
 district = ''
 state = ''
@@ -233,7 +222,6 @@ class viewContact(Screen):
         self.Address3 = Person3['Address']
         self.Phone3 = Person3['Phone']
 
->>>>>>> 0ced0c7bdd284455d227d6ca292dc6c803573de8
 
 class NewYorkState(Screen):
     pass
@@ -259,12 +247,8 @@ class AddAJob(Screen):
         global client
         db = client['CleanUps']
         collection = db['Jobs']
-<<<<<<< HEAD
-=======
-
         db = client['MainData']
         collection = db['Litter Cleanups']
->>>>>>> 0ced0c7bdd284455d227d6ca292dc6c803573de8
         
         name = self.ids.NameInput.text
         location = self.ids.Location.text
@@ -291,8 +275,6 @@ class SignIn(Screen):
         global client
         db = client['AccountInfo']
         collection = db['NamePassword']
-<<<<<<< HEAD
-=======
         global new
         global username
 
@@ -300,7 +282,6 @@ class SignIn(Screen):
 
         db = client['MainData']
         collection = db['Account Info']
->>>>>>> 0ced0c7bdd284455d227d6ca292dc6c803573de8
         
         user_name = self.ids.UserName1.text
 
@@ -326,25 +307,13 @@ class SignIn(Screen):
 class SignUp(Screen):
     
     def addInfo(self):
-
+        global new
         global client
         db = client["AccountInfo"]
-        
         my_collection = db["NamePassword"]
-        NameData = [{"name": self.ids.UserName2.text, "password": self.ids.Password2.text}]
 
-<<<<<<< HEAD
-=======
-        global new
+        NameData = [{"name": self.ids.UserName2.text, "password": self.ids.Password2.text}]
         new = 1
-        db = client["MainData"]
-        
-        my_collection = db["Account Info"]
-        today = datetime.now().date()
-        NameData = [{"name": self.ids.UserName2.text, "password": self.ids.Password2.text}]
-
->>>>>>> 0ced0c7bdd284455d227d6ca292dc6c803573de8
-        global username
         username = self.ids.UserName2.text
 
         try:
@@ -385,8 +354,6 @@ class EnvironmentalIssues (Screen):
    
 class GetInContact (Screen):
     pass
-<<<<<<< HEAD
-=======
 
     link1 = StringProperty("https://mrdoob.com/#/147/google_space")
     link2 = StringProperty("https://mrdoob.com/#/147/google_space")
@@ -510,7 +477,6 @@ class GetInContact (Screen):
         self.createDistrict()
         self.manager.current = "viewContact"
         
->>>>>>> 0ced0c7bdd284455d227d6ca292dc6c803573de8
 class ViewJobs(Screen):
     Job11 = StringProperty("Default Info")
     Job12 = StringProperty("Default Info")
@@ -532,11 +498,10 @@ class ViewJobs(Screen):
         global client
         db = client['CleanUps']
         collection = db['Jobs']
-<<<<<<< HEAD
-=======
+
         db = client['MainData']
         collection = db['Litter Cleanups']
->>>>>>> 0ced0c7bdd284455d227d6ca292dc6c803573de8
+
         Job1 = collection.find().sort('_id', -1).skip(3).limit(1)[0]
         self.Job11 = Job1['Location']
         self.Job12 = Job1['Date']
@@ -580,7 +545,7 @@ class DailyGoals (Screen):
     pass 
      
 class CollectiveImpact (Screen):
-<<<<<<< HEAD
+
      
      def addInfo(self):
 
@@ -603,9 +568,6 @@ class CollectiveImpact (Screen):
             print("I inserted %d documents." % inserted_count)
             print("\n")
         self.manager.current = 'EnvironmentalIssues'
-
-=======
-     pass
      
 
 
@@ -614,7 +576,7 @@ class DailyGoals (Screen):
 
 class CollectiveImpact (Screen):
     pass 
->>>>>>> 0ced0c7bdd284455d227d6ca292dc6c803573de8
+
 class FamousAdvocates (Screen):
     pass
 
@@ -642,12 +604,10 @@ class SocialMediaPage (Screen):
         db = client['SocialMedia']
         collection = db['Posts']
 
-<<<<<<< HEAD
-=======
+
         db = client['MainData']
         collection = db['Social Media']
 
->>>>>>> 0ced0c7bdd284455d227d6ca292dc6c803573de8
         global username
 
         
@@ -719,13 +679,10 @@ class LitterSheet (Screen):
         global client
         db = client['CleanUps']
         collection = db['Jobs']
-<<<<<<< HEAD
-=======
 
         db = client['MainData']
         collection = db['Litter Cleanups']
->>>>>>> 0ced0c7bdd284455d227d6ca292dc6c803573de8
-    
+
         dropButton = self.ids.dropButton
     
         dropdown = DropDown(size_hint=(None, None), size=(45 * 8, 75))
@@ -735,11 +692,9 @@ class LitterSheet (Screen):
     
         for option in options:
             btn = Button(text=option['Location'], size_hint_y=None, height=44)
-<<<<<<< HEAD
-=======
 
             btn = Button(text=option['Location'], size_hint_y=None, height=44, background_color = (0.4196, 0.7922, 0.9569, 1))
->>>>>>> 0ced0c7bdd284455d227d6ca292dc6c803573de8
+
             btn.bind(on_release=lambda btn: dropdown.select(btn.text))
             dropdown.add_widget(btn)
     
@@ -754,12 +709,10 @@ class LitterSheet (Screen):
         global client
         db = client['LitterSheet']
         collection = db['Jobs']
-<<<<<<< HEAD
-=======
+
 
         db = client['MainData']
         collection = db['Litter Cleanups']
->>>>>>> 0ced0c7bdd284455d227d6ca292dc6c803573de8
         
         name = self.ids.NameInput.text
         cleanup = self.ids.dropButton.text
@@ -860,12 +813,11 @@ class PostMedia(Screen):
         db = client['SocialMedia']
         posts_collection = db['Posts']
 
-<<<<<<< HEAD
-=======
+
         db = client['MainData']
         posts_collection = db['Social Media']
 
->>>>>>> 0ced0c7bdd284455d227d6ca292dc6c803573de8
+
         beforePath = self.ids.beforePhoto.text
 
         afterPath = self.ids.afterPhoto.text
@@ -911,8 +863,7 @@ class outOrder(Screen):
     pass     
 
 class BottleCount (Screen):
-<<<<<<< HEAD
-    
+
     def check_account(self):
         
         global Bottles
@@ -938,7 +889,7 @@ class BottleCount (Screen):
         return result is not None
 
 
-=======
+
     TotalBottles = StringProperty("5")
     def addInfo(self):
 
@@ -1008,7 +959,6 @@ class ParkCount(Screen):
         while self.TotalParks == -1:
             if my_collection.find({'Parks': str(x)}) == True:
                 self.TotalParkss = my_collection.find({'Parks': str(x)})
->>>>>>> 0ced0c7bdd284455d227d6ca292dc6c803573de8
 
 class EnviroScopeApp(App):
     def build(self):
@@ -1043,14 +993,10 @@ class EnviroScopeApp(App):
         sm.add_widget(AddAJob(name = 'AddAJob'))
         sm.add_widget(ViewJobs(name = 'ViewJobs'))
         sm.add_widget(BottleCount(name = 'BottleCount'))
-<<<<<<< HEAD
-=======
         sm.add_widget(ParkCount(name = 'ParkCount'))
-
         sm.add_widget(viewContact(name = 'viewContact'))
         sm.add_widget(SocialMedia(name = 'SocialMedia'))
         sm.add_widget(SocialChat(name = 'SocialChat'))
->>>>>>> 0ced0c7bdd284455d227d6ca292dc6c803573de8
         return sm
 
 if __name__ == '__main__':
