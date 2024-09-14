@@ -103,7 +103,6 @@ new = 0
 
 class SocialMedia(Screen):
     pass
-        
 class SocialChat(Screen):
     Entry1 = StringProperty('Default Text')
     Entry2 = StringProperty('Default Text')
@@ -382,45 +381,7 @@ class FPAY(Screen):
 
 
 class EnvironmentalIssues (Screen):
-
-    def __init__(self, *args, **kwargs):
-        self.no_builder = kwargs.pop('__no_builder', None)
-        super().__init__(*args, **kwargs)
-        self.client = client
-        self.username = username
-        self.new = new
-
-    def on_pre_enter(self):
-        self.update_streak()
-        print(datetime.now().date())
-
-    def update_streak(self):
-        db = self.client['MainData']
-        collection = db['Account Info']
-        
-        streakDoc = collection.find_one({"name": self.username})
-        last_active_dat = streakDoc['last_date']
-        streak_count = int(streakDoc['streak'])
-        
-        today = datetime.now().date()
-        
-        last_active_dat = last_active_dat.date()
-        
-        if self.new == 0:
-            if last_active_dat == today - timedelta(days=1):
-                streak_count += 1
-            else:
-                streak_count = 1
-
-            filter = {"name": self.username}
-            update = {"$set": {"last_date": datetime.combine(today, datetime.min.time()), "streak": streak_count}}
-            
-            collection.update_many(filter, update)
-        else:
-            filter = {"name": self.username}
-            update = {"$set": {"last_date": datetime.combine(today, datetime.min.time()), "streak": 0}}
-            
-            collection.update_many(filter, update)
+    pass
         
    
 class GetInContact (Screen):
