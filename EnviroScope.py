@@ -64,6 +64,7 @@ Builder.load_file('Video1.kv')
 Builder.load_file('AddAJob.kv')
 Builder.load_file('ViewJobs.kv')
 Builder.load_file('BottleCount.kv')
+print("")
 
 uri = "mongodb+srv://admin:admin@enviroscopecluster0.qdwjcoq.mongodb.net/?appName=EnviroScopeCluster0"
 # Create a new client and connect to the server
@@ -607,7 +608,7 @@ class ParkCount(Screen):
         x = 0
         while self.TotalParks == -1:
             if my_collection.find({'Parks': str(x)}) == True:
-                self.TotalParks = my_collection.find({'Parks': str(x)})
+                self.TotalParkss = my_collection.find({'Parks': str(x)})
 class EnviroScopeApp(App):
     def build(self):
         sm = ScreenManager()
