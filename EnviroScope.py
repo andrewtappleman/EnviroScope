@@ -55,6 +55,7 @@ import globals
 
 
 #Loading Python Files
+from header_widget import HeaderWidget
 from park_count import ParkCount
 from social_media import SocialMedia
 from social_chat import SocialChat
@@ -76,7 +77,6 @@ from get_rewarded import GetRewarded
 from get_involved import GetInvolved
 from get_inspired import GetInspired
 from leaderboard import LeaderBoard
-from daily_streaks import DailyStreaks
 from daily_goals import DailyGoals
 from collective_impact import CollectiveImpact
 from famous_advocates import FamousAdvocates
@@ -92,6 +92,7 @@ from bottle_count import BottleCount
 
 
 #Loading Kivy Files
+Builder.load_file('headerwidget.kv')
 Builder.load_file('FPAY.kv')
 Builder.load_file('PollutionMap.kv')
 Builder.load_file('FunFacts.kv')
@@ -106,7 +107,6 @@ Builder.load_file('GetInContact.kv')
 Builder.load_file('CollectiveImpact.kv')
 Builder.load_file('LitterSheet.kv')
 Builder.load_file('InspirationalVideos.kv')
-Builder.load_file('DailyStreaks.kv')
 Builder.load_file('SocialMediaPage.kv')
 Builder.load_file('InstructPost.kv')
 Builder.load_file('LeaderBoard.kv')
@@ -125,18 +125,6 @@ Builder.load_file('ViewContact.kv')
 Builder.load_file('SocialMedia.kv')
 Builder.load_file('SocialChat.kv')
 
-
-
-uri = "mongodb+srv://admin:admin@enviroscopecluster0.qdwjcoq.mongodb.net/?appName=EnviroScopeCluster0"
-# Create a new client and connect to the server
-clientel = MongoClient(uri, server_api=ServerApi('1'))
-# Send a ping to confirm a successful connection
-try:
-    clientel.admin.command('ping')
-    print("Pinged your deployment. You successfully connected to MongoDB!")
-except Exception as e:
-    print(e)
-globals.client = clientel
 
 width_base = 15
 height_base = 25
@@ -165,7 +153,6 @@ class EnviroScopeApp(App):
         sm.add_widget(GetInspired(name = 'GetInspired'))
         sm.add_widget(LeaderBoard(name = 'LeaderBoard'))
         sm.add_widget(DailyGoals(name = 'DailyGoals'))
-        sm.add_widget(DailyStreaks(name = 'DailyStreaks'))
         sm.add_widget(VirtualBadges(name = 'VirtualBadges'))
         sm.add_widget(CollectiveImpact(name = 'CollectiveImpact'))
         sm.add_widget(FamousAdvocates(name = 'FamousAdvocates'))
@@ -183,7 +170,9 @@ class EnviroScopeApp(App):
         sm.add_widget(ViewContact(name = 'ViewContact'))
         sm.add_widget(SocialMedia(name = 'SocialMedia'))
         sm.add_widget(SocialChat(name = 'SocialChat'))
+
         return sm
 
 if __name__ == '__main__':
     EnviroScopeApp().run()
+    

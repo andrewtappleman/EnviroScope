@@ -1,12 +1,16 @@
-<instructPost>:
-    name: "instructPost"
+<InstructPost>:
+    name: "InstructPost"
     canvas.before:
         Color:
             rgba: 0.592, 0.741, 0.969, 1
         Rectangle:
             pos: self.pos
             size: self.size
-
+    FloatLayout:
+        HeaderWidget:
+            size_hint_y: None
+            height: 50
+            pos_hint: {"x": 0.9, "y": 0.9}
     Label:
         text: 'To share your before and after photos, follow the directions.\nOn the top text input, put your before photo path.\nOn the second text input, put your after photo path.\nExample Path: "C:\\Users\\Kids\\Documents\\Python\\kivy_venv\\Bing.png"'
         color: 'black'

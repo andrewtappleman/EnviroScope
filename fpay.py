@@ -54,24 +54,67 @@ from pymongo.server_api import ServerApi
 import random
 
 class FPAY(Screen):
+    link1 = StringProperty("https://mrdoob.com/#/147/google_space")
+    link2 = StringProperty("https://mrdoob.com/#/147/google_space")
+    link3 = StringProperty("https://mrdoob.com/#/147/google_space")
+    link4 = StringProperty("https://mrdoob.com/#/147/google_space")
+    link5 = StringProperty("https://mrdoob.com/#/147/google_space")
+    def start(self):
+        self.api_key = 'AIzaSyB2Q8bhNECnUNFF-ZemwlmSXlSfEzelcWU'
+        self.search_engine_id = 'e6b1412f598284e1e'
+        notification.notify(title = 'EnviroScope', message = 'Search Pending.')
+        self.query = str(self.ids.zipcode.text)
+        print('query', self.query)
+        self.googleSearch()
+
+    def googleSearch(self, **params):
+        base_url = 'https://www.googleapis.com/customsearch/v1'
+        params.update({
+            'key': self.api_key,
+            'cx': self.search_engine_id,
+            'q': self.query,
+            'num': 5
+        })
+        response = httpx.get(base_url, params=params)
+        response.raise_for_status()
+
+        self.finish(response.json())
+
+    def finish(self, response_json):
+        search_results = []
+
+        items = response_json.get('items', [])
+        for item in items:
+            search_results.append(item.get('link'))
+        
+        df = pd.json_normalize(response_json.get('items', []))
+
+        search_results = df['link'].tolist() if 'link' in df else []
+        print(search_results)
+        listLen = len(search_results)
+        if listLen > 0:
+            self.link1 = search_results[0]
+        if listLen > 1:
+            self.link2 = search_results[1]
+        if listLen > 2:
+            self.link3 = search_results[2]
+        if listLen > 3:
+            self.link4 = search_results[3]
+        if listLen > 4:
+            self.link5 = search_results[4]
+        globals.notifLimit += 1
+        if globals.notifLimit == 5:
+            notification.notify(title = 'EnviroScope', message = 'Search Concluded.')
+        
+    def perform_search(self):
+        self.start()
+        for i in range(0, 5, 1):
+            self.googleSearch(start=i + 1)
+            time.sleep(1)
     
-    def GiveInfo(self):
-        
-        Info14901 = 'The Elmira School District bought abandoned land with a past of\nindustrialization.  At only a buck, this was no miracle deal. The site was\npolluted for more than a century.  In Room 127, therewas a test\nthat showed traces of TCE gases seeping into the school.'
-        
-        Info13760 = 'There is hazardous waste where the IBM factories\nwhere BAE Systems is now stationed.  The estimated cost\nfor cleaning up all waste is guessed at about 10 Million.\nThere are still toxic chemicals beneath the buildings but\nDEC staff said these are the most difficult pockets to clean.'
-        if self.ids.ZipcodeInfo.text == '13760':
-            self.ids.InfoLabel.text = Info13760
-            
-        elif self.ids.ZipcodeInfo.text == '14901':
-            self.ids.InfoLabel.text = Info14901
-            
-        elif self.ids.ZipcodeInfo.text == '14904':
-            self.ids.InfoLabel.text = Info14901
-            
-        elif self.ids.ZipcodeInfo.text == '14905':
-            self.ids.InfoLabel.text = Info14901
-        
-        else:
-            self.ids.InfoLabel.text = 'Sorry, this is only a prototype.  This zipcode has\nnot been added to the database. Thank you.'
-    
+    def makeLink(self):
+        webbrowser.open(self.link1)        
+        webbrowser.open(self.link2)
+        webbrowser.open(self.link3)
+        webbrowser.open(self.link4)
+        webbrowser.open(self.link5)
