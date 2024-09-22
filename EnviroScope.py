@@ -1,6 +1,4 @@
 
-
-
 #:import webbrowser webbrowser
 
 from kivy.app import App
@@ -29,6 +27,7 @@ from kivy.core.image import Image as CoreImage
 from io import BytesIO
 from io import BytesIO
 from PIL import Image as PILImage
+
 import os
 import time
 os.environ["PAFY_BACKEND"] = "internal"
@@ -52,8 +51,47 @@ import sys
 import base64
 from pymongo.server_api import ServerApi
 import random
+import globals
 
 
+#Loading Python Files
+from park_count import ParkCount
+from social_media import SocialMedia
+from social_chat import SocialChat
+from view_contact import ViewContact
+from new_york_state import NewYorkState
+from inspirational_videos import InspirationalVideos
+from virtual_badges import VirtualBadges
+from video1 import Video1
+from sign_up_in import SignUpIn
+from sign_in import SignIn
+from sign_up import SignUp
+from fpay import FPAY
+from add_a_job import AddAJob
+from environmental_issues import EnvironmentalIssues
+from get_in_contact import GetInContact
+from view_jobs import ViewJobs
+from get_informed import GetInformed
+from get_rewarded import GetRewarded
+from get_involved import GetInvolved
+from get_inspired import GetInspired
+from leaderboard import LeaderBoard
+from daily_streaks import DailyStreaks
+from daily_goals import DailyGoals
+from collective_impact import CollectiveImpact
+from famous_advocates import FamousAdvocates
+from social_media_page import SocialMediaPage
+from litter_sheet import LitterSheet
+from greta_thunberg import GretaThunberg
+from pollution_map import PollutionMap
+from fun_facts import FunFacts
+from post_media import PostMedia
+from instruct_post import InstructPost
+from out_order import OutOrder
+from bottle_count import BottleCount
+
+
+#Loading Kivy Files
 Builder.load_file('FPAY.kv')
 Builder.load_file('PollutionMap.kv')
 Builder.load_file('FunFacts.kv')
@@ -70,7 +108,7 @@ Builder.load_file('LitterSheet.kv')
 Builder.load_file('InspirationalVideos.kv')
 Builder.load_file('DailyStreaks.kv')
 Builder.load_file('SocialMediaPage.kv')
-Builder.load_file('instructPost.kv')
+Builder.load_file('InstructPost.kv')
 Builder.load_file('LeaderBoard.kv')
 Builder.load_file('SignUpIn.kv')
 Builder.load_file('SignIn.kv')
@@ -83,9 +121,7 @@ Builder.load_file('Video1.kv')
 Builder.load_file('AddAJob.kv')
 Builder.load_file('ViewJobs.kv')
 Builder.load_file('BottleCount.kv')
-
-
-Builder.load_file('viewContact.kv')
+Builder.load_file('ViewContact.kv')
 Builder.load_file('SocialMedia.kv')
 Builder.load_file('SocialChat.kv')
 
@@ -93,28 +129,23 @@ Builder.load_file('SocialChat.kv')
 
 uri = "mongodb+srv://admin:admin@enviroscopecluster0.qdwjcoq.mongodb.net/?appName=EnviroScopeCluster0"
 # Create a new client and connect to the server
-client = MongoClient(uri, server_api=ServerApi('1'))
+clientel = MongoClient(uri, server_api=ServerApi('1'))
 # Send a ping to confirm a successful connection
 try:
-    client.admin.command('ping')
+    clientel.admin.command('ping')
     print("Pinged your deployment. You successfully connected to MongoDB!")
 except Exception as e:
     print(e)
+globals.client = clientel
 
 width_base = 15
 height_base = 25
 scale = 30
 Window.size = (width_base * scale, height_base * scale)
-username = ''
-username = ''
-district = ''
-state = ''
-username = ''
-notifLimit = 0
-new = 0
 
-class SocialMedia(Screen):
+class MyScreenManager(ScreenManager):
     pass
+<<<<<<< HEAD
 class SocialChat(Screen):
     Entry1 = StringProperty('Default Text')
     Entry2 = StringProperty('Default Text')
@@ -959,12 +990,14 @@ class ParkCount(Screen):
         while self.TotalParks == -1:
             if my_collection.find({'Parks': str(x)}) == True:
                 self.TotalParkss = my_collection.find({'Parks': str(x)})
+=======
+>>>>>>> 89d539953b5aaad6006ae5b6c9d759febd6ab323
 
 class EnviroScopeApp(App):
     def build(self):
         sm = ScreenManager()
         sm.add_widget(SignUpIn(name = 'SignUpIn'))
-        sm.add_widget(outOrder(name = 'outOrder'))        
+        sm.add_widget(OutOrder(name = 'OutOrder'))        
         sm.add_widget(SignIn(name = 'SignIn'))
         sm.add_widget(NewYorkState(name = 'NewYorkState'))
         sm.add_widget(GetInformed(name = 'GetInformed'))
@@ -986,7 +1019,7 @@ class EnviroScopeApp(App):
         sm.add_widget(SocialMediaPage(name = 'SocialMediaPage'))
         sm.add_widget(LitterSheet(name = 'LitterSheet'))
         sm.add_widget(GretaThunberg(name = 'GretaThunberg'))
-        sm.add_widget(instructPost(name = 'instructPost'))
+        sm.add_widget(InstructPost(name = 'InstructPost'))
         sm.add_widget(SignUp(name = 'SignUp'))
         sm.add_widget(InspirationalVideos(name = 'InspirationalVideos'))
         sm.add_widget(Video1(name = 'Video1'))
@@ -994,7 +1027,7 @@ class EnviroScopeApp(App):
         sm.add_widget(ViewJobs(name = 'ViewJobs'))
         sm.add_widget(BottleCount(name = 'BottleCount'))
         sm.add_widget(ParkCount(name = 'ParkCount'))
-        sm.add_widget(viewContact(name = 'viewContact'))
+        sm.add_widget(ViewContact(name = 'ViewContact'))
         sm.add_widget(SocialMedia(name = 'SocialMedia'))
         sm.add_widget(SocialChat(name = 'SocialChat'))
         return sm
