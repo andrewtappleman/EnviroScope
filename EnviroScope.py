@@ -953,7 +953,7 @@ class ParkCount(Screen):
         db = client["CollectiveImpact"]
         
         my_collection = db["TotalParks"]
-        self.TotalBottles = -1
+        self.TotalParks = -1
         #Purpose is to get the numebr of bottles
         x = 0
         while self.TotalParks == -1:
