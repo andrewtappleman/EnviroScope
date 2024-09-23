@@ -53,6 +53,7 @@ from pymongo.server_api import ServerApi
 import random
 import globals
 
+
 class AddAJob(Screen):
     def on_enter(self):
         self.ids.NameInput.text = globals.username

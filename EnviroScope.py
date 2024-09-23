@@ -55,7 +55,6 @@ import globals
 
 
 #Loading Python Files
-from header_widget import HeaderWidget
 from park_count import ParkCount
 from social_media import SocialMedia
 from social_chat import SocialChat
@@ -92,7 +91,6 @@ from bottle_count import BottleCount
 
 
 #Loading Kivy Files
-Builder.load_file('headerwidget.kv')
 Builder.load_file('FPAY.kv')
 Builder.load_file('PollutionMap.kv')
 Builder.load_file('FunFacts.kv')

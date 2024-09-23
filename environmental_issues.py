@@ -53,27 +53,38 @@ from pymongo.server_api import ServerApi
 import random
 import globals
 
-class EnvironmentalIssues (Screen):
+class EnvironmentalIssues(Screen):
     def on_pre_enter(self):
+        self.updateStreak()
+    def updateStreak(self):
         today = datetime.now()
-        print('Username:')
-        print(globals.username)
-        print('')
         db = globals.client['MainData']
         collection = db['Account Info']
-        
         streakDoc = collection.find_one({'name': globals.username})
-        
-        self.last_active_date = streakDoc['last_date']
-        self.streak = streakDoc['streak']
-        if self.last_active_date == today - timedelta(days = 1):
-            self.streak += 1
-        else:
-            self.streak = 1
+        print(globals.username)
+
+        if streakDoc:
+            self.last_active_date = streakDoc['last_date']
+            streak = streakDoc['streak']
+            print("streak streak declaration ", streak)
+                       
+            if self.last_active_date.date() == (today - timedelta(days=1)).date():
+                streak += 1
+                print("streak streak evaluation if ", streak)
+
+            elif self.last_active_date.date() == today.date():
+                streak = streak
+                print("streak streak evaluation elif ", streak)
+
+            else:
+                streak = 1
+                print("streak streak evaluation else ", streak)
 
 
-        query_filter = {'name' : globals.username}
-        streakData = collection.update_many(
-    {'name': globals.username},
-    {'$set': {'streak': self.streak, 'last_date': today}}
-)
+            notification.notify(title='EnviroScope', message=f'Your streak is now {streak}.')
+
+            query_filter = {'name': globals.username}
+            update_values = {'$set': {'streak': streak, 'last_date': today}}
+
+            result = collection.update_one(query_filter, update_values)
+            print(f'Documents updated: {result.modified_count}')
