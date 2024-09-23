@@ -52,18 +52,20 @@ import sys
 import base64
 from pymongo.server_api import ServerApi
 import random
+Builder.load_file("SignUp.kv")
+
 
 class SignUp(Screen):
-    
+
     def addInfo(self):
+        
+        db = globals.client["MainData"]
+        my_collection = db["Account Info"]
 
-        db = globals.client["AccountInfo"]
-        my_collection = db["NamePassword"]
-
-        NameData = [{"name": self.ids.UserName2.text, "password": self.ids.Password2.text}]
+        NameData = [{"name": self.ids.UserName2.text, "password": self.ids.Password2.text, "Bottles": "0", "Parks": "0", "streak": 1, "last_date": datetime.now()}]
         globals.new = 1
         globals.username = self.ids.UserName2.text
-
+        print(NameData)
         try:
             result = my_collection.insert_many(NameData)
         except pymongo.errors.OperationFailure:
