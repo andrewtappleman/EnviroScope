@@ -1,0 +1,70 @@
+import sqlite3
+from kivy.app import App
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.button import Button
+from kivy.uix.label import Label
+from kivy.uix.textinput import TextInput
+
+# Function to create a database and a table to store totals for specific numbers
+def create_database():
+    conn = sqlite3.connect('totals.db')
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS totals (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            number INTEGER UNIQUE NOT NULL,
+            total INTEGER NOT NULL DEFAULT 0
+        )
+    ''')
+    conn.commit()
+    conn.close()
+
+class TotalApp(App):
+    def build(self):
+        self.layout = BoxLayout(orientation='vertical')
+        
+        self.number_input = TextInput(hint_text='Enter the number', multiline=False)
+        self.layout.add_widget(self.number_input)
+        
+        self.amount_input = TextInput(hint_text='Enter amount to add', multiline=False)
+        self.layout.add_widget(self.amount_input)
+        
+        add_button = Button(text='Add to Total', on_press=self.add_to_total)
+        self.layout.add_widget(add_button)
+        
+        self.label = Label(text='Current Total: 0', font_size='20sp')
+        self.layout.add_widget(self.label)
+        
+        return self.layout
+    
+    def update_total(self, number):
+        conn = sqlite3.connect('totals.db')
+        cursor = conn.cursor()
+        cursor.execute('SELECT total FROM totals WHERE number = ?', (number,))
+        result = cursor.fetchone()
+        total = result[0] if result else 0
+        self.label.text = f'Current Total for {number}: {total}'
+        conn.close()
+
+    def add_to_total(self, instance):
+        try:
+            number = int(self.number_input.text)
+            amount_to_add = int(self.amount_input.text)
+            
+            conn = sqlite3.connect('totals.db')
+            cursor = conn.cursor()
+            
+            # Insert number if it doesn't exist, otherwise update the total
+            cursor.execute('INSERT INTO totals (number, total) VALUES (?, ?) ON CONFLICT(number) DO UPDATE SET total = total + ?', (number, amount_to_add, amount_to_add))
+            conn.commit()
+            conn.close()
+            
+            self.number_input.text = ''
+            self.amount_input.text = ''
+            self.update_total(number)
+        except ValueError:
+            self.label.text = 'Please enter valid integers.'
+
+if __name__ == '__main__':
+    create_database()
+    TotalApp().run()
