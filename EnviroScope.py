@@ -59,9 +59,7 @@ from park_count import ParkCount
 from social_media import SocialMedia
 from social_chat import SocialChat
 from view_contact import ViewContact
-from new_york_state import NewYorkState
 from virtual_badges import VirtualBadges
-from video1 import Video1
 from sign_up_in import SignUpIn
 from sign_in import SignIn
 from sign_up import SignUp
@@ -77,11 +75,8 @@ from get_inspired import GetInspired
 from leaderboard import LeaderBoard
 from daily_goals import DailyGoals
 from collective_impact import CollectiveImpact
-from famous_advocates import FamousAdvocates
 from social_media_page import SocialMediaPage
 from litter_sheet import LitterSheet
-from greta_thunberg import GretaThunberg
-from pollution_map import PollutionMap
 from fun_facts import FunFacts
 from post_media import PostMedia
 from instruct_post import InstructPost
