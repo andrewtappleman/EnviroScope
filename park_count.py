@@ -104,14 +104,16 @@ class ParkCount(Screen):
         
         my_collection = db["TotalParks"]
         self.TotalParks = -1
-        #Purpose is to get the numebr of bottles
+        #Purpose is to get the numebr of parks
         x = 0
         while self.TotalParks == -1:
             if my_collection.find({'Parks': str(x)}) == True:
                 self.TotalParkss = my_collection.find({'Parks': str(x)})
 class EnviroScopeApp(App):
     def build(self):
+        sm = ScreenManager()  
         sm.add_widget(ParkCount(name= 'ParkCount'))
+        
         return sm
-if __name__ == '__main__'
-    EnviroScope().run()
+if __name__ == '__main__':
+    EnviroScopeApp().run()
