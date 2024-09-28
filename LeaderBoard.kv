@@ -1,12 +1,61 @@
 
 <LeaderBoard>:
     name: "LeaderBoard"
+    canvas.before:
+        Color:
+            rgba: 0.592, 0.741, 0.969, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint_y: None
+        height: '40dp'
+        pos_hint: {'x': 0, 'top': 0.9}
+        Label:
+            text: root.Total1
+            color: 'black'
 
-    Label:
-        text: 'This page is still in the development phase.'
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint_y: None
+        height: '40dp'
+        pos_hint: {'x': 0, 'top': 0.75}
+        Label:
+            text: root.Total2
+            color: 'black'
+
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint_y: None
+        height: '40dp'
+        pos_hint: {'x': 0, 'top': 0.6}
+        Label:
+            text: root.Total3
+            color: 'black'
+
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint_y: None
+        height: '40dp'
+        pos_hint: {'x': 0, 'top': 0.45}
+        Label:
+            text: root.Total4
+            color: 'black'
+            
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint_y: None
+        height: '40dp'
+        pos_hint: {'x': 0, 'top': 0.3}
+        Label:
+            text: root.Total5
+            color: 'black'
+
     Button:
         text: 'Back'
         size_hint: 0.16, 0.1
         pos: 0, 0
         on_press:
             root.manager.current = 'GetRewarded'
+        background_color: 0.4196, 0.7922, 0.9569, 1

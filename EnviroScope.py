@@ -77,6 +77,7 @@ from daily_goals import DailyGoals
 from collective_impact import CollectiveImpact
 from social_media_page import SocialMediaPage
 from litter_sheet import LitterSheet
+from pollution_map import PollutionMap
 from fun_facts import FunFacts
 from post_media import PostMedia
 from instruct_post import InstructPost
@@ -121,6 +122,7 @@ Window.size = (width_base * scale, height_base * scale)
 class MyScreenManager(ScreenManager):
     pass
 
+
 class EnviroScopeApp(App):
     def build(self):
         sm = ScreenManager()
@@ -129,6 +131,7 @@ class EnviroScopeApp(App):
         sm.add_widget(SignIn(name = 'SignIn'))
         sm.add_widget(GetInformed(name = 'GetInformed'))
         sm.add_widget(FPAY(name = 'FPAY')) 
+        sm.add_widget(PollutionMap(name = 'PollutionMap'))
         sm.add_widget(FunFacts(name = 'FunFacts'))
         sm.add_widget(PostMedia(name = 'PostMedia'))
         sm.add_widget(EnvironmentalIssues(name = 'EnvironmentalIssues'))

@@ -62,7 +62,7 @@ class SignUp(Screen):
         db = globals.client["MainData"]
         my_collection = db["Account Info"]
 
-        NameData = [{"name": self.ids.UserName2.text, "password": self.ids.Password2.text, "Bottles": "0", "Parks": "0", "streak": 1, "last_date": datetime.now()}]
+        NameData = [{"name": self.ids.UserName2.text, "password": self.ids.Password2.text, "Bottles": 0, "Parks": 0, "streak": 1, "last_date": datetime.now()}]
         globals.new = 1
         globals.username = self.ids.UserName2.text
         print(NameData)
