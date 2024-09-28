@@ -81,7 +81,7 @@ class EnvironmentalIssues(Screen):
                 print("streak streak evaluation else ", streak)
 
 
-            notification.notify(title='EnviroScope', message=f'Your streak is now {streak}.')
+            notification.notify(title='EnviroScope', message=f'Your streak is {streak}.')
 
             query_filter = {'name': globals.username}
             update_values = {'$set': {'streak': streak, 'last_date': today}}
