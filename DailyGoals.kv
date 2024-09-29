@@ -7,41 +7,54 @@
             pos: self.pos
             size: self.size
 
-
     BoxLayout:
-        pos: 55, 675
-        size_hint: 0.8, 0.1
+        pos: 55, 650
+        size_hint: 0.8, 0.05
         Label:
+            id: Fact1
             color: 'black'
-            text: 'Pick up ten plastic waterbottles.'
+            text: root.Goal1
             pos: self.pos
+            size: self.size
+    
+    BoxLayout:
+        pos: 55, 575
+        size_hint: 0.8, 0.05
+        Label:
+            id: Fact2
+            color: 'black'
+            text: root.Goal2
+            pos: 55, 560
             size: self.size
 
     BoxLayout:
-        pos: 55, 550
+        pos: 55, 500
         size_hint: 0.8, 0.1
         Label:
+            id: Fact3
             color: 'black'
-            text: 'Go to a park and pick up litter.'
+            text: root.Goal3
             pos: self.pos
             size: self.size
 
     BoxLayout:
         pos: 55, 425
-        size_hint: 0.8, 0.1
+        size_hint: 0.8, 0.05
         Label:
+            id: Fact4
             color: 'black'
-            text: 'Dont leave lights on at your house.'
+            text: root.Goal4
             pos: self.pos
             size: self.size
 
     BoxLayout:
-        pos: 55, 300
-        size_hint: 0.8, 0.1
+        pos: 55, 350
+        size_hint: 0.8, 0.05
         Label:
+            id: Fact5
             color: 'black'
-            text: 'Use a reusable water bottle.'
-            pos: self.pos
+            text: root.Goal5
+            pos: 55, 310
             size: self.size
 
     Button:
