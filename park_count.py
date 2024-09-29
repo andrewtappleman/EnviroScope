@@ -1,4 +1,3 @@
-
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.core.window import Window
@@ -25,7 +24,6 @@ from kivy.core.image import Image as CoreImage
 from io import BytesIO
 from io import BytesIO
 from PIL import Image as PILImage
-
 import os
 import time
 os.environ["PAFY_BACKEND"] = "internal"
@@ -51,19 +49,34 @@ from pymongo.server_api import ServerApi
 import random
 import globals
 
-class ParkCount(Screen):
 
-    TotalParks = StringProperty("5")
+class ParkCount (Screen):
+
+    totalParks = ObjectProperty(None)
+    def on_pre_enter(self):
+        self.getInfo()
+
     def addInfo(self):
 
-        global client
-        db = client["Main data"]
-        
+        db = globals.client["MainData"]
         my_collection = db["Account Info"]
-        data = self.ids.Submit2.text
-        NameData = [{"Parks": data}]
 
-        global Parks
+        updateID = my_collection.find({'name': globals.username}).limit(1)[0]        
+
+        self.Parks = int(self.ids.Submit2.text)
+        self.totalParks = self.Parks + updateID['Parks']
+
+        query_filter = {'name': globals.username}
+        update_values = {'$set': {'Parks': self.totalParks}}
+
+        result = my_collection.update_one(query_filter, update_values)
+
+
+        db = globals.client["CollectiveImpact"]
+        collection = db["TotalParks"]
+
+        updateID = collection.find({'FindDoc': 'Found'}).limit(1)[0]
+
         self.Parks = self.ids.Submit2.text
 
         try:
@@ -77,13 +90,11 @@ class ParkCount(Screen):
             print("\n")
         self.manager.current = 'EnvironmentalIssues'
     def getInfo(self):
-        global client
-        db = client["Main data"]
-        
+        db = globals.client["CollectiveImpact"]    
         my_collection = db["TotalParks"]
-        self.TotalParks = -1
-        #Purpose is to get the numebr of bottles
-        x = 0
-        while self.TotalParks == -1:
-            if my_collection.find({'Parks': str(x)}) == True:
-                self.TotalParkss = my_collection.find({'Parks': str(x)})
+
+        updateID = my_collection.find({'FindDoc': 'Found'}).limit(1)[0]
+
+        self.totalParks = updateID['Total']
+
+        notification.notify(title = 'EnviroScope', message = 'The total park count is ' + str(self.totalParks))

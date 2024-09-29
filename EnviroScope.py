@@ -122,7 +122,6 @@ Window.size = (width_base * scale, height_base * scale)
 class MyScreenManager(ScreenManager):
     pass
 
-
 class EnviroScopeApp(App):
     def build(self):
         sm = ScreenManager()

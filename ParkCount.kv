@@ -10,33 +10,26 @@
 
     
 	BoxLayout:
-		pos: 55, 500
+		pos: 55, 600
 		size_hint: 0.8, 0.2
         orientation:  'vertical'
 		Label:
-			text:'Insert number of parks cleaned up here'
+			text:'Insert number of parks cleaned up below'
 			color: "black"
-			text_size: self.width, None
     BoxLayout:
-        pos: 55, 300
+        pos: 55, 400
         size_hint: 0.8, 0.2
         TextInput: 
             text: 'Enter here'
             id: Submit2
             size: self.size 
     BoxLayout:
-        pos:55, 100
+        pos:55, 200
         size_hint: 0.8, 0.2
 		Button: 
             text: 'Enter'
             on_press:
                 root.addInfo()
-            background_color: 0.0, 0.447, 0.071, 1
-    BoxLayout: 
-        pos: 55, 1000
-        size_hint: 0.2, 0.2
-        Label:
-            text: root.TotalParks
             background_color: 0.0, 0.447, 0.071, 1
     Button:
         text: 'Back'
