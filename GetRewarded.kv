@@ -17,8 +17,8 @@
 			text: 'Leaderboard'
 			on_press:
 				root.manager.current = 'LeaderBoard'
-			size: self.texture_size 
-			pos: 45, 675
+			size_hint: 0.8, 0.1
+			pos: 55, 600
 		
 			background_color: 0.0, 0.447, 0.071, 1
 		
@@ -26,28 +26,11 @@
 			text: 'Daily Goals'
 			on_press:
 				root.manager.current = 'DailyGoals'
-			size: self.texture_size
-			pos: 45, 550
+			size_hint: 0.8, 0.1
+			pos: 55, 350
 			
 			background_color: 0.0, 0.447, 0.071, 1
 			
-		Button:
-			text: 'Daily Streaks'
-			on_press:
-				root.manager.current = 'DailyStreaks'
-			size: self.texture_size
-			pos: 45, 425
-			
-			background_color: 0.0, 0.447, 0.071, 1
-			
-		Button:
-			text: 'Virtual Badges'
-			on_press:
-				root.manager.current = 'VirtualBadges'
-			size: self.texture_size
-			pos: 45, 300
-			
-			background_color: 0.0, 0.447, 0.071, 1
 			
 	Button: 
 		text: 'Back'
