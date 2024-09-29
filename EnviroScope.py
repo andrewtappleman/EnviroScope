@@ -112,6 +112,7 @@ Builder.load_file('BottleCount.kv')
 Builder.load_file('ViewContact.kv')
 Builder.load_file('SocialMedia.kv')
 Builder.load_file('SocialChat.kv')
+Builder.load_file('Parkcount.kv')
 
 
 width_base = 15
