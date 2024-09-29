@@ -55,58 +55,46 @@ import globals
 
 class BottleCount (Screen):
 
-    def check_account(self):
-        
-        db = globals.client['BottleCountInfo']
-        collection = db['TotalBottles']
-        
-        Total_Bottles = self.ids.TotalBottles1.text
+    TotalBottles = StringProperty("0")
+    def on_pre_enter(self):
+        self.getInfo()
 
-        globals.Bottles = self.ids.TotalBottle1.text
-        
-        query = {"Bottles": Total_Bottles}
-        
-        if self.check_for_type(collection, query):
-            self.manager.current = "EnvironmentalIssues"
-        else:
-            notification.notify(title = 'EnviroScope', message = 'Bottle count was not sucseful in updating')
-            self.ids.TotalBottles1.text = ""
-
-
-    def check_for_type(self, collection, query):
-        result = collection.find_one(query)
-        return result is not None
-
-
-
-    TotalBottles = StringProperty("5")
     def addInfo(self):
 
+        db = globals.client["MainData"]
+        my_collection = db["Account Info"]
+
+        updateID = my_collection.find({'name': globals.username}).limit(1)[0]        
+
+        self.Bottles = int(self.ids.EnterHere2.text)
+        self.AddBottle = 'Total Bottles Collected: '
+        self.TotalBottles = self.AddBottle + str(self.Bottles + updateID['Bottles'])
+
+        query_filter = {'name': globals.username}
+        update_values = {'$set': {'Bottles': self.Bottles}}
+
+        result = my_collection.update_one(query_filter, update_values)
+
+
         db = globals.client["CollectiveImpact"]
-        
-        my_collection = db["TotalBottles"]
-        data = self.ids.EnterHere2.text
-        NameData = [{"Bottles": data}]
+        collection = db["TotalBottles"]
 
-        self.Bottles = self.ids.EnterHere2.text
+        updateID = collection.find({'FindDoc': 'Found'}).limit(1)[0]
 
-        try:
-            result = my_collection.insert_many(NameData)
-        except pymongo.errors.OperationFailure:
-            print("An authentication error was received. Check your database user permissions.")
-            sys.exit(1)
-        else:
-            inserted_count = len(result.inserted_ids)
-            print("I inserted %d documents." % inserted_count)
-            print("\n")
-        self.manager.current = 'EnvironmentalIssues'
+        self.Bottles = int(self.ids.EnterHere2.text)
+
+        query_filter = {'FindDoc': 'Found'}
+        update_values = {'$set': {'Total': self.Bottles}}
+
+        result = collection.update_one(query_filter, update_values)
+        self.getInfo()
+
     def getInfo(self):
-        db = globals.client["CollectiveImpact"]
-        
+        db = globals.client["CollectiveImpact"]    
         my_collection = db["TotalBottles"]
-        self.TotalBottles = -1
-        #Purpose is to get the numebr of bottles
-        x = 0
-        while self.TotalBottles == -1:
-            if my_collection.find({'Bottles': str(x)}) == True:
-                self.TotalBottles = my_collection.find({'Bottles': str(x)})
+
+        updateID = my_collection.find({'FindDoc': 'Found'}).limit(1)[0]
+
+        self.TotalBottle = updateID['Total']
+
+        notification.notify(title = 'EnviroScope', message = 'The total bottle count is ' + str(self.TotalBottle))

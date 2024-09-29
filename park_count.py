@@ -29,8 +29,6 @@ import time
 os.environ["PAFY_BACKEND"] = "internal"
 import pafy
 
-Builder.load.file('Park Count')
-
 from win10toast import ToastNotifier
 from httpx import HTTPStatusError
 from kivy.utils import platform
@@ -49,71 +47,51 @@ import sys
 import base64
 from pymongo.server_api import ServerApi
 import random
-
-uri = "mongodb+srv://admin:admin@enviroscopecluster0.qdwjcoq.mongodb.net/?appName=EnviroScopeCluster0"
-# Create a new client and connect to the server
-client = MongoClient(uri, server_api=ServerApi('1'))
-# Send a ping to confirm a successful connection
-try:
-    client.admin.command('ping')
-    print("Pinged your deployment. You successfully connected to MongoDB!")
-except Exception as e:
-    print(e)
-
-width_base = 15
-height_base = 25
-scale = 30
-Window.size = (width_base * scale, height_base * scale)
-username = ''
-username = ''
-district = ''
-state = ''
-username = ''
-notifLimit = 0
-new = 0
+import globals
 
 
-class ParkCount(Screen):
+class ParkCount (Screen):
 
-    TotalParks = StringProperty("5")
+    totalParks = ObjectProperty(None)
+    def on_pre_enter(self):
+        self.getInfo()
+
     def addInfo(self):
 
-        global client
-        db = client["Main data"]
-        
+        db = globals.client["MainData"]
         my_collection = db["Account Info"]
-        data = self.ids.Submit2.text
-        NameData = [{"Parks": data}]
 
-        global Parks
-        self.Parks = self.ids.Submit2.text
+        updateID = my_collection.find({'name': globals.username}).limit(1)[0]        
 
-        try:
-            result = my_collection.insert_many(NameData)
-        except pymongo.errors.OperationFailure:
-            print("An authentication error was received. Check your database user permissions.")
-            sys.exit(1)
-        else:
-            inserted_count = len(result.inserted_ids)
-            print("I inserted %d documents." % inserted_count)
-            print("\n")
-        self.manager.current = 'EnvironmentalIssues'
+        self.Parks = int(self.ids.Submit2.text)
+        self.totalParks = self.Parks + updateID['Parks']
+
+        query_filter = {'name': globals.username}
+        update_values = {'$set': {'Parks': self.totalParks}}
+
+        result = my_collection.update_one(query_filter, update_values)
+
+
+        db = globals.client["CollectiveImpact"]
+        collection = db["TotalParks"]
+
+        updateID = collection.find({'FindDoc': 'Found'}).limit(1)[0]
+
+        self.Parks = int(self.ids.Submit2.text)
+        self.totalPark = self.Parks + updateID['Parks']
+
+        query_filter = {'FindDoc': 'Found'}
+        update_values = {'$set': {'Total': self.totalPark}}
+
+        result = collection.update_one(query_filter, update_values)
+        self.getInfo()
+
     def getInfo(self):
-        global client
-        db = client["Main data"]
-        
+        db = globals.client["CollectiveImpact"]    
         my_collection = db["TotalParks"]
-        self.TotalParks = -1
-        #Purpose is to get the numebr of parks
-        x = 0
-        while self.TotalParks == -1:
-            if my_collection.find({'Parks': str(x)}) == True:
-                self.TotalParkss = my_collection.find({'Parks': str(x)})
-class EnviroScopeApp(App):
-    def build(self):
-        sm = ScreenManager()  
-        sm.add_widget(ParkCount(name= 'ParkCount'))
-        
-        return sm
-if __name__ == '__main__':
-    EnviroScopeApp().run()
+
+        updateID = my_collection.find({'FindDoc': 'Found'}).limit(1)[0]
+
+        self.totalParks = updateID['Total']
+
+        notification.notify(title = 'EnviroScope', message = 'The total park count is ' + str(self.totalParks))

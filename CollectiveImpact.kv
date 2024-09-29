@@ -7,17 +7,9 @@
             pos: self.pos
             size: self.size
 	BoxLayout:
-		pos: 55, 100
-		size_hint: 0.8, 0.8
+		pos: 55, 600
+		size_hint: 0.8, 0.3
 		orientation:  'vertical'
-		Button:
-			text: 'Total Litter Cleaned up'
-			on_press:
-				root.manager.current = 'outOrder'
-			size: self.texture_size
-			pos: 45, 675
-			background_color: 0.4196, 0.7922, 0.9569, 1
-		
 		Button:
 			text:'Total Bottles Picked up'
 			on_press:
@@ -25,7 +17,10 @@
 			size: self.texture_size
 			pos: 45, 550
 			background_color: 0.4196, 0.7922, 0.9569, 1
-		
+	BoxLayout:
+		pos: 55, 200
+		size_hint: 0.8, 0.3
+		orientation:  'vertical'
 		Button:
 			text: 'Total Parks Cleaned'
 			on_press:
