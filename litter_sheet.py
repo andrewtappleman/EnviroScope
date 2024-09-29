@@ -59,8 +59,6 @@ class LitterSheet (Screen):
         self.create_dropdown()
 
     def create_dropdown(self):
-        db = globals.client['CleanUps']
-        collection = db['Jobs']
 
         db = globals.client['MainData']
         collection = db['Litter Cleanups']
@@ -87,12 +85,9 @@ class LitterSheet (Screen):
     def addToList(self):
         
         notification.notify(title = 'EnviroScope', message = 'You have joined a clean up.')
-        db = globals.client['LitterSheet']
-        collection = db['Jobs']
-
 
         db = globals.client['MainData']
-        collection = db['Litter Cleanups']
+        collection = db['Jobs Taken']
         
         name = self.ids.NameInput.text
         cleanup = self.ids.dropButton.text
