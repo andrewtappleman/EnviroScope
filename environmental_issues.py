@@ -61,8 +61,7 @@ class EnvironmentalIssues(Screen):
         db = globals.client['MainData']
         collection = db['Account Info']
         streakDoc = collection.find_one({'name': globals.username})
-        print(globals.username)
-
+        
         if streakDoc:
             self.last_active_date = streakDoc['last_date']
             streak = streakDoc['streak']

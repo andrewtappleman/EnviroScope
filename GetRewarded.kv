@@ -6,30 +6,24 @@
 		Rectangle:
 			pos: self.pos
 			size: self.size
-
+		
+	Button: 
+		text: 'Leaderboard'
+		on_press:
+			root.manager.current = 'LeaderBoard'
+		size_hint: 0.8, 0.1
+		pos: 55, 600
 	
-	BoxLayout:
-		pos: 55, 100
-		size_hint: 0.8, 0.8
-		orientation:  'vertical'
+		background_color: 0.0, 0.447, 0.071, 1
 		
-		Button: 
-			text: 'Leaderboard'
-			on_press:
-				root.manager.current = 'LeaderBoard'
-			size_hint: 0.8, 0.1
-			pos: 55, 600
-		
-			background_color: 0.0, 0.447, 0.071, 1
-		
-		Button:
-			text: 'Daily Goals'
-			on_press:
-				root.manager.current = 'DailyGoals'
-			size_hint: 0.8, 0.1
-			pos: 55, 350
+	Button:
+		text: 'Daily Goals'
+		on_press:
+			root.manager.current = 'DailyGoals'
+		size_hint: 0.8, 0.1
+		pos: 55, 350
 			
-			background_color: 0.0, 0.447, 0.071, 1
+		background_color: 0.0, 0.447, 0.071, 1
 			
 			
 	Button: 
