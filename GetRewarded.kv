@@ -6,13 +6,15 @@
 		Rectangle:
 			pos: self.pos
 			size: self.size
+
+	
 	BoxLayout:
 		pos: 55, 100
 		size_hint: 0.8, 0.8
 		orientation:  'vertical'
 		
 		Button: 
-			text: 'Leader Board'
+			text: 'Leaderboard'
 			on_press:
 				root.manager.current = 'LeaderBoard'
 			size: self.texture_size 

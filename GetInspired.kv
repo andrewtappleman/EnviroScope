@@ -6,6 +6,7 @@
 		Rectangle:
 			pos: self.pos
 			size: self.size
+
 	BoxLayout:
 		pos: 55,100
 		size_hint: 0.8, 0.8
@@ -19,14 +20,6 @@
 			
 			background_color: 0.0, 0.447, 0.071, 1
 		
-		Button:
-			text: 'Famous Advocate, Greta Thunberg'
-			on_press:
-				root.manager.current = 'GretaThunberg'
-			size: self.texture_size
-			pos: 45, 425
-			
-			background_color: 0.0, 0.447, 0.071, 1
 	
 	Button:
 		text: 'Back'
@@ -35,51 +28,4 @@
 		size_hint: 0.16, 0.1
 		pos: 0, 0
 		
-		background_color: 0.0, 0.447, 0.071, 1
-
-
-<GetInvolved>:
-	canvas.before:
-		Color:
-			rgba: 0.8, 1, 0.698, 1
-		Rectangle:
-			pos: self.pos
-			size: self.size
-	BoxLayout:
-		pos: 55,100
-		size_hint: 0.8, 0.8
-		orientation: 'vertical'
-		Button:
-			text: 'Litter Sign up Sheet'
-			on_press:
-				root.manager.current = 'LitterSheet'
-			size: self.texture_size
-			pos: 45, 675
-			
-			background_color: 0.0, 0.447, 0.071, 1
-		
-		Button:
-			text: 'Social Media Page'
-			on_press:
-				root.manager.current = 'SocialMediaPage'
-			size: self.texture_size
-			pos: 45, 550
-			
-			background_color: 0.0, 0.447, 0.071, 1
-			
-		Button:
-			text: 'Add a Post'
-			on_press:
-				root.manager.current = 'InstructPost'
-			size: self.texture_size
-			pos: 45, 425
-			
-			background_color: 0.0, 0.447, 0.071, 1
-	
-	Button:
-		text: 'Back'
-		on_press:
-			root.manager.current = 'EnvironmentalIssues'
-		size_hint: 0.16, 0.1
-		pos: 0, 0
 		background_color: 0.0, 0.447, 0.071, 1

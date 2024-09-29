@@ -59,10 +59,7 @@ from park_count import ParkCount
 from social_media import SocialMedia
 from social_chat import SocialChat
 from view_contact import ViewContact
-from new_york_state import NewYorkState
-from inspirational_videos import InspirationalVideos
 from virtual_badges import VirtualBadges
-from video1 import Video1
 from sign_up_in import SignUpIn
 from sign_in import SignIn
 from sign_up import SignUp
@@ -76,13 +73,10 @@ from get_rewarded import GetRewarded
 from get_involved import GetInvolved
 from get_inspired import GetInspired
 from leaderboard import LeaderBoard
-from daily_streaks import DailyStreaks
 from daily_goals import DailyGoals
 from collective_impact import CollectiveImpact
-from famous_advocates import FamousAdvocates
 from social_media_page import SocialMediaPage
 from litter_sheet import LitterSheet
-from greta_thunberg import GretaThunberg
 from pollution_map import PollutionMap
 from fun_facts import FunFacts
 from post_media import PostMedia
@@ -93,20 +87,15 @@ from bottle_count import BottleCount
 
 #Loading Kivy Files
 Builder.load_file('FPAY.kv')
-Builder.load_file('PollutionMap.kv')
 Builder.load_file('FunFacts.kv')
-Builder.load_file('NewYorkState.kv')
 Builder.load_file('VirtualBadges.kv')
 Builder.load_file('DailyGoals.kv')
 Builder.load_file('PostMedia.kv')
 Builder.load_file('GetRewarded.kv')
 Builder.load_file('GetInspired.kv')
-Builder.load_file('GretaThunberg.kv')
 Builder.load_file('GetInContact.kv')
 Builder.load_file('CollectiveImpact.kv')
 Builder.load_file('LitterSheet.kv')
-Builder.load_file('InspirationalVideos.kv')
-Builder.load_file('DailyStreaks.kv')
 Builder.load_file('SocialMediaPage.kv')
 Builder.load_file('InstructPost.kv')
 Builder.load_file('LeaderBoard.kv')
@@ -117,7 +106,6 @@ Builder.load_file('GetInvolved.kv')
 Builder.load_file('outOrder.kv')
 Builder.load_file('GetInformed.kv')
 Builder.load_file('SignUp.kv')
-Builder.load_file('Video1.kv')
 Builder.load_file('AddAJob.kv')
 Builder.load_file('ViewJobs.kv')
 Builder.load_file('BottleCount.kv')
@@ -125,18 +113,6 @@ Builder.load_file('ViewContact.kv')
 Builder.load_file('SocialMedia.kv')
 Builder.load_file('SocialChat.kv')
 
-
-
-uri = "mongodb+srv://admin:admin@enviroscopecluster0.qdwjcoq.mongodb.net/?appName=EnviroScopeCluster0"
-# Create a new client and connect to the server
-clientel = MongoClient(uri, server_api=ServerApi('1'))
-# Send a ping to confirm a successful connection
-try:
-    clientel.admin.command('ping')
-    print("Pinged your deployment. You successfully connected to MongoDB!")
-except Exception as e:
-    print(e)
-globals.client = clientel
 
 width_base = 15
 height_base = 25
@@ -152,7 +128,6 @@ class EnviroScopeApp(App):
         sm.add_widget(SignUpIn(name = 'SignUpIn'))
         sm.add_widget(OutOrder(name = 'OutOrder'))        
         sm.add_widget(SignIn(name = 'SignIn'))
-        sm.add_widget(NewYorkState(name = 'NewYorkState'))
         sm.add_widget(GetInformed(name = 'GetInformed'))
         sm.add_widget(FPAY(name = 'FPAY')) 
         sm.add_widget(PollutionMap(name = 'PollutionMap'))
@@ -165,17 +140,12 @@ class EnviroScopeApp(App):
         sm.add_widget(GetInspired(name = 'GetInspired'))
         sm.add_widget(LeaderBoard(name = 'LeaderBoard'))
         sm.add_widget(DailyGoals(name = 'DailyGoals'))
-        sm.add_widget(DailyStreaks(name = 'DailyStreaks'))
         sm.add_widget(VirtualBadges(name = 'VirtualBadges'))
         sm.add_widget(CollectiveImpact(name = 'CollectiveImpact'))
-        sm.add_widget(FamousAdvocates(name = 'FamousAdvocates'))
         sm.add_widget(SocialMediaPage(name = 'SocialMediaPage'))
         sm.add_widget(LitterSheet(name = 'LitterSheet'))
-        sm.add_widget(GretaThunberg(name = 'GretaThunberg'))
         sm.add_widget(InstructPost(name = 'InstructPost'))
         sm.add_widget(SignUp(name = 'SignUp'))
-        sm.add_widget(InspirationalVideos(name = 'InspirationalVideos'))
-        sm.add_widget(Video1(name = 'Video1'))
         sm.add_widget(AddAJob(name = 'AddAJob'))
         sm.add_widget(ViewJobs(name = 'ViewJobs'))
         sm.add_widget(BottleCount(name = 'BottleCount'))
@@ -183,7 +153,9 @@ class EnviroScopeApp(App):
         sm.add_widget(ViewContact(name = 'ViewContact'))
         sm.add_widget(SocialMedia(name = 'SocialMedia'))
         sm.add_widget(SocialChat(name = 'SocialChat'))
+
         return sm
 
 if __name__ == '__main__':
     EnviroScopeApp().run()
+    

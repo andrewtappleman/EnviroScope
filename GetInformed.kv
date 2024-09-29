@@ -7,6 +7,7 @@
             pos: self.pos
             size: self.size
 
+
     BoxLayout:
         pos: 55, 700
         size_hint: 0.8, 0.15
@@ -16,17 +17,6 @@
             size: self.texture_size
             on_press:
                 root.manager.current = 'FPAY'
-            background_color: 0.0, 0.447, 0.071, 1
-    
-    BoxLayout:
-        pos: 55, 525
-        size_hint: 0.8, 0.15
-        Button:
-            text: 'Areas of Need Map'
-            pos: self.pos
-            size: self.texture_size
-            on_press:
-                root.manager.current = 'PollutionMap'
             background_color: 0.0, 0.447, 0.071, 1
                 
     BoxLayout:
@@ -40,16 +30,7 @@
                 root.manager.current = 'FunFacts'
             background_color: 0.0, 0.447, 0.071, 1
     
-    BoxLayout:
-        pos: 55, 175
-        size_hint: 0.8, 0.15
-        Button:
-            text: 'New York State Issues'
-            pos: self.pos
-            size: self.texture_size
-            on_press:
-                root.manager.current = 'NewYorkState'
-            background_color: 0.0, 0.447, 0.071, 1
+
                 
     Button:
         text: 'Back'
