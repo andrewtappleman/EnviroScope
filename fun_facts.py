@@ -55,23 +55,9 @@ import globals
 
 class FunFacts(Screen):
     def regen(self):
-        factNum1 = random.randint(1, 50)
+        goal_numbers = random.sample(range(0, 51), 5)
 
-        factNum2 = random.randint(1, 50)
-        while factNum2 == factNum1:
-            factNum2 = random.randint(1, 50)
-
-        factNum3 = random.randint(1, 50)
-        while factNum3 == factNum2 or factNum3 == factNum1:
-            factNum3 = random.randint(1, 50)
-
-        factNum4 = random.randint(1, 50)
-        while factNum4 == factNum3 or factNum4 == factNum2 or factNum4 == factNum1:
-            factNum4 = random.randint(1, 50)
-
-        factNum5 = random.randint(1, 50)
-        while factNum5 == factNum4 or factNum5 == factNum3 or factNum5 == factNum2 or factNum5 == factNum1:
-            factNum3 = random.randint(1, 50)
+        factNum1, factNum2, factNum3, factNum4, factNum5 = goal_numbers
         
         db = globals.client['FunFacts']
         collection = db['Facts']

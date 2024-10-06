@@ -77,25 +77,25 @@ class DailyGoals (Screen):
         db = globals.client['MainData']
         collection = db['Daily Goals']
 
-        findDoc = collection.find({'FindNum': num1})
+        findDoc = collection.find_one({'FindNum': num1})
         self.Goal1 = findDoc['Goal']
 
-        findDoc = collection.find({'FindNum': num2})
+        findDoc = collection.find_one({'FindNum': num2})
         self.Goal2 = findDoc['Goal']
 
-        findDoc = collection.find({'FindNum': num3})
+        findDoc = collection.find_one({'FindNum': num3})
         self.Goal3 = findDoc['Goal']
 
-        findDoc = collection.find({'FindNum': num4})
+        findDoc = collection.find_one({'FindNum': num4})
         self.Goal4 = findDoc['Goal']
 
-        findDoc = collection.find({'FindNum': num5})
+        findDoc = collection.find_one({'FindNum': num5})
         self.Goal5 = findDoc['Goal']
 
     def regen(self):
         print("Unique")
         
-        goal_numbers = random.sample(range(0, 20), 5)
+        goal_numbers = random.sample(range(1, 20), 5)
 
         goalNum1, goalNum2, goalNum3, goalNum4, goalNum5 = goal_numbers
         print('Got Numbers')
@@ -127,6 +127,9 @@ class DailyGoals (Screen):
 
         findDoc = collection.find_one({'FindNum': num5})
         self.Goal5 = findDoc['Goal']
+
+        db = globals.client['MainData']
+        collection = db['Account Info']
 
         query_filter = {'name': globals.username}
         update_values = {'$set': {'GoalFind1': num1, 'GoalFind2': num2, 'GoalFind3': num3, 'GoalFind4': num4, 'GoalFind5': num5}}
