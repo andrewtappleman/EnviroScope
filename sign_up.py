@@ -65,7 +65,7 @@ class SignUp(Screen):
             my_collection = db["Account Info"]
             globals.new2 = 1
             
-            NameData = [{"name": self.ids.UserName2.text, "password": self.ids.Password2.text, "Bottles": 0, "Parks": 0, "streak": 1, "last_date": datetime.now(), 'GoalFind1': 0, 'GoalFind2': 0, 'GoalFind3': 0, 'GoalFind4': 0, 'GoalFind5': 0, }]
+            NameData = [{"name": self.ids.UserName2.text, "password": self.ids.Password2.text, "Bottles": 0, "Parks": 0, "streak": 1, "last_date": datetime.now(), 'GoalFind1': 1, 'GoalFind2': 1, 'GoalFind3': 1, 'GoalFind4': 1, 'GoalFind5': 1, }]
             globals.username = self.ids.UserName2.text
             print(NameData)
             try:

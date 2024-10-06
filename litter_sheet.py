@@ -61,7 +61,7 @@ class LitterSheet (Screen):
     def create_dropdown(self):
 
         db = globals.client['MainData']
-        collection = db['Litter Cleanups']
+        collection = db['Litter Employees']
 
         dropButton = self.ids.dropButton
     
