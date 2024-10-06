@@ -56,7 +56,13 @@ import globals
 class EnvironmentalIssues(Screen):
     def on_pre_enter(self):
         self.updateStreak()
+
     def updateStreak(self):
+        if globals.new2 == 1:
+            globals.resetNew2 += 1
+        if globals.resetNew2 == 2:
+            globals.new2 = 0
+        
         today = datetime.now()
         db = globals.client['MainData']
         collection = db['Account Info']
@@ -78,12 +84,24 @@ class EnvironmentalIssues(Screen):
             else:
                 streak = 1
                 print("streak streak evaluation else ", streak)
+            print(globals.new)
+            print('First')
+            if self.last_active_date.date() == today.date():
+                globals.new = 0
+                print("new evaluation if ", globals.new)
+            elif globals.new2 == 1:
+                globals.new = 1
+                print("new evaluation elif ", globals.new)
+            else:
+                globals.new = 1
+                print("new evaluation else ", globals.new)
 
-
-            notification.notify(title='EnviroScope', message=f'Your streak is {streak}.')
+            print(globals.new)
+            print('Second')
+            if globals.new == 1:
+                notification.notify(title='EnviroScope', message=f'Your streak is {streak}.')
 
             query_filter = {'name': globals.username}
             update_values = {'$set': {'streak': streak, 'last_date': today}}
 
             result = collection.update_one(query_filter, update_values)
-            print(f'Documents updated: {result.modified_count}')

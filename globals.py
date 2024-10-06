@@ -3,6 +3,9 @@ from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 
 new = 0
+new2 = 0
+resetNew2 = 0
+
 username = ''
 district = ''
 state = ''

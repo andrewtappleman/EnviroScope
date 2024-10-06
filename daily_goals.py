@@ -58,51 +58,91 @@ class DailyGoals (Screen):
     Goal3 = StringProperty('Default Goal')
     Goal4 = StringProperty('Default Goal')
     Goal5 = StringProperty('Default Goal')
-    def on_pre_enter(self):
-        if globals.new == 0:
-            self.regen()
-            globals.new = 1
+
+    def loadPrev(self):
+        db = globals.client['MainData']
+        collection = db['Account Info']
+        
+        findDoc = collection.find({'name': globals.username}).limit(1)[0]
+
+        num1 = str(findDoc['GoalFind1'])
+        num2 = str(findDoc['GoalFind2'])
+        num3 = str(findDoc['GoalFind3'])
+        num4 = str(findDoc['GoalFind4'])
+        num5 = str(findDoc['GoalFind5'])
+
+        print(num1, num2, num3, num4, num5)
+        print('Numbers')
+
+        db = globals.client['MainData']
+        collection = db['Daily Goals']
+
+        findDoc = collection.find({'FindNum': num1})
+        self.Goal1 = findDoc['Goal']
+
+        findDoc = collection.find({'FindNum': num2})
+        self.Goal2 = findDoc['Goal']
+
+        findDoc = collection.find({'FindNum': num3})
+        self.Goal3 = findDoc['Goal']
+
+        findDoc = collection.find({'FindNum': num4})
+        self.Goal4 = findDoc['Goal']
+
+        findDoc = collection.find({'FindNum': num5})
+        self.Goal5 = findDoc['Goal']
 
     def regen(self):
         print("Unique")
-        goalNum1 = random.randint(0, 19)
-
-        goalNum2 = random.randint(0, 19)
-        while goalNum2 == goalNum1:
-            goalNum2 = random.randint(0, 19)
-
-        goalNum3 = random.randint(0, 19)
-        while goalNum3 == goalNum2 or goalNum3 == goalNum1:
-            goalNum3 = random.randint(0, 19)
-
-        goalNum4 = random.randint(0, 19)
-        while goalNum4 == goalNum3 or goalNum4 == goalNum2 or goalNum4 == goalNum1:
-            goalNum4 = random.randint(0, 19)
-
-        goalNum5 = random.randint(0, 19)
-        while goalNum5 == goalNum4 or goalNum5 == goalNum3 or goalNum5 == goalNum2 or goalNum5 == goalNum1:
-            goalNum3 = random.randint(0, 19)
         
+        goal_numbers = random.sample(range(0, 20), 5)
+
+        goalNum1, goalNum2, goalNum3, goalNum4, goalNum5 = goal_numbers
+        print('Got Numbers')
+        
+
         db = globals.client['MainData']
         collection = db['Daily Goals']
         
-        num1 = goalNum1
-        num2 = goalNum2
-        num3 = goalNum3
-        num4 = goalNum4
-        num5 = goalNum5
-        
-        findDoc = collection.find().sort({'_id': -1}).skip(num1).limit(1)[0]
+        num1 = str(goalNum1)
+        num2 = str(goalNum2)
+        num3 = str(goalNum3)
+        num4 = str(goalNum4)
+        num5 = str(goalNum5)
+        print(num1, num2, num3, num4, num5)
+        print('Numbers')
+
+
+        findDoc = collection.find_one({'FindNum': num1})
         self.Goal1 = findDoc['Goal']
 
-        findDoc = collection.find().sort({'_id': -1}).skip(num2).limit(1)[0]
+        findDoc = collection.find_one({'FindNum': num2})
         self.Goal2 = findDoc['Goal']
 
-        findDoc = collection.find().sort({'_id': -1}).skip(num3).limit(1)[0]
+        findDoc = collection.find_one({'FindNum': num3})
         self.Goal3 = findDoc['Goal']
 
-        findDoc = collection.find().sort({'_id': -1}).skip(num4).limit(1)[0]
+        findDoc = collection.find_one({'FindNum': num4})
         self.Goal4 = findDoc['Goal']
 
-        findDoc = collection.find().sort({'_id': -1}).skip(num5).limit(1)[0]
+        findDoc = collection.find_one({'FindNum': num5})
         self.Goal5 = findDoc['Goal']
+
+        query_filter = {'name': globals.username}
+        update_values = {'$set': {'GoalFind1': num1, 'GoalFind2': num2, 'GoalFind3': num3, 'GoalFind4': num4, 'GoalFind5': num5}}
+
+        result = collection.update_one(query_filter, update_values)
+
+    def on_pre_enter(self):
+        try:
+            if globals.new == 1:
+                self.regen()
+                print('Evaluation if new regen')
+            elif globals.new2 == 1:
+                self.regen()
+                print('Evaluation elif new2 regen')
+            elif globals.new == 0:
+                self.loadPrev()
+                print('Evaluation elif new loadPrev')
+        except Exception as e:
+            print(f"Error in on_pre_enter: {e}")
