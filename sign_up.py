@@ -58,20 +58,24 @@ Builder.load_file("SignUp.kv")
 class SignUp(Screen):
 
     def addInfo(self):
-        
-        db = globals.client["MainData"]
-        my_collection = db["Account Info"]
-
-        NameData = [{"name": self.ids.UserName2.text, "password": self.ids.Password2.text, "Bottles": 0, "Parks": 0, "streak": 1, "last_date": datetime.now()}]
-        globals.username = self.ids.UserName2.text
-        print(NameData)
-        try:
-            result = my_collection.insert_many(NameData)
-        except pymongo.errors.OperationFailure:
-            print("An authentication error was received. Check your database user permissions.")
-            sys.exit(1)
+        if self.ids.UserName2.text == 'User Name':
+            notification.notify(title = 'EnviroScope', message = 'That username is reserved for admin.')
         else:
-            inserted_count = len(result.inserted_ids)
-            print("I inserted %d documents." % inserted_count)
-            print("\n")
-        self.manager.current = 'EnvironmentalIssues'
+            db = globals.client["MainData"]
+            my_collection = db["Account Info"]
+            globals.new2 = 1
+            
+            NameData = [{"name": self.ids.UserName2.text, "password": self.ids.Password2.text, "Bottles": 0, "Parks": 0, "streak": 1, "last_date": datetime.now(), 'GoalFind1': 0, 'GoalFind2': 0, 'GoalFind3': 0, 'GoalFind4': 0, 'GoalFind5': 0, }]
+            globals.username = self.ids.UserName2.text
+            print(NameData)
+            try:
+                result = my_collection.insert_many(NameData)
+            except pymongo.errors.OperationFailure:
+                print("An authentication error was received. Check your database user permissions.")
+                sys.exit(1)
+            else:
+                inserted_count = len(result.inserted_ids)
+                print("I inserted %d documents." % inserted_count)
+                print("\n")
+            self.manager.current = 'EnvironmentalIssues'
+
