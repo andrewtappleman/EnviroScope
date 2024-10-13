@@ -81,7 +81,9 @@ class BottleCount (Screen):
 
         updateID = collection.find({'FindDoc': 'Found'}).limit(1)[0]
 
-        self.Bottles = int(self.ids.EnterHere2.text)
+        self.prevBottle = updateID['Total']
+
+        self.Bottles = int(self.ids.EnterHere2.text) + self.prevBottle
 
         query_filter = {'FindDoc': 'Found'}
         update_values = {'$set': {'Total': self.Bottles}}

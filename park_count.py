@@ -77,18 +77,16 @@ class ParkCount (Screen):
 
         updateID = collection.find({'FindDoc': 'Found'}).limit(1)[0]
 
-        self.Parks = self.ids.Submit2.text
+        self.prevBottle = updateID['Total']
 
-        try:
-            result = my_collection.insert_many(NameData)
-        except pymongo.errors.OperationFailure:
-            print("An authentication error was received. Check your database user permissions.")
-            sys.exit(1)
-        else:
-            inserted_count = len(result.inserted_ids)
-            print("I inserted %d documents." % inserted_count)
-            print("\n")
-        self.manager.current = 'EnvironmentalIssues'
+        self.Parks = int(self.ids.Submit2.text) + self.prevBottle
+
+        query_filter = {'FindDoc': 'Found'}
+        update_values = {'$set': {'Total': self.Parks}}
+
+        result = collection.update_one(query_filter, update_values)
+        self.getInfo()
+
     def getInfo(self):
         db = globals.client["CollectiveImpact"]    
         my_collection = db["TotalParks"]
