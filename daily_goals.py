@@ -137,8 +137,11 @@ class DailyGoals (Screen):
         result = collection.update_one(query_filter, update_values)
 
     def on_pre_enter(self):
+        globals.goalCheck = 1
         try:
-            if globals.new == 1:
+            if globals.goalCheck == 0:
+                self.regen()
+            elif globals.new == 1:
                 self.regen()
                 print('Evaluation if new regen')
             elif globals.new2 == 1:
