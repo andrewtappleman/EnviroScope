@@ -14,6 +14,7 @@ notifLimit = 0
 new = 0
 Parks = 0
 Bottles = 0
+goalCheck = 0
 uri = "mongodb+srv://admin:admin@enviroscopecluster0.qdwjcoq.mongodb.net/?appName=EnviroScopeCluster0"
 # Create a new client and connect to the server
 clientel = MongoClient(uri, server_api=ServerApi('1'))

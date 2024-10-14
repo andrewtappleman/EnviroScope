@@ -84,6 +84,7 @@ class EnvironmentalIssues(Screen):
             else:
                 streak = 1
                 print("streak streak evaluation else ", streak)
+
             print(globals.new)
             print('First')
             if self.last_active_date.date() == today.date():
