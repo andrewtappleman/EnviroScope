@@ -86,12 +86,11 @@ class EnvironmentalIssues(Screen):
                 print("streak streak evaluation else ", streak)
 
             print(globals.new)
-            print('First')
-            if self.last_active_date.date() == today.date():
-                globals.new = 0
-                print("new evaluation if ", globals.new)
-            elif globals.new2 == 1:
+            if globals.new2 == 1:
                 globals.new = 1
+                print("new2 evaluation if ", globals.new)
+            elif self.last_active_date.date() == today.date():
+                globals.new = 0
                 print("new evaluation elif ", globals.new)
             else:
                 globals.new = 1

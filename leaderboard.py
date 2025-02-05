@@ -79,28 +79,28 @@ class LeaderBoard (Screen):
 
         self.First = TestFind1['name']
         self.FirstCount = TestFind1['Bottles']
-        self.Total1 = self.First + ', ' + str(self.FirstCount) + ' Bottles'
+        self.Total1 = self.First + ', ' + str(self.FirstCount) + ' Litter'
 
         TestFind2 = collection.find().sort('Bottles', -1).skip(2).limit(1)[0]
         
         self.Second = TestFind2['name']
         self.SecondCount = TestFind2['Bottles']
-        self.Total2 = self.Second + ', ' + str(self.SecondCount) + ' Bottles'
+        self.Total2 = self.Second + ', ' + str(self.SecondCount) + ' Litter'
 
         TestFind3 = collection.find().sort('Bottles', -1).skip(3).limit(1)[0]
         
         self.Third = TestFind3['name']
         self.ThirdCount = TestFind3['Bottles']
-        self.Total3 = self.Third + ', ' + str(self.ThirdCount) + ' Bottles'
+        self.Total3 = self.Third + ', ' + str(self.ThirdCount) + ' Litter'
 
         TestFind4 = collection.find().sort('Bottles', -1).skip(3).limit(1)[0]
 
         self.Fourth = TestFind4['name']
         self.FourthCount = TestFind4['Bottles']
-        self.Total4 = self.Fourth+  ', ' + str(self.FourthCount) + ' Bottles'
+        self.Total4 = self.Fourth +  ', ' + str(self.FourthCount) + ' Litter'
 
         TestFind5 = collection.find().sort('Bottles', -1).skip(5).limit(1)[0]
 
         self.Fifth = TestFind5['name']
         self.FifthCount = TestFind5['Bottles']
-        self.Total5 = self.Fifth + ', ' + str(self.FifthCount) + ' Bottles'
+        self.Total5 = self.Fifth + ', ' + str(self.FifthCount) + ' Litter'

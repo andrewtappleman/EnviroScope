@@ -67,7 +67,7 @@ class BottleCount (Screen):
         updateID = my_collection.find({'name': globals.username}).limit(1)[0]        
 
         self.Bottles = int(self.ids.EnterHere2.text)
-        self.AddBottle = 'Total Bottles Collected: '
+        self.AddBottle = 'Total Litter Collected: '
         self.TotalBottles = self.AddBottle + str(self.Bottles + updateID['Bottles'])
 
         query_filter = {'name': globals.username}
@@ -99,4 +99,4 @@ class BottleCount (Screen):
 
         self.TotalBottle = updateID['Total']
 
-        notification.notify(title = 'EnviroScope', message = 'The total bottle count is ' + str(self.TotalBottle))
+        notification.notify(title = 'EnviroScope', message = 'The total litter count is ' + str(self.TotalBottle))

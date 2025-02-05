@@ -63,7 +63,7 @@ class FPAY(Screen):
         self.api_key = 'AIzaSyB2Q8bhNECnUNFF-ZemwlmSXlSfEzelcWU'
         self.search_engine_id = 'e6b1412f598284e1e'
         notification.notify(title = 'EnviroScope', message = 'Search Pending.')
-        self.query = str(self.ids.zipcode.text)
+        self.query = str(self.ids.zipcode.text) + ' environmental issues and conservation and pollution'
         print('query', self.query)
         self.googleSearch()
 

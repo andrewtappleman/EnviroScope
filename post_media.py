@@ -100,5 +100,5 @@ class PostMedia(Screen):
         
         if not os.path.exists(self.ids.my_image2.source):
             time.sleep(5)
-            notification.notify(title = 'EnviroScope', message = 'EnviroScope canot find your after photo.')
+            notification.notify(title = 'EnviroScope', message = 'EnviroScope cannot find your after photo.')
             return None

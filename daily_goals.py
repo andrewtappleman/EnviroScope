@@ -137,18 +137,15 @@ class DailyGoals (Screen):
         result = collection.update_one(query_filter, update_values)
 
     def on_pre_enter(self):
-        globals.goalCheck = 1
         try:
             if globals.goalCheck == 0:
+                globals.goalCheck = 1
                 self.regen()
             elif globals.new == 1:
-                self.regen()
                 print('Evaluation if new regen')
-            elif globals.new2 == 1:
                 self.regen()
-                print('Evaluation elif new2 regen')
             elif globals.new == 0:
-                self.loadPrev()
                 print('Evaluation elif new loadPrev')
+                self.loadPrev()
         except Exception as e:
             print(f"Error in on_pre_enter: {e}")
