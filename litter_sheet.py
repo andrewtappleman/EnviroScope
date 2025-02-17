@@ -54,25 +54,23 @@ import random
 import globals
 
 class LitterSheet (Screen):
-    def on_enter(self):
+    def on_pre_enter(self):
         self.ids.NameInput.text = globals.username
         self.create_dropdown()
 
     def create_dropdown(self):
 
         db = globals.client['MainData']
-        collection = db['Litter Employees']
+        collection = db['Litter Cleanups']
 
         dropButton = self.ids.dropButton
     
         dropdown = DropDown(size_hint=(None, None), size=(45 * 8, 75))
     
 
-        options = collection.find({}, {"_id": 0, "Location": 1})
+        options = collection.find().limit(5)
     
         for option in options:
-            btn = Button(text=option['Location'], size_hint_y=None, height=44)
-
             btn = Button(text=option['Location'], size_hint_y=None, height=44, background_color = (0.4196, 0.7922, 0.9569, 1))
 
             btn.bind(on_release=lambda btn: dropdown.select(btn.text))

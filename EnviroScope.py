@@ -118,13 +118,15 @@ Builder.load_file('Parkcount.kv')
 width_base = 15
 height_base = 25
 scale = 30
-Window.size = (width_base * scale, height_base * scale)
+Window.size = (450, 750)
+
 
 class MyScreenManager(ScreenManager):
     pass
 
 class EnviroScopeApp(App):
     def build(self):
+
         sm = ScreenManager()
         sm.add_widget(SignUpIn(name = 'SignUpIn'))
         sm.add_widget(OutOrder(name = 'OutOrder'))        
